@@ -1,0 +1,27 @@
+{
+  "name": "markdown-pdf",
+  "version": "0.0.0",
+  "description": "Markdown to PDF converter",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:alanshaw/markdown-pdf.git"
+  },
+  "keywords": [
+    "markdown",
+    "pdf",
+    "convert"
+  ],
+  "author": "Alan Shaw",
+  "license": "MIT",
+  "dependencies": {
+    "markdown": "~0.4.0",
+    "phantomjs": "~1.9.0-1",
+    "glob": "~3.2.1",
+    "async": "~0.2.8",
+    "tmp": "0.0.18"
+  }
+}
