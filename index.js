@@ -17,6 +17,7 @@ tmp.setGracefulCleanup()
  * @param {String} [opts.paperFormat] 'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'
  * @param {String} [opts.paperOrientation] 'portrait' or 'landscape'
  * @param {String} [opts.paperBorder] Supported dimension units are: 'mm', 'cm', 'in', 'px'
+ * @param {Number} [opts.renderDelay] Delay before rendering the PDF (give HTML and CSS a chance to load)
  * @param {Function} cb Callback function invoked when the files have been generated. Passed Error and an Array of
  * file paths - a list of PDF files containing your PDF content. These are stored in a temp folder so if you want to
  * keep them, you MUST move or copy them or they will be deleted when the process exits.
@@ -27,7 +28,10 @@ module.exports = function (filePaths, opts, cb) {
     filePaths = [filePaths]
   }
   
-  if (!cb) cb = opts; opts = {}
+  if (!cb) {
+    cb = opts
+    opts = {}
+  }
   
   opts.phantomPath = opts.phantomPath || require("phantomjs").path
   opts.cssPath = opts.cssPath || "../pdf.css"

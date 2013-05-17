@@ -1,6 +1,6 @@
 {
   "name": "markdown-pdf",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Markdown to PDF converter",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,8 @@
     "markdown": "~0.4.0",
     "phantomjs": "~1.9.0-1",
     "async": "~0.2.8",
-    "tmp": "~0.0.18"
+    "tmp": "~0.0.18",
+    "commander": "~1.1.1"
   },
   "engines": {
     "node": "~0.10.0"

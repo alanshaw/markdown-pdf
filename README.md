@@ -3,7 +3,7 @@ markdown-pdf
 
 Node module that converts Markdown files to PDFs.
 
-The PDF looks great because it is styled by HTML5 Boilerplate. What? - Yes! Your Markdown is first converted to HTML, then pushed into the HTML5 Boilerplate `index.html`. Phantomjs renders the page and saves it to a PDF. You can even cusomtise the style of the PDF by passing an optional path to your CSS.
+The PDF looks great because it is styled by HTML5 Boilerplate. What? - Yes! Your Markdown is first converted to HTML, then pushed into the HTML5 Boilerplate `index.html`. Phantomjs renders the page and saves it to a PDF. You can even customise the style of the PDF by passing an optional path to your CSS.
 
 Getting started
 ---
