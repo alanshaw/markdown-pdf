@@ -16,12 +16,20 @@
     "convert"
   ],
   "author": "Alan Shaw",
-  "license": "MIT",
+  "homepage": "https://github.com/alanshaw/markdown-pdf",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/alanshaw/markdown-pdf/blob/master/LICENSE"
+    }
+  ],
   "dependencies": {
     "markdown": "~0.4.0",
     "phantomjs": "~1.9.0-1",
-    "glob": "~3.2.1",
     "async": "~0.2.8",
-    "tmp": "0.0.18"
+    "tmp": "~0.0.18"
+  },
+  "engines": {
+    "node": "~0.10.0"
   }
 }
