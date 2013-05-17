@@ -1,7 +1,3 @@
 body {
-    width: 1024px;
-    padding: 3em;
-}
-body > div {
-    /*width: 500px;*/
+    font-size: 0.75em;
 }
