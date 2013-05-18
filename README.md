@@ -1,4 +1,4 @@
-markdown-pdf
+markdown-pdf [![Dependency Status](https://david-dm.org/alanshaw/markdown-pdf.png)](https://david-dm.org/alanshaw/markdown-pdf)
 ===
 
 Node module that converts Markdown files to PDFs.
