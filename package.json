@@ -4,7 +4,7 @@
   "description": "Markdown to PDF converter",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nodeunit test/*.js"
   },
   "repository": {
     "type": "git",
@@ -29,6 +29,9 @@
     "async": "~0.2.8",
     "tmp": "~0.0.18",
     "commander": "~1.1.1"
+  },
+  "devDependencies": {
+    "nodeunit": "~0.8.0"
   },
   "engines": {
     "node": "~0.10.0"
