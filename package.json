@@ -1,6 +1,6 @@
 {
   "name": "markdown-pdf",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Markdown to PDF converter",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,8 @@
   "keywords": [
     "markdown",
     "pdf",
-    "convert"
+    "convert",
+    "template"
   ],
   "author": "Alan Shaw",
   "homepage": "https://github.com/alanshaw/markdown-pdf",

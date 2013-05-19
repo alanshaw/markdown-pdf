@@ -65,8 +65,12 @@ function markdownToPdfTask (filePath, opts) {
       // Read the markdown
       fs.readFile(filePath, {encoding: 'utf-8'}, function (er, data) {
         
+        data = opts.preProcessMd ? opts.preProcessMd(data) : data
+        
         // Convert to HTML
         var html = markdown.toHTML(data)
+        
+        html = opts.preProcessHtml ? opts.preProcessHtml(html) : html
         
         // Save HTML to tmp file
         tmp.file(function (er, tmpHtmlPath) {

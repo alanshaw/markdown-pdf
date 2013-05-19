@@ -3,7 +3,7 @@ markdown-pdf [![Build Status](https://travis-ci.org/alanshaw/markdown-pdf.png)](
 
 Node module that converts Markdown files to PDFs.
 
-The PDF looks great because it is styled by HTML5 Boilerplate. What? - Yes! Your Markdown is first converted to HTML, then pushed into the HTML5 Boilerplate `index.html`. Phantomjs renders the page and saves it to a PDF. You can even customise the style of the PDF by passing an optional path to your CSS.
+The PDF looks great because it is styled by HTML5 Boilerplate. What? - Yes! Your Markdown is first converted to HTML, then pushed into the HTML5 Boilerplate `index.html`. Phantomjs renders the page and saves it to a PDF. You can even customise the style of the PDF by passing an optional path to your CSS _and_ you can pre-process your markdown file before it is converted to a PDF by passing in a pre-processing function, for templating.
 
 Getting started
 ---
@@ -75,3 +75,15 @@ Type: `Number`
 Default value: `1000`
 
 Delay in millis before rendering the PDF (give HTML and CSS a chance to load)
+
+#### options.preProcessMd
+Type: `Function`
+Default value: `null`
+
+Function to call before Markdown is converted to HTML. It is passed the Markdown file contents and _must_ return a string
+
+#### options.preProcessHtml
+Type: `Function`
+Default value: `null`
+
+Function to call after Markdown has been converted to HTML but before it is converted to PDF. It is passed the Markdown file contents and _must_ return a string
