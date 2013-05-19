@@ -8,7 +8,7 @@ var args = ["in", "out", "cssPath", "paperFormat", "paperOrientation", "paperBor
   return args
 }, {})
 
-page.open("./html5bp/index.html", function (status) {
+page.open(page.libraryPath + "/html5bp/index.html", function (status) {
   
   if (status == "fail") {
     page.close()

@@ -41,7 +41,7 @@ module.exports = function (filePaths, opts, cb) {
   opts.renderDelay = opts.renderDelay || 500
   
   var tasks = filePaths.map(function (filename) {
-    return markdownToPdfTask(filename, opts)
+    return markdownToPdfTask(path.resolve(filename), opts)
   })
   
   async.parallel(tasks, cb)
