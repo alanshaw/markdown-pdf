@@ -73,15 +73,17 @@ function markdownToPdfTask (filePath, opts) {
         html = opts.preProcessHtml ? opts.preProcessHtml(html) : html
         
         // Save HTML to tmp file
-        tmp.file(function (er, tmpHtmlPath) {
+        tmp.file(function (er, tmpHtmlPath, tmpHtmlFd) {
           if (er) return cb(er)
+          fs.close(tmpHtmlFd)
           
           fs.writeFile(tmpHtmlPath, html, function (er) {
             if (er) return cb(er)
             
             // Create tmp file to save PDF to
-            tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath) {
+            tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath, tmpPdfFd) {
               if (er) return cb(er)
+              fs.close(tmpPdfFd)
               
               // Invoke phantom and to generate the PDF
               var childArgs = [
