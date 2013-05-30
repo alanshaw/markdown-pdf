@@ -46,6 +46,12 @@ Default value: `Path provided by phantomjs module`
 
 Path to phantom binary
 
+#### options.concatFiles
+Type: `Boolean`
+Default value: `false`
+
+If set to true, a single PDF will be created containing the contents of all of the Markdown files.
+
 #### options.cssPath
 Type: `String`
 Default value: `../pdf.css`

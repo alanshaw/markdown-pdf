@@ -39,12 +39,65 @@ module.exports = function (filePaths, opts, cb) {
   opts.paperOrientation = opts.paperOrientation || "portrait"
   opts.paperBorder = opts.paperBorder || "1cm"
   opts.renderDelay = opts.renderDelay || 500
-  
+  opts.concatFiles = opts.concatFiles || false
+
+  if (opts.concatFiles) {
+    concatFiles(filePaths, function(er, concatenatedFile) {
+      if (er) return cb(er)
+
+      run([ concatenatedFile ], opts, cb)
+    })
+  }
+  else {
+    run(filePaths, opts, cb)
+  }
+}
+
+/**
+ * Run the coversion tasks.
+ *
+ * @param  {Array} filePaths Paths of files to convert
+ * @param  {Object} opts Render options
+ * @param {Function} cb Callback function invoked when the files have been generated
+ */
+function run (filePaths, opts, cb) {
   var tasks = filePaths.map(function (filename) {
     return markdownToPdfTask(path.resolve(filename), opts)
   })
   
   async.parallel(tasks, cb)
+}
+
+/**
+ * Concatenate files into a single file.
+ *
+ * @param  {Array} filePaths Paths to files to concatenate together
+ * @param  {Function} cb Callback function invoked when the files have been concatenated. Passed Error and a String
+ * path to the new file.
+ */
+function concatFiles (filePaths, cb) {
+  tmp.file(function (er, tmpMdPath, tmpMdFd) {
+    if (er) return cb(er)
+    fs.close(tmpMdFd)
+
+    var writeStream = fs.createWriteStream(tmpMdPath)
+
+    function iterate () {
+      if (filePaths.length === 0) {
+        writeStream.end();
+        return cb(null, tmpMdPath)
+      }
+
+      var path = filePaths.shift()
+      var readStream = fs.createReadStream(path)
+      readStream.on('end', function () {
+        iterate()
+      })
+      readStream.pipe(writeStream, { end: false })
+    }
+
+    iterate()
+  })
 }
 
 /**
