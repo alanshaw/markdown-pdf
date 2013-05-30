@@ -62,5 +62,30 @@ module.exports = {
         test.done()
       })
     })
+  },
+
+  "Test concatenating source files": function (test) {
+
+    test.expect(4);
+
+    var files = [
+      __dirname + "/fixtures/first.md",
+      __dirname + "/fixtures/second.md",
+    ]
+
+    markdownpdf(files, {concatFiles: true}, function(er, pdfs) {
+      test.ifError(er)
+
+      // Only one PDF should be created
+      test.equal(pdfs.length, 1)
+
+      // Read the file
+      fs.readFile(pdfs[0], {encoding: "utf-8"}, function (er, data) {
+        test.ifError(er)
+        // Test not empty
+        test.ok(data.length > 0)
+        test.done()
+      })
+    })
   }
 }
