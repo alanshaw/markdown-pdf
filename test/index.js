@@ -1,91 +1,86 @@
 var markdownpdf = require("../")
+  , assert = require("assert")
   , fs = require("fs")
 
-module.exports = {
+describe("markdownpdf", function() {
   
-  "Test generated ipsum.pdf from ipsum.md is not empty": function (test) {
+  it("should generate a nonempty PDF from ipsum.md", function (done) {
     
     markdownpdf(__dirname + "/fixtures/ipsum.md", function (er, pdfs) {
-      test.ifError(er)
+      assert.ifError(er)
       
       // Read the file
       fs.readFile(pdfs[0], {encoding: "utf-8"}, function (er, data) {
-        test.ifError(er)
+        assert.ifError(er)
         // Test not empty
-        test.ok(data.length > 0)
-        test.done()
+        assert.ok(data.length > 0)
+        done()
       })
     })
-  },
+  })
   
-  "Test preProcessMd hook is invoked": function (test) {
-    
-    test.expect(4)
+  it("should call preProcessMd hook", function (done) {
     
     function preProcessMd (data) {
       // Should pass Markdown for us to process before it is converted to HTML
-      test.deepEqual(fs.readFileSync(__dirname + "/fixtures/ipsum.md", {encoding: 'utf-8'}), data)
+      assert.strictEqual(fs.readFileSync(__dirname + "/fixtures/ipsum.md", {encoding: 'utf-8'}), data)
       return data
     }
     
     markdownpdf(__dirname + "/fixtures/ipsum.md", {preProcessMd: preProcessMd}, function (er, pdfs) {
-      test.ifError(er)
+      assert.ifError(er)
       
       // Read the file
       fs.readFile(pdfs[0], {encoding: "utf-8"}, function (er, data) {
-        test.ifError(er)
+        assert.ifError(er)
         // Test not empty
-        test.ok(data.length > 0)
-        test.done()
+        assert.ok(data.length > 0)
+        done()
       })
     })
-  },
+  })
   
-  "Test preProcessHtml hook is invoked": function (test) {
-    
-    test.expect(4)
+  it("should call preProcessHtml hook", function (done) {
     
     function preProcessHtml (html) {
       // Should pass HTML for us to process before it is converted to PDF
-      test.deepEqual(fs.readFileSync(__dirname + "/fixtures/ipsum.html", {encoding: 'utf-8'}), html)
+      assert.strictEqual(fs.readFileSync(__dirname + "/fixtures/ipsum.html", {encoding: 'utf-8'}), html)
       return html
     }
     
     markdownpdf(__dirname + "/fixtures/ipsum.md", {preProcessHtml: preProcessHtml}, function (er, pdfs) {
-      test.ifError(er)
+      assert.ifError(er)
       
       // Read the file
       fs.readFile(pdfs[0], {encoding: "utf-8"}, function (er, data) {
-        test.ifError(er)
+        assert.ifError(er)
         // Test not empty
-        test.ok(data.length > 0)
-        test.done()
+        assert.ok(data.length > 0)
+        done()
       })
     })
-  },
+  })
 
-  "Test concatenating source files": function (test) {
-
-    test.expect(4);
+  it("should concatenate source files", function (done) {
 
     var files = [
-      __dirname + "/fixtures/first.md",
-      __dirname + "/fixtures/second.md",
+        __dirname + "/fixtures/first.md"
+      , __dirname + "/fixtures/second.md"
     ]
 
     markdownpdf(files, {concatFiles: true}, function(er, pdfs) {
-      test.ifError(er)
+      assert.ifError(er)
 
       // Only one PDF should be created
-      test.equal(pdfs.length, 1)
+      assert.equal(pdfs.length, 1)
 
       // Read the file
       fs.readFile(pdfs[0], {encoding: "utf-8"}, function (er, data) {
-        test.ifError(er)
+        assert.ifError(er)
         // Test not empty
-        test.ok(data.length > 0)
-        test.done()
+        assert.ok(data.length > 0)
+        done()
       })
     })
-  }
-}
+  })
+})

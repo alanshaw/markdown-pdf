@@ -4,7 +4,9 @@
   "description": "Markdown to PDF converter",
   "main": "index.js",
   "scripts": {
-    "test": "nodeunit test/*.js"
+    "test": "mocha",
+    "coveralls": "jscoverage lib && MARKDOWNPDF_COV=1 mocha -R mocha-lcov-reporter | coveralls",
+    "coverage": "MARKDOWNPDF_COV=1 mocha -R html-cov > coverage.html"
   },
   "repository": {
     "type": "git",
@@ -32,7 +34,10 @@
     "commander": "~1.1.1"
   },
   "devDependencies": {
-    "nodeunit": "~0.8.0"
+    "mocha": "~1.10.0",
+    "mocha-lcov-reporter": "0.0.1",
+    "coveralls": "~2.0.9",
+    "jscoverage": "~0.3.7"
   },
   "engines": {
     "node": "~0.10.0"
