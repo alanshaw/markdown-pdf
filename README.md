@@ -13,17 +13,17 @@ Getting started
 Example Usage
 ---
 
-Pass markdown-pdf a path to a markdown document or an array of paths and you'll be given back an array of paths to temporary files that contain your converted PDFs.
+Pass markdown-pdf a path to a markdown document or an array of paths and you'll be given back a path or an array of paths to temporary files that contain your converted PDFs.
 
 ```javascript
 var markdownpdf = require("markdown-pdf")
   , fs = require("fs")
 
-markdownpdf("/path/to/document.md", function (er, pdfs) {
+markdownpdf("/path/to/document.md", function (er, pdfPath) {
   if (er) return console.error(er)
   
   // Move the pdf from the tmp path to where you want it
-  fs.rename(pdfs[0], "/path/to/document.pdf", function() {
+  fs.rename(pdfPath, "/path/to/document.pdf", function() {
     console.log("done")
   })
 })
