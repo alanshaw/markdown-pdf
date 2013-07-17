@@ -6,6 +6,8 @@ describe("markdownpdf", function() {
   
   it("should generate a nonempty PDF from ipsum.md", function (done) {
     
+    this.timeout(5000)
+    
     markdownpdf(__dirname + "/fixtures/ipsum.md", function (er, pdf) {
       assert.ifError(er)
       
@@ -20,6 +22,8 @@ describe("markdownpdf", function() {
   })
   
   it("should call preProcessMd hook", function (done) {
+    
+    this.timeout(5000)
     
     function preProcessMd (data) {
       // Should pass Markdown for us to process before it is converted to HTML
@@ -42,6 +46,8 @@ describe("markdownpdf", function() {
   
   it("should call preProcessHtml hook", function (done) {
     
+    this.timeout(5000)
+    
     function preProcessHtml (html) {
       // Should pass HTML for us to process before it is converted to PDF
       // Note: test does not pass on windows because of different line endings.
@@ -63,6 +69,8 @@ describe("markdownpdf", function() {
   })
 
   it("should concatenate source files", function (done) {
+    
+    this.timeout(5000)
 
     var files = [
         __dirname + "/fixtures/first.md"
@@ -87,6 +95,8 @@ describe("markdownpdf", function() {
   })
 
   it("should return array of paths when converting multiple files", function (done) {
+    
+    this.timeout(5000)
 
     var files = [
         __dirname + "/fixtures/first.md"
