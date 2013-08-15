@@ -26,11 +26,11 @@ var opts = {phantomPath: program.phantomPath
   , renderDelay: program.renderDelay
 }
 
-markdownpdf(program.args[0], opts, function (er, pdfs) {
+markdownpdf(program.args[0], opts, function (er, pdf) {
   if (er) return console.error(er)
   
   // Move the pdf from the tmp path to where you want it
-  fs.rename(pdfs[0], program.out, function(er) {
+  fs.rename(pdf, program.out, function(er) {
     if (er) return console.error(er)
     
     fs.realpath(program.out, function(er, path) {
