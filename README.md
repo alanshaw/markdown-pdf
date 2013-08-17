@@ -56,7 +56,7 @@ If set to true, a single PDF will be created containing the contents of all of t
 Type: `String`
 Default value: `../pdf.css`
 
-Path to custom CSS file, relative to the html5bp directory
+Path to custom CSS file, relative to the current working directory
 
 #### options.paperFormat
 Type: `String`
