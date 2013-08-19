@@ -28,7 +28,7 @@
   ],
   "dependencies": {
     "marked": "~0.2.9",
-    "phantomjs": "~1.9.0-1",
+    "phantomjs": "~1.9.1-6",
     "async": "~0.2.8",
     "tmp": "~0.0.18",
     "commander": "~2.0.0"
