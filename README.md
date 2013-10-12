@@ -93,3 +93,33 @@ Type: `Function`
 Default value: `null`
 
 Function to call after Markdown has been converted to HTML but before it is converted to PDF. It is passed the Markdown file contents and _must_ return a string
+
+CLI Inteface
+---
+
+### Installation
+
+To use markdown-pdf as a standalone program from the terminal run
+
+```shell
+# npm install -g markdown-pdf
+```
+
+### Usage
+
+```shell
+Usage: markdown-pdf [options] <markdown-file-path>
+
+Options:
+
+  -h, --help                             output usage information
+  -V, --version                          output the version number
+  <markdown-file-path>                   Path of the markdown file to convert
+  -p, --phantom-path [path]              Path to phantom binary
+  -s, --css-path [path]                  Path to custom CSS file
+  -f, --paper-format [format]            'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'
+  -r, --paper-orientation [orientation]  'portrait' or 'landscape'
+  -b, --paper-border [measurement]       Supported dimension units are: 'mm', 'cm', 'in', 'px'
+  -d, --render-delay [millis]            Delay before rendering the PDF (give HTML and CSS a chance to load)
+  -o, --out [path]                       Path of where to save the PDF
+```
