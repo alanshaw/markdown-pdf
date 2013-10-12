@@ -94,20 +94,20 @@ Default value: `null`
 
 Function to call after Markdown has been converted to HTML but before it is converted to PDF. It is passed the Markdown file contents and _must_ return a string
 
-CLI Inteface
+CLI Interface
 ---
 
 ### Installation
 
 To use markdown-pdf as a standalone program from the terminal run
 
-```shell
-# npm install -g markdown-pdf
+```sh
+npm install -g markdown-pdf
 ```
 
 ### Usage
 
-```shell
+```sh
 Usage: markdown-pdf [options] <markdown-file-path>
 
 Options:
