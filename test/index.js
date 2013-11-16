@@ -2,6 +2,9 @@ var markdownpdf = require("../")
   , assert = require("assert")
   , fs = require("fs")
 
+// TODO: Remove when 0.12 is released
+var encoding = process.version.indexOf("0.8") == -1 ? {encoding: "utf8"} : "utf8"
+
 describe("markdownpdf", function() {
   
   it("should generate a nonempty PDF from ipsum.md", function (done) {
@@ -12,7 +15,7 @@ describe("markdownpdf", function() {
       assert.ifError(er)
       
       // Read the file
-      fs.readFile(pdf, {encoding: "utf-8"}, function (er, data) {
+      fs.readFile(pdf, encoding, function (er, data) {
         assert.ifError(er)
         // Test not empty
         assert.ok(data.length > 0)
@@ -27,7 +30,7 @@ describe("markdownpdf", function() {
     
     function preProcessMd (data) {
       // Should pass Markdown for us to process before it is converted to HTML
-      assert.strictEqual(fs.readFileSync(__dirname + "/fixtures/ipsum.md", {encoding: 'utf-8'}), data)
+      assert.strictEqual(fs.readFileSync(__dirname + "/fixtures/ipsum.md", encoding), data)
       return data
     }
     
@@ -35,7 +38,7 @@ describe("markdownpdf", function() {
       assert.ifError(er)
       
       // Read the file
-      fs.readFile(pdf, {encoding: "utf-8"}, function (er, data) {
+      fs.readFile(pdf, encoding, function (er, data) {
         assert.ifError(er)
         // Test not empty
         assert.ok(data.length > 0)
@@ -51,7 +54,7 @@ describe("markdownpdf", function() {
     function preProcessHtml (html) {
       // Should pass HTML for us to process before it is converted to PDF
       // Note: test does not pass on windows because of different line endings.
-      assert.strictEqual(fs.readFileSync(__dirname + "/fixtures/ipsum.html", {encoding: 'utf-8'}), html)
+      assert.strictEqual(fs.readFileSync(__dirname + "/fixtures/ipsum.html", encoding), html)
       return html
     }
     
@@ -59,7 +62,7 @@ describe("markdownpdf", function() {
       assert.ifError(er)
       
       // Read the file
-      fs.readFile(pdf, {encoding: "utf-8"}, function (er, data) {
+      fs.readFile(pdf, encoding, function (er, data) {
         assert.ifError(er)
         // Test not empty
         assert.ok(data.length > 0)
