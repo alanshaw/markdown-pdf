@@ -21,7 +21,7 @@ var markdownpdf = require("markdown-pdf")
 
 markdownpdf("/path/to/document.md", function (er, pdfPath) {
   if (er) return console.error(er)
-  
+
   // Move the pdf from the tmp path to where you want it
   fs.rename(pdfPath, "/path/to/document.pdf", function() {
     console.log("done")
@@ -122,4 +122,35 @@ Options:
   -b, --paper-border [measurement]       Supported dimension units are: 'mm', 'cm', 'in', 'px'
   -d, --render-delay [millis]            Delay before rendering the PDF (give HTML and CSS a chance to load)
   -o, --out [path]                       Path of where to save the PDF
+```
+
+Dream code
+===
+
+```javascript
+
+// Streaming interface
+fs.createReadStream(src).pipe(markdownpdf()).pipe(fs.createWriteStream(dest))
+
+// From file path(s) to destination file path(s)
+markdownpdf().from.path(src).to.path(dest, cb)
+
+// From file path(s) to string(s)
+markdownpdf().from.path(src).to.string(cb)
+
+// From string(s) to string(s)
+markdownpdf().from.string(md).to.string(cb)
+
+// From string(s) to path(s)
+markdownpdf().from.string(md).to.path(dest, cb)
+
+// Concat from path(s) to path
+markdownpdf().concat.from.path(src).to.path(dest, cb)
+
+// Concat from path(s) to string
+markdownpdf().concat.from.path(src).to.string(cb)
+
+// For the common case, `from`/`to` is just an alias for `from.path`/`to.path`
+// Behind the scenes, we're just creating the read streams and piping them through to the desired destinations
+
 ```
