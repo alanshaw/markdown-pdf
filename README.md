@@ -135,6 +135,9 @@ fs.createReadStream(src).pipe(markdownpdf()).pipe(fs.createWriteStream(dest))
 // From file path(s) to destination file path(s)
 markdownpdf().from.path(src).to.path(dest, cb)
 
+// ...as shorthand:
+markdownpdf().from(src).to(dest, cb)
+
 // From file path(s) to string(s)
 markdownpdf().from.path(src).to.string(cb)
 
