@@ -153,6 +153,9 @@ markdownpdf().concat.from.path(src).to.path(dest, cb)
 // Concat from path(s) to string
 markdownpdf().concat.from.path(src).to.string(cb)
 
+// From file path(s) to buffer(s)
+markdownpdf().from.path(src).to.buffer(cb)
+
 // For the common case, `from`/`to` is just an alias for `from.path`/`to.path`
 // Behind the scenes, we're just creating the read streams and piping them through to the desired destinations
 

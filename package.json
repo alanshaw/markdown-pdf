@@ -36,7 +36,8 @@
     "extend": "~1.2.1",
     "concat-stream": "~1.2.1",
     "string-stream": "0.0.7",
-    "combine-stream": "0.0.4"
+    "combine-stream": "0.0.4",
+    "duplexer": "~0.1.1"
   },
   "devDependencies": {
     "mocha": "~1.13.0",
