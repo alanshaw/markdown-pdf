@@ -6,9 +6,6 @@ var markdownpdf = require("../")
 
 tmp.setGracefulCleanup()
 
-// TODO: Remove when 0.12 is released
-var encoding = process.version.indexOf("0.8") == -1 ? {encoding: "utf8"} : "utf8"
-
 describe("markdownpdf", function() {
 
   it("should generate a nonempty PDF from ipsum.md", function (done) {
@@ -22,7 +19,7 @@ describe("markdownpdf", function() {
         assert.ifError(er)
 
         // Read the file
-        fs.readFile(tmpPdfPath, encoding, function (er, data) {
+        fs.readFile(tmpPdfPath, {encoding: "utf8"}, function (er, data) {
           assert.ifError(er)
           // Test not empty
           assert.ok(data.length > 0)
@@ -80,7 +77,7 @@ describe("markdownpdf", function() {
         assert.ifError(er)
 
         // Read the file
-        fs.readFile(tmpPdfPath, encoding, function (er, data) {
+        fs.readFile(tmpPdfPath, {encoding: "utf8"}, function (er, data) {
           assert.ifError(er)
           // Test not empty
           assert.ok(data.length > 0)
@@ -110,8 +107,8 @@ describe("markdownpdf", function() {
           assert.ifError(er)
 
           // Read the file
-          var content0 = fs.readFileSync(tmpPdfPath0, encoding)
-          var content1 = fs.readFileSync(tmpPdfPath1, encoding)
+          var content0 = fs.readFileSync(tmpPdfPath0, {encoding: "utf8"})
+          var content1 = fs.readFileSync(tmpPdfPath1, {encoding: "utf8"})
 
           assert.ok(content0.length > 0)
           assert.ok(content1.length > 0)

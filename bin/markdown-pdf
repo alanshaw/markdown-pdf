@@ -27,38 +27,9 @@ var opts = {
   , renderDelay: program.renderDelay
 }
 
-markdownpdf(program.args[0], opts, function (er, pdf) {
-  if (er) return console.error(er)
-
-  // Move the pdf from the tmp path to where you want it
-  fs.rename(pdf, program.out, function (er) {
-    if (er && er.code != "EXDEV") {
-      return console.error(er)
-
-    // Cannot mv between partitions, pipe instead
-    } else if (er && er.code == "EXDEV") {
-
-      var is = fs.createReadStream(pdf)
-        , os = fs.createWriteStream(program.out)
-
-      is.on("end",function () {
-        fs.unlink(pdf, function (er) {
-          if (er) return console.log(er)
-          success()
-        })
-      })
-
-      is.pipe(os)
-
-    } else {
-      success()
-    }
-  })
-})
-
-function success () {
+markdownpdf(opts).from(program.args[0]).to(program.out, function (er) {
   fs.realpath(program.out, function (er, path) {
     if (er) return console.error(er)
     console.log("Created PDF file at", path)
   })
-}
+})
