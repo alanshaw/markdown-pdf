@@ -19,7 +19,24 @@ Pass markdown-pdf a path to a markdown document or an array of paths and you'll 
 var markdownpdf = require("markdown-pdf")
   , fs = require("fs")
 
-markdownpdf("/path/to/document.md", function (er, pdfPath) {
+markdownpdf.new("/path/to/document.md", function (er, pdfPath) {
+  if (er) return console.error(er)
+  
+  // Move the pdf from the tmp path to where you want it
+  fs.rename(pdfPath, "/path/to/document.pdf", function() {
+    console.log("done")
+  })
+})
+```
+
+You can convert markdown or html content to pdf too, just like below
+```javascript
+var markdownpdf = require("markdown-pdf")
+  , fs = require("fs")
+
+var content = "# Hello world!";
+var options = {};
+markdownpdf.markdownToPdfByContent("/path/to/document.md", options, function (er, pdfPath) {
   if (er) return console.error(er)
   
   // Move the pdf from the tmp path to where you want it
@@ -37,7 +54,7 @@ Pass options to markdown-pdf like so:
 var markdownpdf = require("markdown-pdf")
   , opts = {/* options */}
 
-markdownpdf("/path/to/document.md", opts, function (er, pdfs) {})
+markdownpdf.new("/path/to/document.md", opts, function (er, pdfs) {})
 ```
 
 #### options.phantomPath
