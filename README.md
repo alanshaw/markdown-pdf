@@ -29,14 +29,14 @@ markdownpdf.new("/path/to/document.md", function (er, pdfPath) {
 })
 ```
 
-You can convert markdown or html content to pdf too, just like below
+You can convert markdown or html content to pdf too, just like below codes
 ```javascript
 var markdownpdf = require("markdown-pdf")
   , fs = require("fs")
 
 var content = "# Hello world!";
 var options = {};
-markdownpdf.markdownToPdfByContent("/path/to/document.md", options, function (er, pdfPath) {
+markdownpdf.markdownToPdfByContent(content, options, function (er, pdfPath) {
   if (er) return console.error(er)
   
   // Move the pdf from the tmp path to where you want it
