@@ -165,7 +165,7 @@ function preProcessMd () {
   // Split the input stream by lines
   var splitter = split()
 
-  // Replace occurances of "foo" with "bar"
+  // Replace occurences of "foo" with "bar"
   var replacer = through(function (data) {
     this.queue(data.replace(/foo/g, "bar") + "\n")
   })
