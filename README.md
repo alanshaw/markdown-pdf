@@ -10,35 +10,27 @@ Getting started
 
     npm install markdown-pdf
 
-Example Usage
+Example usage
 ---
-
-Pass markdown-pdf a path to a markdown document or an array of paths and you'll be given back a path or an array of paths to temporary files that contain your converted PDFs.
 
 ```javascript
 var markdownpdf = require("markdown-pdf")
   , fs = require("fs")
 
-markdownpdf("/path/to/document.md", function (er, pdfPath) {
-  if (er) return console.error(er)
+fs.createReadStream("/path/to/document.md")
+  .pipe(markdownpdf())
+  .pipe(fs.createWriteStream("/path/to/document.pdf"))
 
-  // Move the pdf from the tmp path to where you want it
-  fs.rename(pdfPath, "/path/to/document.pdf", function() {
-    console.log("done")
-  })
+// --- OR ---
+
+markdownpdf().from("/path/to/document.md").to("/path/to/document.pdf", function () {
+  console.log("Done")
 })
 ```
 
 ### Options
 
-Pass options to markdown-pdf like so:
-
-```javascript
-var markdownpdf = require("markdown-pdf")
-  , opts = {/* options */}
-
-markdownpdf("/path/to/document.md", opts, function (er, pdfs) {})
-```
+Pass an options object (`markdownpdf({/* options */})`) to configure the output.
 
 #### options.phantomPath
 Type: `String`
@@ -46,17 +38,11 @@ Default value: `Path provided by phantomjs module`
 
 Path to phantom binary
 
-#### options.concatFiles
-Type: `Boolean`
-Default value: `false`
-
-If set to true, a single PDF will be created containing the contents of all of the Markdown files.
-
 #### options.cssPath
 Type: `String`
 Default value: `../pdf.css`
 
-Path to custom CSS file, relative to the current working directory
+Path to custom CSS file, relative to the html5bp directory
 
 #### options.paperFormat
 Type: `String`
@@ -84,17 +70,116 @@ Delay in millis before rendering the PDF (give HTML and CSS a chance to load)
 
 #### options.preProcessMd
 Type: `Function`
-Default value: `null`
+Default value: `function () { return through() }`
 
-Function to call before Markdown is converted to HTML. It is passed the Markdown file contents and _must_ return a string
+A function that returns a [through stream](https://npmjs.org/package/through) that transforms the markdown before it is converted to HTML.
 
 #### options.preProcessHtml
 Type: `Function`
-Default value: `null`
+Default value: `function () { return through() }`
 
-Function to call after Markdown has been converted to HTML but before it is converted to PDF. It is passed the Markdown file contents and _must_ return a string
+A function that returns a [through stream](https://npmjs.org/package/through) that transforms the HTML before it is converted to markdown.
 
-CLI Interface
+API
+---
+
+### from.path(path, opts) / from(path, opts)
+
+Create a readable stream from `path` and pipe to markdown-pdf. `path` can be a single path or array of paths.
+
+### from.string(string)
+
+Create a readable stream from `string` and pipe to markdown-pdf. `string` can be a single string or array of strings.
+
+### concat.from.paths(paths, opts)
+
+Create and concatinate readable streams from `paths` and pipe to markdown-pdf.
+
+### concat.from.strings(strings, opts)
+
+Create and concatinate readable streams from `strings` and pipe to markdown-pdf.
+
+### to.path(path, cb) / to(path, cb)
+
+Create a writeable stream to `path` and pipe output from markdown-pdf to it. `path` can be a single path, or array of output paths if you specified an array of inputs. The callback function `cb` will be invoked when data has finished being written.
+
+### to.buffer(opts, cb)
+
+Create a [concat-stream](https://npmjs.org/package/concat-stream) and pipe output from markdown-pdf to it. The callback function `cb` will be invoked when the buffer has been created.
+
+### to.string(opts, cb)
+
+Create a [concat-stream](https://npmjs.org/package/concat-stream) and pipe output from markdown-pdf to it. The callback function `cb` will be invoked when the string has been created.
+
+More examples
+---
+
+### From string to path
+
+```javascript
+var markdownpdf = require("markdown-pdf")
+
+var md = "foo===\n* bar\n* baz\n\nLorem ipsum dolor sit"
+  , outputPath = "/path/to/doc.pdf"
+
+markdownpdf().from.string(md).to(outputPath, function () {
+  console.log("Created", outputPath)
+})
+```
+
+### From multiple paths to multiple paths
+
+```javascript
+var markdownpdf = require("markdown-pdf")
+
+var mdDocs = ["home.md", "about.md", "contact.md"]
+  , pdfDocs = mdDocs.map(function (d) { return "out/" + d.replace(".md", ".pdf") })
+
+markdownpdf().from(mdDocs).to(pdfDocs, function () {
+  pdfDocs.forEach(function (d) { console.log("Created", d) })
+})
+```
+
+### Concat from multiple paths to single path
+
+```javascript
+var markdownpdf = require("markdown-pdf")
+
+var mdDocs = ["chapter1.md", "chapter2.md", "chapter3.md"]
+  , bookPath = "/path/to/book.pdf"
+
+markdownpdf().concat.from(mdDocs).to(bookPath, function () {
+  console.log("Created", bookPath)
+})
+```
+
+### Transform markdown before conversion
+
+```javascript
+var markdownpdf = require("markdown-pdf")
+  , split = require("split")
+  , through = require("through")
+  , duplexer = require("duplexer")
+
+function preProcessMd () {
+  // Split the input stream by lines
+  var splitter = split()
+
+  // Replace occurances of "foo" with "bar"
+  var replacer = through(function (data) {
+    this.queue(data.replace(/foo/g, "bar") + "\n")
+  })
+
+  splitter.pipe(replacer)
+  return duplexer(splitter, replacer)
+}
+
+markdownpdf({preProcessMd: preProcessMd})
+  .from("/path/to/document.md")
+  .to("/path/to/document.pdf", function () { console.log("Done") })
+```
+
+CLI interface
 ---
 
 ### Installation
@@ -122,41 +207,4 @@ Options:
   -b, --paper-border [measurement]       Supported dimension units are: 'mm', 'cm', 'in', 'px'
   -d, --render-delay [millis]            Delay before rendering the PDF (give HTML and CSS a chance to load)
   -o, --out [path]                       Path of where to save the PDF
-```
-
-Dream code
-===
-
-```javascript
-
-// Streaming interface
-fs.createReadStream(src).pipe(markdownpdf()).pipe(fs.createWriteStream(dest))
-
-// From file path(s) to destination file path(s)
-markdownpdf().from.path(src).to.path(dest, cb)
-
-// ...as shorthand:
-markdownpdf().from(src).to(dest, cb)
-
-// From file path(s) to string(s)
-markdownpdf().from.path(src).to.string(cb)
-
-// From string(s) to string(s)
-markdownpdf().from.string(md).to.string(cb)
-
-// From string(s) to path(s)
-markdownpdf().from.string(md).to.path(dest, cb)
-
-// Concat from path(s) to path
-markdownpdf().concat.from.path(src).to.path(dest, cb)
-
-// Concat from path(s) to string
-markdownpdf().concat.from.path(src).to.string(cb)
-
-// From file path(s) to buffer(s)
-markdownpdf().from.path(src).to.buffer(cb)
-
-// For the common case, `from`/`to` is just an alias for `from.path`/`to.path`
-// Behind the scenes, we're just creating the read streams and piping them through to the desired destinations
-
 ```
