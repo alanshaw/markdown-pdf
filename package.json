@@ -27,7 +27,7 @@
     }
   ],
   "dependencies": {
-    "marked": "~0.3.0",
+    "marked": "~0.2.10",
     "phantomjs": "~1.9.1-6",
     "tmp": "~0.0.18",
     "commander": "~2.1.0",
