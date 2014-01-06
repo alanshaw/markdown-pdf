@@ -62,6 +62,12 @@ Default value: `1cm`
 
 Supported dimension units are: 'mm', 'cm', 'in', 'px'
 
+#### options.runningsPath
+Type: `String`
+Default value: `runnings.js`
+
+Path to CommonJS module which sets the page header and footer (see [runnings.js](lib/runnings.js))
+
 #### options.renderDelay
 Type: `Number`
 Default value: `1000`
@@ -201,6 +207,7 @@ Options:
   -V, --version                          output the version number
   <markdown-file-path>                   Path of the markdown file to convert
   -p, --phantom-path [path]              Path to phantom binary
+  -h, --runnings-path [path]             Path to runnings (header, footer)
   -s, --css-path [path]                  Path to custom CSS file
   -f, --paper-format [format]            'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'
   -r, --paper-orientation [orientation]  'portrait' or 'landscape'

@@ -8,6 +8,7 @@ program.version(require('../package.json').version)
   .usage('[options] <markdown-file-path>')
   .option('<markdown-file-path>', "Path of the markdown file to convert")
   .option('-p, --phantom-path [path]', "Path to phantom binary")
+  .option('-h, --runnings-path [path]', "Path to runnings (header, footer)")
   .option('-s, --css-path [path]', "Path to custom CSS file")
   .option('-f, --paper-format [format]', "'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'")
   .option('-r, --paper-orientation [orientation]', "'portrait' or 'landscape'")
@@ -20,6 +21,7 @@ program.out = program.out || program.args[0].replace(/\.(markdown|md)/g, "") + "
 
 var opts = {
     phantomPath: program.phantomPath
+  , runningsPath: program.runningsPath
   , cssPath: program.cssPath
   , paperFormat: program.paperFormat
   , paperOrientation: program.paperOrientation
