@@ -40,7 +40,8 @@
     "mocha": "~1.17.1",
     "mocha-lcov-reporter": "0.0.1",
     "coveralls": "~2.7.0",
-    "jscoverage": "~0.3.7"
+    "jscoverage": "~0.3.7",
+    "pdf-text": "~0.3.0"
   },
   "engines": {
     "node": "~0.10.0"
