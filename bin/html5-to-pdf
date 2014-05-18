@@ -28,7 +28,7 @@ var opts = {
   , paperOrientation: program.paperOrientation
   , paperBorder: program.paperBorder
   , renderDelay: program.renderDelay
-  , template: program.template
+  , template: program.template || 'html5bp'
 }
 
 html5pdf(opts).from(program.args[0]).to(program.out, function (er) {

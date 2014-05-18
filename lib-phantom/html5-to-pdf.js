@@ -3,12 +3,12 @@ var system = require("system")
   , fs = require("fs")
 
 // Read in arguments
-var args = ["in", "out", "runningsPath", "cssPath", "paperFormat", "paperOrientation", "paperBorder", "renderDelay", "jsonPath", "template"].reduce(function (args, name, i) {
+var args = ["in", "out", "runningsPath", "cssPath", "paperFormat", "paperOrientation", "paperBorder", "renderDelay", "template", "jsonPath"].reduce(function (args, name, i) {
   args[name] = system.args[i + 1]
   return args
 }, {})
 
-page.open(page.libraryPath + "/../" + args.template || 'html5bp' + "/index.html", function (status) {
+page.open(page.libraryPath + "/../" + args.template + "/index.html", function (status) {
 
   if (status == "fail") {
     page.close()
