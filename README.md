@@ -36,10 +36,10 @@ Default value: `Path provided by phantomjs module`
 Path to phantom binary
 
 #### options.cssPath
-Type: `String`
+Type: `String` or `Array`
 Default value: `../pdf.css`
 
-Path to custom CSS file, relative to the html5bp directory
+Path or paths to custom CSS file, relative to the html5bp directory
 
 #### options.paperFormat
 Type: `String`
@@ -116,10 +116,10 @@ More examples
 ```javascript
 var html5pdf = require("html5-to-pdf")
 
-var md = "foo===\n* bar\n* baz\n\nLorem ipsum dolor sit"
+var html = "foo===\n <strong>bar\n</strong> baz\n\nLorem ipsum dolor sit"
   , outputPath = "/path/to/doc.pdf"
 
-html5pdf().from.string(md).to(outputPath, function () {
+html5pdf().from.string(html).to(outputPath, function () {
   console.log("Created", outputPath)
 })
 ```
@@ -129,10 +129,10 @@ html5pdf().from.string(md).to(outputPath, function () {
 ```javascript
 var html5pdf = require("html5-to-pdf")
 
-var mdDocs = ["home.html", "about.html", "contact.html"]
-  , pdfDocs = mdDocs.map(function (d) { return "out/" + d.replace(".html", ".pdf") })
+var htmlDocs = ["home.html", "about.html", "contact.html"]
+  , pdfDocs = htmlDocs.map(function (d) { return "out/" + d.replace(".html", ".pdf") })
 
-html5pdf().from(mdDocs).to(pdfDocs, function () {
+html5pdf().from(htmlDocs).to(htmlDocs, function () {
   pdfDocs.forEach(function (d) { console.log("Created", d) })
 })
 ```
@@ -142,10 +142,10 @@ html5pdf().from(mdDocs).to(pdfDocs, function () {
 ```javascript
 var html5pdf = require("html5-to-pdf")
 
-var mdDocs = ["chapter1.html", "chapter2.html", "chapter3.html"]
+var htmlDocs = ["chapter1.html", "chapter2.html", "chapter3.html"]
   , bookPath = "/path/to/book.pdf"
 
-html5pdf().concat.from(mdDocs).to(bookPath, function () {
+html5pdf().concat.from(htmlDocs).to(bookPath, function () {
   console.log("Created", bookPath)
 })
 ```
