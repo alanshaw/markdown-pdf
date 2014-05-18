@@ -42,6 +42,13 @@ page.open(page.libraryPath + "/../" + args.template + "/index.html", function (s
 
     body.appendChild(container)
 
+    var styles = document.querySelectorAll("body style");
+    for(var i = 0, len = styles.length; i < len; i++){
+        var style = styles[i];
+        document.querySelector("head").appendChild(style);
+        style.parentElement.removeChild(style);
+    }
+
   }, fs.read(args.in))
 
   // Set the PDF paper size
