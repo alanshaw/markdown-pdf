@@ -36,7 +36,7 @@ Default value: `Path provided by phantomjs module`
 Path to phantom binary
 
 #### options.cssPath
-Type: `String` or `Array`
+Type: `String`
 Default value: `../pdf.css`
 
 Path or paths to custom CSS file, relative to the html5bp directory
