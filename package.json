@@ -1,6 +1,6 @@
 {
   "name": "html5-to-pdf",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "HTML5 to PDF converter",
   "main": "index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "url": "git@github.com:peterdemartini/html5-to-pdf.git"
   },
   "keywords": [
-    "markdown",
+    "html5",
     "pdf",
     "convert",
     "template"
