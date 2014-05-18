@@ -71,12 +71,6 @@ Default value: `1000`
 
 Delay in millis before rendering the PDF (give HTML and CSS a chance to load)
 
-#### options.preProcessMd
-Type: `Function`
-Default value: `function () { return through() }`
-
-A function that returns a [through stream](https://npmjs.org/package/through) that transforms the markdown before it is converted to HTML.
-
 #### options.preProcessHtml
 Type: `Function`
 Default value: `function () { return through() }`
@@ -164,7 +158,7 @@ var html5pdf = require("html5-to-pdf")
   , through = require("through")
   , duplexer = require("duplexer")
 
-function preProcessMd () {
+function preProcessHTML () {
   // Split the input stream by lines
   var splitter = split()
 
@@ -177,7 +171,7 @@ function preProcessMd () {
   return duplexer(splitter, replacer)
 }
 
-html5pdf({preProcessMd: preProcessMd})
+html5pdf({preProcessHtml: preProcessHtml})
   .from("/path/to/document.html")
   .to("/path/to/document.pdf", function () { console.log("Done") })
 ```
