@@ -1,6 +1,6 @@
 Node module that converts HTML files to PDFs. Built on [markdown-pdf](https://www.npmjs.org/package/markdown-pdf) by alanshaw.
 
-The PDF looks great because it is styled by HTML5 Boilerplate. What? - Yes! HTML is pushed into the HTML5 Boilerplate `index.html`. Phantomjs renders the page and saves it to a PDF. You can even customize the style of the PDF by passing an optional path to your CSS _and_ you can pre-process your html file before it is converted to a PDF by passing in a pre-processing function, for creating templates.
+The PDF looks great because it is styled by HTML5 Boilerplate or Bootstrap. What? - Yes! HTML is pushed into the HTML5 template `index.html`. Phantomjs renders the page and saves it to a PDF. You can even customize the style of the PDF by passing an optional path to your CSS _and_ you can pre-process your html file before it is converted to a PDF by passing in a pre-processing function, for creating templates.
 
 Getting started
 ---
@@ -70,6 +70,12 @@ Type: `Number`
 Default value: `1000`
 
 Delay in millis before rendering the PDF (give HTML and CSS a chance to load)
+
+#### options.template
+Type: `String`
+Default value: `html5bp`
+
+The template to use with phantomjs. You can choose between `html5bp` (HTML5 Boilerplate) or `htmlbootstrap` (Boostrap 3.1.1)
 
 #### options.preProcessHtml
 Type: `Function`

@@ -15,6 +15,7 @@ program.version(require('../package.json').version)
   .option('-b, --paper-border [measurement]', "Supported dimension units are: 'mm', 'cm', 'in', 'px'")
   .option('-d, --render-delay [millis]', "Delay before rendering the PDF (give HTML and CSS a chance to load)")
   .option('-o, --out [path]', "Path of where to save the PDF")
+  .option('-t, --template [string]', "Template to use (html5bp or htmlbootstrap)")
   .parse(process.argv)
 
 program.out = program.out || program.args[0].replace(/\.html/g, "") + ".pdf"
@@ -27,6 +28,7 @@ var opts = {
   , paperOrientation: program.paperOrientation
   , paperBorder: program.paperBorder
   , renderDelay: program.renderDelay
+  , template: program.template
 }
 
 html5pdf(opts).from(program.args[0]).to(program.out, function (er) {
