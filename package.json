@@ -1,7 +1,7 @@
 {
   "name": "html5-to-pdf",
-  "version": "2.2.0",
-  "description": "Markdown to PDF converter",
+  "version": "0.1.0",
+  "description": "HTML5 to PDF converter",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
@@ -19,7 +19,7 @@
     "template"
   ],
   "author": "Peter DeMartini",
-  "homepage": "https://github.com/alanshaw/html5-to-pdf",
+  "homepage": "https://github.com/peterdemartini/html5-to-pdf",
   "licenses": [
     {
       "type": "MIT",
