@@ -6,7 +6,7 @@ var fs = require('fs')
 
 program.version(require('../package.json').version)
   .usage('[options] <markdown-file-path>')
-  .option('<markdown-file-path>', "Path of the markdown file to convert")
+  .option('<html-file-path>', "Path of the html file to convert")
   .option('-p, --phantom-path [path]', "Path to phantom binary")
   .option('-h, --runnings-path [path]', "Path to runnings (header, footer)")
   .option('-s, --css-path [path]', "Path to custom CSS file")
@@ -17,7 +17,7 @@ program.version(require('../package.json').version)
   .option('-o, --out [path]', "Path of where to save the PDF")
   .parse(process.argv)
 
-program.out = program.out || program.args[0].replace(/\.(markdown|md)/g, "") + ".pdf"
+program.out = program.out || program.args[0].replace(/\.html/g, "") + ".pdf"
 
 var opts = {
     phantomPath: program.phantomPath

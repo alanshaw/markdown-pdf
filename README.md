@@ -1,6 +1,6 @@
-Node module that converts Markdown files to PDFs. Built on [markdown-pdf](https://www.npmjs.org/package/markdown-pdf) by alanshaw.
+Node module that converts HTML files to PDFs. Built on [markdown-pdf](https://www.npmjs.org/package/markdown-pdf) by alanshaw.
 
-The PDF looks great because it is styled by HTML5 Boilerplate. What? - Yes! HTML is pushed into the HTML5 Boilerplate `index.html`. Phantomjs renders the page and saves it to a PDF. You can even customize the style of the PDF by passing an optional path to your CSS _and_ you can pre-process your markdown file before it is converted to a PDF by passing in a pre-processing function, for creating templates.
+The PDF looks great because it is styled by HTML5 Boilerplate. What? - Yes! HTML is pushed into the HTML5 Boilerplate `index.html`. Phantomjs renders the page and saves it to a PDF. You can even customize the style of the PDF by passing an optional path to your CSS _and_ you can pre-process your html file before it is converted to a PDF by passing in a pre-processing function, for creating templates.
 
 Getting started
 ---
@@ -75,7 +75,7 @@ Delay in millis before rendering the PDF (give HTML and CSS a chance to load)
 Type: `Function`
 Default value: `function () { return through() }`
 
-A function that returns a [through stream](https://npmjs.org/package/through) that transforms the HTML before it is converted to markdown.
+A function that returns a [through stream](https://npmjs.org/package/through) that transforms the HTML before it is converted to html.
 
 API
 ---
@@ -150,7 +150,7 @@ html5pdf().concat.from(mdDocs).to(bookPath, function () {
 })
 ```
 
-### Transform markdown before conversion
+### Transform html before conversion
 
 ```javascript
 var html5pdf = require("html5-to-pdf")
@@ -190,13 +190,13 @@ npm install -g html5-to-pdf
 ### Usage
 
 ```sh
-Usage: html5-to-pdf [options] <markdown-file-path>
+Usage: html5-to-pdf [options] <html-file-path>
 
 Options:
 
   -h, --help                             output usage information
   -V, --version                          output the version number
-  <markdown-file-path>                   Path of the markdown file to convert
+  <html-file-path>                       Path of the html file to convert
   -p, --phantom-path [path]              Path to phantom binary
   -h, --runnings-path [path]             Path to runnings (header, footer)
   -s, --css-path [path]                  Path to custom CSS file
