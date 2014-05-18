@@ -1,6 +1,6 @@
 {
   "name": "html5-to-pdf",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "HTML5 to PDF converter",
   "main": "index.js",
   "scripts": {
@@ -27,7 +27,7 @@
     }
   ],
   "dependencies": {
-    "phantomjs": "~1.9.1-6",
+    "phantomjs": "~1.9.7-5",
     "tmp": "~0.0.18",
     "commander": "~2.1.0",
     "through": "~2.3.4",
