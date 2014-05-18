@@ -1,16 +1,16 @@
 {
-  "name": "markdown-pdf",
+  "name": "html5-to-pdf",
   "version": "2.2.0",
   "description": "Markdown to PDF converter",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "coveralls": "jscoverage lib && MARKDOWNPDF_COV=1 mocha -R mocha-lcov-reporter | coveralls",
-    "coverage": "MARKDOWNPDF_COV=1 mocha -R html-cov > coverage.html"
+    "coveralls": "jscoverage lib && HTML5TOPDF_COV=1 mocha -R mocha-lcov-reporter | coveralls",
+    "coverage": "HTML5TOPDF_COV=1 mocha -R html-cov > coverage.html"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:alanshaw/markdown-pdf.git"
+    "url": "git@github.com:peterdemartini/html5-to-pdf.git"
   },
   "keywords": [
     "markdown",
@@ -18,16 +18,15 @@
     "convert",
     "template"
   ],
-  "author": "Alan Shaw",
-  "homepage": "https://github.com/alanshaw/markdown-pdf",
+  "author": "Peter DeMartini",
+  "homepage": "https://github.com/alanshaw/html5-to-pdf",
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/alanshaw/markdown-pdf/blob/master/LICENSE"
+      "url": "https://github.com/peterdemartini/html5-to-pdf/blob/master/LICENSE"
     }
   ],
   "dependencies": {
-    "marked": "~0.3.0",
     "phantomjs": "~1.9.1-6",
     "tmp": "~0.0.18",
     "commander": "~2.1.0",
@@ -47,6 +46,6 @@
     "node": "~0.10.0"
   },
   "bin": {
-    "markdown-pdf": "bin/markdown-pdf"
+    "html5-to-pdf": "bin/html5-to-pdf"
   }
 }

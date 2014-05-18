@@ -1,4 +1,4 @@
-var markdownpdf = require("../")
+var html5pdf = require("../")
   , assert = require("assert")
   , fs = require("fs")
   , tmp = require("tmp")
@@ -7,7 +7,7 @@ var markdownpdf = require("../")
 
 tmp.setGracefulCleanup()
 
-describe("markdownpdf", function() {
+describe("html5pdf", function() {
 
   it("should generate a nonempty PDF from ipsum.md", function (done) {
     this.timeout(5000)
@@ -16,7 +16,7 @@ describe("markdownpdf", function() {
       assert.ifError(er)
       fs.close(tmpPdfFd)
 
-      markdownpdf().from(__dirname + "/fixtures/ipsum.md").to(tmpPdfPath, function (er) {
+      html5pdf().from(__dirname + "/fixtures/ipsum.md").to(tmpPdfPath, function (er) {
         assert.ifError(er)
 
         // Read the file
@@ -37,7 +37,7 @@ describe("markdownpdf", function() {
       assert.ifError(er)
       fs.close(tmpPdfFd)
 
-      markdownpdf({runningsPath: __dirname+'/fixtures/runnings.js'}).from(__dirname + "/fixtures/ipsum.md").to(tmpPdfPath, function (er) {
+      html5pdf({runningsPath: __dirname+'/fixtures/runnings.js'}).from(__dirname + "/fixtures/ipsum.md").to(tmpPdfPath, function (er) {
         assert.ifError(er)
 
         // Read the file
@@ -59,29 +59,13 @@ describe("markdownpdf", function() {
     })
   })
 
-  it("should call preProcessMd hook", function (done) {
-    this.timeout(5000)
-
-    var writeCount = 0
-      , preProcessMd = function () { return through(function (data) { writeCount++; this.queue(data) }) }
-
-    markdownpdf({preProcessMd: preProcessMd}).from(__dirname + "/fixtures/ipsum.md").to.string(function (er, pdfStr) {
-      assert.ifError(er)
-
-      // Test not empty
-      assert.ok(pdfStr.length > 0)
-      assert(writeCount > 0, "Write count expected to be > 0")
-      done()
-    })
-  })
-
   it("should call preProcessHtml hook", function (done) {
     this.timeout(5000)
 
     var writeCount = 0
       , preProcessHtml = function () { return through(function (data) { writeCount++; this.queue(data) }) }
 
-    markdownpdf({preProcessHtml: preProcessHtml}).from(__dirname + "/fixtures/ipsum.md").to.string(function (er, pdfStr) {
+    html5pdf({preProcessHtml: preProcessHtml}).from(__dirname + "/fixtures/ipsum.md").to.string(function (er, pdfStr) {
       assert.ifError(er)
 
       // Test not empty
@@ -103,7 +87,7 @@ describe("markdownpdf", function() {
       assert.ifError(er)
       fs.close(tmpPdfFd)
 
-      markdownpdf().concat.from(files).to(tmpPdfPath, function (er) {
+      html5pdf().concat.from(files).to(tmpPdfPath, function (er) {
         assert.ifError(er)
 
         // Read the file
@@ -133,7 +117,7 @@ describe("markdownpdf", function() {
         assert.ifError(er)
         fs.close(tmpPdfFd1)
 
-        markdownpdf().from.paths(files).to.paths([tmpPdfPath0, tmpPdfPath1], function (er) {
+        html5pdf().from.paths(files).to.paths([tmpPdfPath0, tmpPdfPath1], function (er) {
           assert.ifError(er)
 
           // Read the file

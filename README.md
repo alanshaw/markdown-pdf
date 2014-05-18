@@ -1,36 +1,33 @@
-markdown-pdf [![Build Status](https://travis-ci.org/alanshaw/markdown-pdf.png)](https://travis-ci.org/alanshaw/markdown-pdf) [![Dependency Status](https://david-dm.org/alanshaw/markdown-pdf.png)](https://david-dm.org/alanshaw/markdown-pdf) [![Coverage Status](https://coveralls.io/repos/alanshaw/markdown-pdf/badge.png)](https://coveralls.io/r/alanshaw/markdown-pdf)
-===
+Node module that converts Markdown files to PDFs. Built on [markdown-pdf](https://www.npmjs.org/package/markdown-pdf) by alanshaw.
 
-Node module that converts Markdown files to PDFs.
-
-The PDF looks great because it is styled by HTML5 Boilerplate. What? - Yes! Your Markdown is first converted to HTML, then pushed into the HTML5 Boilerplate `index.html`. Phantomjs renders the page and saves it to a PDF. You can even customise the style of the PDF by passing an optional path to your CSS _and_ you can pre-process your markdown file before it is converted to a PDF by passing in a pre-processing function, for templating.
+The PDF looks great because it is styled by HTML5 Boilerplate. What? - Yes! HTML is pushed into the HTML5 Boilerplate `index.html`. Phantomjs renders the page and saves it to a PDF. You can even customize the style of the PDF by passing an optional path to your CSS _and_ you can pre-process your markdown file before it is converted to a PDF by passing in a pre-processing function, for creating templates.
 
 Getting started
 ---
 
-    npm install markdown-pdf
+    npm install html5-to-pdf
 
 Example usage
 ---
 
 ```javascript
-var markdownpdf = require("markdown-pdf")
+var html5pdf = require("html5-to-pdf")
   , fs = require("fs")
 
-fs.createReadStream("/path/to/document.md")
-  .pipe(markdownpdf())
+fs.createReadStream("/path/to/document.html")
+  .pipe(html5pdf())
   .pipe(fs.createWriteStream("/path/to/document.pdf"))
 
 // --- OR ---
 
-markdownpdf().from("/path/to/document.md").to("/path/to/document.pdf", function () {
+html5pdf().from("/path/to/document.html").to("/path/to/document.pdf", function () {
   console.log("Done")
 })
 ```
 
 ### Options
 
-Pass an options object (`markdownpdf({/* options */})`) to configure the output.
+Pass an options object (`html5pdf({/* options */})`) to configure the output.
 
 #### options.phantomPath
 Type: `String`
@@ -91,31 +88,31 @@ API
 
 ### from.path(path, opts) / from(path, opts)
 
-Create a readable stream from `path` and pipe to markdown-pdf. `path` can be a single path or array of paths.
+Create a readable stream from `path` and pipe to html5-to-pdf. `path` can be a single path or array of paths.
 
 ### from.string(string)
 
-Create a readable stream from `string` and pipe to markdown-pdf. `string` can be a single string or array of strings.
+Create a readable stream from `string` and pipe to html5-to-pdf. `string` can be a single string or array of strings.
 
 ### concat.from.paths(paths, opts)
 
-Create and concatinate readable streams from `paths` and pipe to markdown-pdf.
+Create and concatenate readable streams from `paths` and pipe to html5-to-pdf.
 
 ### concat.from.strings(strings, opts)
 
-Create and concatinate readable streams from `strings` and pipe to markdown-pdf.
+Create and concatenate readable streams from `strings` and pipe to html5-to-pdf.
 
 ### to.path(path, cb) / to(path, cb)
 
-Create a writeable stream to `path` and pipe output from markdown-pdf to it. `path` can be a single path, or array of output paths if you specified an array of inputs. The callback function `cb` will be invoked when data has finished being written.
+Create a writeable stream to `path` and pipe output from html5-to-pdf to it. `path` can be a single path, or array of output paths if you specified an array of inputs. The callback function `cb` will be invoked when data has finished being written.
 
 ### to.buffer(opts, cb)
 
-Create a [concat-stream](https://npmjs.org/package/concat-stream) and pipe output from markdown-pdf to it. The callback function `cb` will be invoked when the buffer has been created.
+Create a [concat-stream](https://npmjs.org/package/concat-stream) and pipe output from html5-to-pdf to it. The callback function `cb` will be invoked when the buffer has been created.
 
 ### to.string(opts, cb)
 
-Create a [concat-stream](https://npmjs.org/package/concat-stream) and pipe output from markdown-pdf to it. The callback function `cb` will be invoked when the string has been created.
+Create a [concat-stream](https://npmjs.org/package/concat-stream) and pipe output from html5-to-pdf to it. The callback function `cb` will be invoked when the string has been created.
 
 More examples
 ---
@@ -123,12 +120,12 @@ More examples
 ### From string to path
 
 ```javascript
-var markdownpdf = require("markdown-pdf")
+var html5pdf = require("html5-to-pdf")
 
 var md = "foo===\n* bar\n* baz\n\nLorem ipsum dolor sit"
   , outputPath = "/path/to/doc.pdf"
 
-markdownpdf().from.string(md).to(outputPath, function () {
+html5pdf().from.string(md).to(outputPath, function () {
   console.log("Created", outputPath)
 })
 ```
@@ -136,12 +133,12 @@ markdownpdf().from.string(md).to(outputPath, function () {
 ### From multiple paths to multiple paths
 
 ```javascript
-var markdownpdf = require("markdown-pdf")
+var html5pdf = require("html5-to-pdf")
 
-var mdDocs = ["home.md", "about.md", "contact.md"]
-  , pdfDocs = mdDocs.map(function (d) { return "out/" + d.replace(".md", ".pdf") })
+var mdDocs = ["home.html", "about.html", "contact.html"]
+  , pdfDocs = mdDocs.map(function (d) { return "out/" + d.replace(".html", ".pdf") })
 
-markdownpdf().from(mdDocs).to(pdfDocs, function () {
+html5pdf().from(mdDocs).to(pdfDocs, function () {
   pdfDocs.forEach(function (d) { console.log("Created", d) })
 })
 ```
@@ -149,12 +146,12 @@ markdownpdf().from(mdDocs).to(pdfDocs, function () {
 ### Concat from multiple paths to single path
 
 ```javascript
-var markdownpdf = require("markdown-pdf")
+var html5pdf = require("html5-to-pdf")
 
-var mdDocs = ["chapter1.md", "chapter2.md", "chapter3.md"]
+var mdDocs = ["chapter1.html", "chapter2.html", "chapter3.html"]
   , bookPath = "/path/to/book.pdf"
 
-markdownpdf().concat.from(mdDocs).to(bookPath, function () {
+html5pdf().concat.from(mdDocs).to(bookPath, function () {
   console.log("Created", bookPath)
 })
 ```
@@ -162,7 +159,7 @@ markdownpdf().concat.from(mdDocs).to(bookPath, function () {
 ### Transform markdown before conversion
 
 ```javascript
-var markdownpdf = require("markdown-pdf")
+var html5pdf = require("html5-to-pdf")
   , split = require("split")
   , through = require("through")
   , duplexer = require("duplexer")
@@ -180,8 +177,8 @@ function preProcessMd () {
   return duplexer(splitter, replacer)
 }
 
-markdownpdf({preProcessMd: preProcessMd})
-  .from("/path/to/document.md")
+html5pdf({preProcessMd: preProcessMd})
+  .from("/path/to/document.html")
   .to("/path/to/document.pdf", function () { console.log("Done") })
 ```
 
@@ -190,16 +187,16 @@ CLI interface
 
 ### Installation
 
-To use markdown-pdf as a standalone program from the terminal run
+To use html5-to-pdf as a standalone program from the terminal run
 
 ```sh
-npm install -g markdown-pdf
+npm install -g html5-to-pdf
 ```
 
 ### Usage
 
 ```sh
-Usage: markdown-pdf [options] <markdown-file-path>
+Usage: html5-to-pdf [options] <markdown-file-path>
 
 Options:
 

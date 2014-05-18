@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 var fs = require('fs')
-  , markdownpdf = require('../')
+  , html5pdf = require('../')
   , program = require('commander')
 
 program.version(require('../package.json').version)
@@ -29,7 +29,7 @@ var opts = {
   , renderDelay: program.renderDelay
 }
 
-markdownpdf(opts).from(program.args[0]).to(program.out, function (er) {
+html5pdf(opts).from(program.args[0]).to(program.out, function (er) {
   fs.realpath(program.out, function (er, path) {
     if (er) return console.error(er)
     console.log("Created PDF file at", path)
