@@ -10,6 +10,7 @@ program.version(require('../package.json').version)
   .option('-p, --phantom-path [path]', "Path to phantom binary")
   .option('-h, --runnings-path [path]', "Path to runnings (header, footer)")
   .option('-s, --css-path [path]', "Path to custom CSS file")
+  .option('-z, --highlight-css-path [path]', "Path to custom highlight-CSS file")
   .option('-f, --paper-format [format]', "'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'")
   .option('-r, --paper-orientation [orientation]', "'portrait' or 'landscape'")
   .option('-b, --paper-border [measurement]', "Supported dimension units are: 'mm', 'cm', 'in', 'px'")
@@ -23,6 +24,7 @@ var opts = {
     phantomPath: program.phantomPath
   , runningsPath: program.runningsPath
   , cssPath: program.cssPath
+  , highlightCssPath: program.highlightCssPath
   , paperFormat: program.paperFormat
   , paperOrientation: program.paperOrientation
   , paperBorder: program.paperBorder

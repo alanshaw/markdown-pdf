@@ -3,7 +3,7 @@ var system = require("system")
   , fs = require("fs")
 
 // Read in arguments
-var args = ["in", "out", "runningsPath", "cssPath", "paperFormat", "paperOrientation", "paperBorder", "renderDelay", "jsonPath"].reduce(function (args, name, i) {
+var args = ["in", "out", "runningsPath", "cssPath", "highlightCssPath", "paperFormat", "paperOrientation", "paperBorder", "renderDelay", "jsonPath"].reduce(function (args, name, i) {
   args[name] = system.args[i + 1]
   return args
 }, {})
@@ -17,17 +17,22 @@ page.open(page.libraryPath + "/../html5bp/index.html", function (status) {
   }
   
   // Add custom CSS to the page
-  page.evaluate(function(cssPath) {
+  page.evaluate(function(cssPaths) {
     
     var head = document.querySelector("head")
-    var css = document.createElement("link")
     
-    css.rel = "stylesheet"
-    css.href = cssPath
+    cssPaths.forEach(function(cssPath) {
+      
+      var css = document.createElement("link")
+      
+      css.rel = "stylesheet"
+      css.href = cssPath
+      
+      head.appendChild(css)
+
+    });
     
-    head.appendChild(css)
-    
-  }, args.cssPath)
+  }, [args.cssPath, args.highlightCssPath])
   
   // Add the HTML to the page
   page.evaluate(function(html) {
