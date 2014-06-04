@@ -40,9 +40,15 @@ Path to phantom binary
 
 #### options.cssPath
 Type: `String`
-Default value: `../pdf.css`
+Default value: `[module path]/markdown-pdf/pdf.css`
 
-Path to custom CSS file, relative to the html5bp directory
+Path to custom CSS file, relative to the current directory
+
+#### options.highlightCssPath
+Type: `String`
+Default value: `[module path]/markdown-pdf/highlight.css`
+
+Path to custom highlight CSS file (for code highlighting), relative to the current directory
 
 #### options.paperFormat
 Type: `String`
@@ -209,6 +215,7 @@ Options:
   -p, --phantom-path [path]              Path to phantom binary
   -h, --runnings-path [path]             Path to runnings (header, footer)
   -s, --css-path [path]                  Path to custom CSS file
+  -z, highlight-css-path [path]          Path to custom highlight-CSS file
   -f, --paper-format [format]            'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'
   -r, --paper-orientation [orientation]  'portrait' or 'landscape'
   -b, --paper-border [measurement]       Supported dimension units are: 'mm', 'cm', 'in', 'px'
