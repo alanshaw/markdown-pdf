@@ -31,9 +31,4 @@ var opts = {
   , renderDelay: program.renderDelay
 }
 
-markdownpdf(opts).from(program.args[0]).to(program.out, function (er) {
-  fs.realpath(program.out, function (er, path) {
-    if (er) return console.error(er)
-    console.log("Created PDF file at", path)
-  })
-})
+markdownpdf(opts).from(program.args[0]).to(program.out)
