@@ -31,4 +31,9 @@ var opts = {
   , renderDelay: program.renderDelay
 }
 
-markdownpdf(opts).from(program.args[0]).to(program.out)
+markdownpdf(opts).from(program.args[0]).to(program.out, function (er) {
+  if (er) {
+    console.error(er)
+    return process.exit(-1)
+  }
+})
