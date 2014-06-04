@@ -215,7 +215,7 @@ Options:
   -p, --phantom-path [path]              Path to phantom binary
   -h, --runnings-path [path]             Path to runnings (header, footer)
   -s, --css-path [path]                  Path to custom CSS file
-  -z, highlight-css-path [path]          Path to custom highlight-CSS file
+  -z, --highlight-css-path [path]        Path to custom highlight-CSS file
   -f, --paper-format [format]            'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'
   -r, --paper-orientation [orientation]  'portrait' or 'landscape'
   -b, --paper-border [measurement]       Supported dimension units are: 'mm', 'cm', 'in', 'px'
