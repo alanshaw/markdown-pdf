@@ -30,7 +30,7 @@
     "marked": "~0.3.0",
     "phantomjs": "~1.9.1-6",
     "tmp": "~0.0.18",
-    "commander": "~2.1.0",
+    "commander": "^2.2.0",
     "through": "~2.3.4",
     "extend": "~1.2.1",
     "duplexer": "~0.1.1",
@@ -38,11 +38,11 @@
     "pygmentize-bundled": "~2.1.1"
   },
   "devDependencies": {
-    "mocha": "~1.17.1",
+    "mocha": "^1.20.1",
     "mocha-lcov-reporter": "0.0.1",
-    "coveralls": "~2.7.0",
-    "jscoverage": "~0.3.7",
-    "pdf-text": "~0.3.0"
+    "coveralls": "^2.10.0",
+    "jscoverage": "^0.5.3",
+    "pdf-text": "^0.4.0"
   },
   "engines": {
     "node": "~0.10.0"
