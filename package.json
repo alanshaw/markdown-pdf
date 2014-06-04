@@ -34,7 +34,8 @@
     "through": "~2.3.4",
     "extend": "~1.2.1",
     "duplexer": "~0.1.1",
-    "stream-from-to": "~1.4.0"
+    "stream-from-to": "~1.4.0",
+    "pygmentize-bundled": "~2.1.1"
   },
   "devDependencies": {
     "mocha": "~1.17.1",
