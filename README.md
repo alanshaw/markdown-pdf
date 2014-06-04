@@ -7,7 +7,7 @@ Getting started
 
     npm install html5-to-pdf
 
-Example usage
+Example  usage
 ---
 
 ```javascript
@@ -37,9 +37,15 @@ Path to phantom binary
 
 #### options.cssPath
 Type: `String`
-Default value: `../pdf.css`
+Default value: `[module path]/markdown-pdf/pdf.css`
 
-Path or paths to custom CSS file, relative to the html5bp directory
+Path to custom CSS file, relative to the current directory
+
+#### options.highlightCssPath
+Type: `String`
+Default value: `[module path]/markdown-pdf/highlight.css`
+
+Path to custom highlight CSS file (for code highlighting), relative to the current directory
 
 #### options.paperFormat
 Type: `String`

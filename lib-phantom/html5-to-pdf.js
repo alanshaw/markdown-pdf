@@ -3,7 +3,7 @@ var system = require("system")
   , fs = require("fs")
 
 // Read in arguments
-var args = ["in", "out", "runningsPath", "cssPath", "paperFormat", "paperOrientation", "paperBorder", "renderDelay", "template", "jsonPath"].reduce(function (args, name, i) {
+var args = ["in", "out", "runningsPath", "cssPath", "highlightCssPath", "paperFormat", "paperOrientation", "paperBorder", "renderDelay", "template", "jsonPath"].reduce(function (args, name, i) {
   args[name] = system.args[i + 1]
   return args
 }, {})
@@ -17,9 +17,12 @@ page.open(page.libraryPath + "/../" + args.template + "/index.html", function (s
   }
 
   // Add custom CSS to the page
-  page.evaluate(function(cssPath) {
+  page.evaluate(function(cssPaths) {
 
     var head = document.querySelector("head")
+    
+    cssPaths.forEach(function(cssPath) {
+      
     var css = document.createElement("link")
 
     css.rel = "stylesheet"
@@ -27,7 +30,9 @@ page.open(page.libraryPath + "/../" + args.template + "/index.html", function (s
 
     head.appendChild(css)
 
-  }, args.cssPath)
+    });
+
+  }, [args.cssPath, args.highlightCssPath])
 
   // Add the HTML to the page
   page.evaluate(function(html) {
