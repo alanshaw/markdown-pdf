@@ -18,7 +18,7 @@ program.version(require('../package.json').version)
   .option('-o, --out [path]', "Path of where to save the PDF")
   .parse(process.argv)
 
-program.out = program.out || program.args[0].replace(/\.(markdown|md)/g, "") + ".pdf"
+program.out = program.out || program.args[0].replace(/\.m(ark)?d(own)?/gi, "") + ".pdf"
 
 var opts = {
     phantomPath: program.phantomPath
