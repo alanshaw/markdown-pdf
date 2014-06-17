@@ -1,4 +1,4 @@
-markdown-pdf [![Build Status](https://travis-ci.org/alanshaw/markdown-pdf.png)](https://travis-ci.org/alanshaw/markdown-pdf) [![Dependency Status](https://david-dm.org/alanshaw/markdown-pdf.png)](https://david-dm.org/alanshaw/markdown-pdf) [![Coverage Status](https://coveralls.io/repos/alanshaw/markdown-pdf/badge.png)](https://coveralls.io/r/alanshaw/markdown-pdf)
+markdown-pdf [![Build Status](https://travis-ci.org/alanshaw/markdown-pdf.svg)](https://travis-ci.org/alanshaw/markdown-pdf) [![Dependency Status](https://david-dm.org/alanshaw/markdown-pdf.svg)](https://david-dm.org/alanshaw/markdown-pdf) [![Coverage Status](https://img.shields.io/coveralls/alanshaw/markdown-pdf.svg)](https://coveralls.io/r/alanshaw/markdown-pdf?branch=master)
 ===
 
 Node module that converts Markdown files to PDFs.
