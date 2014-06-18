@@ -1,6 +1,6 @@
 {
   "name": "html5-to-pdf",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "HTML5 to PDF converter",
   "main": "index.js",
   "scripts": {
@@ -16,7 +16,8 @@
     "html5",
     "pdf",
     "convert",
-    "template"
+    "template",
+    "generator"
   ],
   "author": "Peter DeMartini",
   "homepage": "https://github.com/peterdemartini/html5-to-pdf",

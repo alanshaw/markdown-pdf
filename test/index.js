@@ -30,35 +30,6 @@ describe("html5pdf", function() {
     })
   })
 
-  it("should have a header and footer", function (done) {
-    this.timeout(5000)
-
-    tmp.file({postfix: ".pdf"}, function (er, tmpPdfPath, tmpPdfFd) {
-      assert.ifError(er)
-      fs.close(tmpPdfFd)
-
-      html5pdf({runningsPath: __dirname+'/fixtures/runnings.js'}).from(__dirname + "/fixtures/ipsum.md").to(tmpPdfPath, function (er) {
-        assert.ifError(er)
-
-        // Read the file
-        fs.readFile(tmpPdfPath, {encoding: "utf8"}, function (er, data) {
-          assert.ifError(er)
-          // Test not empty
-          assert.ok(data.length > 0)
-
-          // Header and footer included?
-          pdfText(tmpPdfPath, function (er, chunks) {
-            assert.ifError(er)
-
-            assert.ok(/Some\s?Header/.test(chunks.join('')))
-            assert.ok(/Some\s?Footer/.test(chunks.join('')))
-            done()
-          })
-        })
-      })
-    })
-  })
-
   it("should call preProcessHtml hook", function (done) {
     this.timeout(5000)
 
