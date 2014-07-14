@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
-var fs = require('fs')
-  , markdownpdf = require('../')
+var markdownpdf = require('../')
   , program = require('commander')
 
 program.version(require('../package.json').version)
@@ -18,7 +17,7 @@ program.version(require('../package.json').version)
   .option('-o, --out [path]', "Path of where to save the PDF")
   .parse(process.argv)
 
-if(program.args.length === 0) program.help();
+if (program.args.length === 0) program.help()
 
 program.out = program.out || program.args[0].replace(/\.m(ark)?d(own)?/gi, "") + ".pdf"
 
