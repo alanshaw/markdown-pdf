@@ -90,7 +90,7 @@ A function that returns a [through stream](https://npmjs.org/package/through) th
 Type: `Function`
 Default value: `function () { return through() }`
 
-A function that returns a [through stream](https://npmjs.org/package/through) that transforms the HTML before it is converted to markdown.
+A function that returns a [through stream](https://npmjs.org/package/through) that transforms the HTML before it is converted to PDF.
 
 API
 ---
