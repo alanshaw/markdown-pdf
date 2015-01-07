@@ -1,4 +1,4 @@
-markdown-pdf [![Build Status](https://travis-ci.org/alanshaw/markdown-pdf.svg)](https://travis-ci.org/alanshaw/markdown-pdf) [![Dependency Status](https://david-dm.org/alanshaw/markdown-pdf.svg)](https://david-dm.org/alanshaw/markdown-pdf) [![Coverage Status](https://img.shields.io/coveralls/alanshaw/markdown-pdf.svg)](https://coveralls.io/r/alanshaw/markdown-pdf?branch=master)
+markdown-pdf [![Build Status](https://travis-ci.org/alanshaw/markdown-pdf.svg)](https://travis-ci.org/alanshaw/markdown-pdf) [![Dependency Status](https://david-dm.org/alanshaw/markdown-pdf.svg)](https://david-dm.org/alanshaw/markdown-pdf) [![Coverage Status](https://img.shields.io/coveralls/alanshaw/markdown-pdf.svg?style=flat)](https://coveralls.io/r/alanshaw/markdown-pdf?branch=master)
 ===
 
 Node module that converts Markdown files to PDFs.
@@ -84,13 +84,13 @@ Delay in millis before rendering the PDF (give HTML and CSS a chance to load)
 Type: `Function`
 Default value: `function () { return through() }`
 
-A function that returns a [through stream](https://npmjs.org/package/through) that transforms the markdown before it is converted to HTML.
+A function that returns a [through2 stream](https://npmjs.org/package/through2) that transforms the markdown before it is converted to HTML.
 
 #### options.preProcessHtml
 Type: `Function`
 Default value: `function () { return through() }`
 
-A function that returns a [through stream](https://npmjs.org/package/through) that transforms the HTML before it is converted to PDF.
+A function that returns a [through2 stream](https://npmjs.org/package/through2) that transforms the HTML before it is converted to PDF.
 
 API
 ---

@@ -1,5 +1,2 @@
-*.iml
-.idea
 node_modules
-lib-cov
-coverage.html
+coverage

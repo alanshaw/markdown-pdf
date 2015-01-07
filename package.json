@@ -2,11 +2,10 @@
   "name": "markdown-pdf",
   "version": "3.1.0",
   "description": "Markdown to PDF converter",
-  "main": "index.js",
+  "main": "lib/markdown-pdf.js",
   "scripts": {
-    "test": "mocha",
-    "coveralls": "jscoverage lib && MARKDOWNPDF_COV=1 mocha -R mocha-lcov-reporter | coveralls",
-    "coverage": "MARKDOWNPDF_COV=1 mocha -R html-cov > coverage.html"
+    "test": "istanbul cover node_modules/.bin/tape test/*.js",
+    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -27,22 +26,21 @@
     }
   ],
   "dependencies": {
-    "marked": "^0.3.2",
-    "phantomjs": "^1.9.11",
-    "tmp": "^0.0.18",
     "commander": "^2.2.0",
-    "through": "^2.3.4",
-    "extend": "^2.0.0",
     "duplexer": "^0.1.1",
+    "extend": "^2.0.0",
+    "marked": "^0.3.2",
+    "phantomjs": "^1.9.13",
+    "pygmentize-bundled": "^2.2.0",
     "stream-from-to": "^1.4.0",
-    "pygmentize-bundled": "^2.2.0"
+    "through2": "^0.6.3",
+    "tmp": "0.0.24"
   },
   "devDependencies": {
-    "mocha": "^2.0.1",
-    "mocha-lcov-reporter": "^0.0.1",
     "coveralls": "^2.10.0",
-    "jscoverage": "^0.5.3",
-    "pdf-text": "^0.4.0"
+    "istanbul": "^0.3.5",
+    "pdf-text": "^0.4.0",
+    "tape": "^3.0.3"
   },
   "engines": {
     "node": "~0.10.0"

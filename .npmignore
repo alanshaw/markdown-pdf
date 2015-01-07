@@ -1,6 +1,0 @@
-.npmignore
-.gitignore
-.idea
-*.iml
-dist
-*.log
