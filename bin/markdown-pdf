@@ -6,6 +6,7 @@ var markdownpdf = require('../')
 program.version(require('../package.json').version)
   .usage('[options] <markdown-file-path>')
   .option('<markdown-file-path>', "Path of the markdown file to convert")
+  .option('-c, --cwd [path]', "Current working directory")
   .option('-p, --phantom-path [path]', "Path to phantom binary")
   .option('-h, --runnings-path [path]', "Path to runnings (header, footer)")
   .option('-s, --css-path [path]', "Path to custom CSS file")
@@ -22,7 +23,8 @@ if (program.args.length === 0) program.help()
 program.out = program.out || program.args[0].replace(/\.m(ark)?d(own)?/gi, "") + ".pdf"
 
 var opts = {
-    phantomPath: program.phantomPath
+    cwd: program.cwd
+  , phantomPath: program.phantomPath
   , runningsPath: program.runningsPath
   , cssPath: program.cssPath
   , highlightCssPath: program.highlightCssPath
