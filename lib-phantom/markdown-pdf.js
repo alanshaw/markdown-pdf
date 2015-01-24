@@ -1,6 +1,7 @@
 var system = require("system")
   , page = require("webpage").create()
   , fs = require("fs")
+  , os = require("system").os
 
 // Read in arguments
 var args = ["in", "out", "cwd", "runningsPath", "cssPath", "highlightCssPath", "paperFormat", "paperOrientation", "paperBorder", "renderDelay", "jsonPath"].reduce(function (args, name, i) {
@@ -10,11 +11,14 @@ var args = ["in", "out", "cwd", "runningsPath", "cssPath", "highlightCssPath", "
 
 var html5bpPath = page.libraryPath + "/../html5bp"
 
+// Resources don't load in windows with file protocol
+var protocol = os.name == "windows" ? "" : "file://"
+
 var html = fs.read(html5bpPath + "/index.html")
-  .replace(/\{\{baseUrl\}\}/g, "file://" + html5bpPath)
+  .replace(/\{\{baseUrl\}\}/g, protocol + html5bpPath)
   .replace("{{content}}", fs.read(args.in))
 
-page.setContent(html, "file://" + args.cwd + "/markdown-pdf.html")
+page.setContent(html, protocol + args.cwd + "/markdown-pdf.html")
 
 // Add custom CSS to the page
 page.evaluate(function (cssPaths) {
