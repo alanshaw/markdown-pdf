@@ -14,7 +14,8 @@ program.version(require('../package.json').version)
   .option('-f, --paper-format [format]', "'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'")
   .option('-r, --paper-orientation [orientation]', "'portrait' or 'landscape'")
   .option('-b, --paper-border [measurement]', "Supported dimension units are: 'mm', 'cm', 'in', 'px'")
-  .option('-d, --render-delay [millis]', "Delay before rendering the PDF (give HTML and CSS a chance to load)")
+  .option('-d, --render-delay [millis]', "Delay before rendering the PDF")
+  .option('-t, --load-timeout [millis]', "Timeout before the page is rendered in case `page.onLoadFinished` isn't fired")
   .option('-o, --out [path]', "Path of where to save the PDF")
   .parse(process.argv)
 
@@ -32,11 +33,9 @@ var opts = {
   , paperOrientation: program.paperOrientation
   , paperBorder: program.paperBorder
   , renderDelay: program.renderDelay
+  , loadTimeout: program.loadTimeout
 }
 
 markdownpdf(opts).from(program.args[0]).to(program.out, function (er) {
-  if (er) {
-    console.error(er)
-    return process.exit(-1)
-  }
+  if (er) throw er
 })

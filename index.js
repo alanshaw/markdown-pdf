@@ -21,7 +21,8 @@ function markdownpdf (opts) {
   opts.paperFormat = opts.paperFormat || "A4"
   opts.paperOrientation = opts.paperOrientation || "portrait"
   opts.paperBorder = opts.paperBorder || "1cm"
-  opts.renderDelay = opts.renderDelay || 500
+  opts.renderDelay = opts.renderDelay == null ? 0 : opts.renderDelay
+  opts.loadTimeout = opts.loadTimeout == null ? 10000 : opts.loadTimeout
   opts.preProcessMd = opts.preProcessMd || function () { return through() }
   opts.preProcessHtml = opts.preProcessHtml || function () { return through() }
 
@@ -88,6 +89,7 @@ function markdownpdf (opts) {
           , opts.paperOrientation
           , opts.paperBorder
           , opts.renderDelay
+          , opts.loadTimeout
         ]
 
         childProcess.execFile(opts.phantomPath, childArgs, function (er, stdout, stderr) {

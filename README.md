@@ -33,61 +33,67 @@ markdownpdf().from("/path/to/document.md").to("/path/to/document.pdf", function 
 Pass an options object (`markdownpdf({/* options */})`) to configure the output.
 
 #### options.phantomPath
-Type: `String`
-Default value: `Path provided by phantomjs module`
+Type: `String`  
+Default value: Path provided by phantomjs module
 
 Path to phantom binary
 
 #### options.cssPath
-Type: `String`
-Default value: `[module path]/markdown-pdf/pdf.css`
+Type: `String`  
+Default value: `[module path]/markdown-pdf/css/pdf.css`
 
 Path to custom CSS file, relative to the current directory
 
 #### options.highlightCssPath
-Type: `String`
-Default value: `[module path]/markdown-pdf/highlight.css`
+Type: `String`  
+Default value: `[module path]/markdown-pdf/css/highlight.css`
 
-Path to custom highlight CSS file (for code highlighting), relative to the current directory
+Path to custom highlight CSS file (for code highlighting with [highlight.js](https://highlightjs.org)), relative to the current directory.
 
 #### options.paperFormat
-Type: `String`
+Type: `String`  
 Default value: `A4`
 
 'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'
 
 #### options.paperOrientation
-Type: `String`
+Type: `String`  
 Default value: `portrait`
 
 'portrait' or 'landscape'
 
 #### options.paperBorder
-Type: `String`
+Type: `String`  
 Default value: `1cm`
 
 Supported dimension units are: 'mm', 'cm', 'in', 'px'
 
 #### options.runningsPath
-Type: `String`
+Type: `String`  
 Default value: `runnings.js`
 
 Path to CommonJS module which sets the page header and footer (see [runnings.js](lib/runnings.js))
 
 #### options.renderDelay
-Type: `Number`
-Default value: `1000`
+Type: `Number`  
+Default value: Time until [`page.onLoadFinished`](http://phantomjs.org/api/webpage/handler/on-load-finished.html) event fired
 
-Delay in millis before rendering the PDF (give HTML and CSS a chance to load)
+Delay in millis before rendering the PDF
+
+#### options.loadTimeout
+Type: `Number`  
+Default value: `10000`
+
+If `renderDelay` option isn't set, this is the timeout (in ms) before the page is rendered in case the `page.onLoadFinished` event doesn't fire.
 
 #### options.preProcessMd
-Type: `Function`
+Type: `Function`  
 Default value: `function () { return through() }`
 
 A function that returns a [through2 stream](https://npmjs.org/package/through2) that transforms the markdown before it is converted to HTML.
 
 #### options.preProcessHtml
-Type: `Function`
+Type: `Function`  
 Default value: `function () { return through() }`
 
 A function that returns a [through2 stream](https://npmjs.org/package/through2) that transforms the HTML before it is converted to PDF.
@@ -204,7 +210,7 @@ npm install -g markdown-pdf
 
 ### Usage
 
-```sh
+```
 Usage: markdown-pdf [options] <markdown-file-path>
 
 Options:
@@ -212,6 +218,7 @@ Options:
   -h, --help                             output usage information
   -V, --version                          output the version number
   <markdown-file-path>                   Path of the markdown file to convert
+  -c, --cwd [path]                       Current working directory
   -p, --phantom-path [path]              Path to phantom binary
   -h, --runnings-path [path]             Path to runnings (header, footer)
   -s, --css-path [path]                  Path to custom CSS file
@@ -219,6 +226,7 @@ Options:
   -f, --paper-format [format]            'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'
   -r, --paper-orientation [orientation]  'portrait' or 'landscape'
   -b, --paper-border [measurement]       Supported dimension units are: 'mm', 'cm', 'in', 'px'
-  -d, --render-delay [millis]            Delay before rendering the PDF (give HTML and CSS a chance to load)
+  -d, --render-delay [millis]            Delay before rendering the PDF
+  -t, --load-timeout [millis]            Timeout before the page is rendered in case `page.onLoadFinished` isn't fired
   -o, --out [path]                       Path of where to save the PDF
 ```

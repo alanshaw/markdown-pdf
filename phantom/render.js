@@ -4,7 +4,7 @@ var system = require("system")
   , os = require("system").os
 
 // Read in arguments
-var args = ["in", "out", "cwd", "runningsPath", "cssPath", "highlightCssPath", "paperFormat", "paperOrientation", "paperBorder", "renderDelay", "jsonPath"].reduce(function (args, name, i) {
+var args = ["in", "out", "cwd", "runningsPath", "cssPath", "highlightCssPath", "paperFormat", "paperOrientation", "paperBorder", "renderDelay", "loadTimeout"].reduce(function (args, name, i) {
   args[name] = system.args[i + 1]
   return args
 }, {})
@@ -36,12 +36,23 @@ page.evaluate(function (cssPaths) {
 // Set the PDF paper size
 page.paperSize = paperSize(args.runningsPath, {format: args.paperFormat, orientation: args.paperOrientation, border: args.paperBorder})
 
-// Render the page
-setTimeout(function () {
+args.renderDelay = parseInt(args.renderDelay, 10)
+
+if (args.renderDelay) {
+  setTimeout(render, args.renderDelay)
+} else {
+  var loadTimeout = setTimeout(render, parseInt(args.loadTimeout, 10))
+  page.onLoadFinished = function () {
+    clearTimeout(loadTimeout)
+    render()
+  }
+}
+
+function render () {
   page.render(args.out)
   page.close()
   phantom.exit(0)
-}, parseInt(args.renderDelay, 10))
+}
 
 function paperSize (runningsPath, obj) {
   var runnings = require(runningsPath)
