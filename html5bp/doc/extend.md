@@ -456,12 +456,12 @@ Add this function after `_gaq` is defined:
             a.href = href;
             return a;
         };
-    window.onerror = function (message, file, row) {
+    window.onerror = function (message, file, line, column) {
         var host = link(file).hostname;
         _gaq.push([
             '_trackEvent',
             (host == window.location.hostname || host == undefined || host == '' ? '' : 'external ') + 'error',
-            message, file + ' LINE: ' + row, undefined, undefined, true
+            message, file + ' LINE: ' + line + (column ? ' COLUMN: ' + column : ''), undefined, undefined, true
         ]);
     };
 }(window));
@@ -492,6 +492,72 @@ $(function(){
 });
 ```
 
+## iOS Web Apps
+
+There are a couple of meta tags that provide information about a web app when
+added to the Home Screen on iOS.
+
+Adding `apple-mobile-web-app-capable` will make your web app chrome-less and
+provide the default iOS app view. You can control the color scheme of the
+default view by adding `apple-mobile-web-app-status-bar-style`.
+
+```html
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+```
+
+You can use `apple-mobile-web-app-title` to add a specific sites name for the
+Home Screen icon. This works since iOS 6.
+
+```html
+<meta name="apple-mobile-web-app-title" content="">
+```
+
+For further information please read the [official documentation](http://developer.apple.com/library/safari/#documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html)
+on Apple's site.
+
+### Apple Touch Icons
+
+Touch Icons can be seen as the favicons of mobile devices and tablets.
+
+If your site or icons are in a sub-directory, you will need to reference the
+icons using `link` elements placed in the HTML `head` of your document.
+
+```html
+<link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png">
+```
+
+The main sizes of the icons on iOS are:
+
+* iPad, high-resolution display, iOS 7: 152x152
+* iPad, high-resolution display, iOS ≤ 6: 144x144
+* iPhone, high-resolution display, iOS 7: 120x120
+* iPhone, high-resolution display, iOS ≤ 6: 114x114
+* iPad, non-Retina, iOS ≤ 6: 72x72
+
+For non-Retina iPhone, iPod Touch, and Android 2.1+ devices you can use the
+example from above or replace the `apple-touch-icon-precomposed.png` within this
+project's root folder.
+
+Please refer to Mathias' [article on Touch
+Icons](http://mathiasbynens.be/notes/touch-icons) for a comprehensive overview.
+
+### Apple Touch Startup Image
+
+Apart from that it is possible to add start-up screens for web apps on iOS. This
+basically works by defining `apple-touch-startup-image` with an according link
+to the image. Since iOS devices have different screen resolutions it is
+necessary to add media queries to detect which image to load. Here is an
+example for a retina iPhone:
+
+```html
+<link rel="apple-touch-startup-image" media="(max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2)" href="img/startup-retina.png">
+```
+
+However, it is possible to detect which start-up image to use with JavaScript.
+The Mobile Boilerplate provides a useful function for this. Please see
+[helpers.js](https://github.com/h5bp/mobile-boilerplate/blob/master/js/helper.js#L354)
+for the implementation.
 
 ## Miscellaneous
 

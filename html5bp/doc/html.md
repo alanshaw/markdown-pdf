@@ -38,8 +38,8 @@ spec](http://www.whatwg.org/specs/web-apps/current-work/complete/semantics.html#
 (4.2.5.5 Specifying the document's character encoding), add your charset
 declaration early (before any ASCII art ;) to avoid a potential
 [encoding-related security
-issue](http://code.google.com/p/doctype/wiki/ArticleUtf7) in IE. It should come
-in the first [1024
+issue](http://code.google.com/p/doctype-mirror/wiki/ArticleUtf7) in IE. It
+should come in the first [1024
 bytes](http://www.whatwg.org/specs/web-apps/current-work/multipage/semantics.html#charset).
 
 The charset should also come before the `<title>` tag, due to [potential XSS
@@ -60,21 +60,17 @@ possible that they're not using the latest rendering engine their browser
 contains. To fix this, use:
 
 ```html
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 ```
 
-The `meta` tag tells the IE rendering engine two things:
-
-1. It should use the latest, or edge, version of the IE rendering environment
-2. If already installed, it should use the Google Chrome Frame rendering
-   engine.
+The `meta` tag tells the IE rendering engine it should use the latest, or edge,
+version of the IE rendering environment.
 
 This `meta` tag ensures that anyone browsing your site in IE is treated to the
 best possible user experience that their browser can offer.
 
-This line breaks validation, and the Google Chrome Frame part won't work inside
-a conditional comment. To avoid these edge case issues it is recommended that
-you **remove this line and use the `.htaccess`** (or other server config)
+This line breaks validation. To avoid this edge case issue it is recommended
+that you **remove this line and use the `.htaccess`** (or other server config)
 to send these headers instead. You also might want to read [Validating:
 X-UA-Compatible](http://groups.google.com/group/html5boilerplate/browse_thread/thread/6d1b6b152aca8ed2).
 
@@ -92,22 +88,17 @@ Apple developer docs](http://j.mp/mobileviewport). HTML5 Boilerplate comes with
 a simple setup that strikes a good balance for general use cases.
 
 ```html
-<meta name="viewport" content="width=device-width">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 ```
 
-## Favicons and Touch Icons
+## Favicons and Touch Icon
 
 The shortcut icons should be put in the root directory of your site. HTML5
-Boilerplate comes with a default set of icons (include favicon and Apple Touch
-Icons) that you can use as a baseline to create your own.
+Boilerplate comes with a default set of icons (include favicon and one Apple
+Touch Icon) that you can use as a baseline to create your own.
 
-If your site or icons are in a sub-directory, you will need to reference the
-icons using `link` elements placed in the HTML `head` of your document.
-
-For a comprehensive overview, please read [Everything you always wanted to know
-about touch icons](http://mathiasbynens.be/notes/touch-icons) by Mathias
-Bynens.
-
+Please refer to the more detailed description in the [Extend section](extend.md)
+of these docs.
 
 ## Modernizr
 
