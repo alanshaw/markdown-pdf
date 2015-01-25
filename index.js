@@ -1,11 +1,11 @@
 var fs = require("fs")
   , path = require("path")
+  , childProcess = require("child_process")
   , through = require("through2")
   , extend = require("extend")
-  , marked = require("marked")
-  , pygments = require('pygmentize-bundled')
+  , Remarkable = require("remarkable")
+  , hljs = require("highlight.js")
   , tmp = require("tmp")
-  , childProcess = require("child_process")
   , duplexer = require("duplexer")
   , streamft = require("stream-from-to")
 
@@ -16,8 +16,8 @@ function markdownpdf (opts) {
   opts.cwd = opts.cwd ? path.resolve(opts.cwd) : process.cwd()
   opts.phantomPath = opts.phantomPath || require("phantomjs").path
   opts.runningsPath = opts.runningsPath ? path.resolve(opts.runningsPath) : path.join(__dirname, "runnings.js")
-  opts.cssPath = opts.cssPath ? path.resolve(opts.cssPath) : path.join(__dirname, "..", "pdf.css")
-  opts.highlightCssPath = opts.highlightCssPath ? path.resolve(opts.highlightCssPath) : path.join(__dirname, "..", "highlight.css")
+  opts.cssPath = opts.cssPath ? path.resolve(opts.cssPath) : path.join(__dirname, "css", "pdf.css")
+  opts.highlightCssPath = opts.highlightCssPath ? path.resolve(opts.highlightCssPath) : path.join(__dirname, "css", "highlight.css")
   opts.paperFormat = opts.paperFormat || "A4"
   opts.paperOrientation = opts.paperOrientation || "portrait"
   opts.paperBorder = opts.paperBorder || "1cm"
@@ -27,29 +27,32 @@ function markdownpdf (opts) {
 
   var md = ""
 
-  // Argh! marked, why you no stream?
   var mdToHtml = through(
-    function transform (data, enc, cb) {
-      md += data
+    function transform (chunk, enc, cb) {
+      md += chunk
       cb()
     },
     function flush (cb) {
       var self = this
 
-      // set options for marked
-      var markedOptions = {
-        highlight: function (code, lang, cb) {
-          pygments({lang: lang, format: "html"}, code, function (er, result) {
-            cb(null, result ? result.toString() : code)
-          })
-        }
-      }
+      var mdParser = new Remarkable(extend({
+        highlight: function (str, lang) {
+          if (lang && hljs.getLanguage(lang)) {
+            try {
+              return hljs.highlight(lang, str).value
+            } catch (er) {}
+          }
 
-      marked(md, markedOptions, function (er, html) {
-        self.push(html)
-        self.push(null)
-        cb()
-      })
+          try {
+            return hljs.highlightAuto(str).value
+          } catch (er) {}
+
+          return ""
+        }
+      }, opts.remarkable))
+
+      self.push(mdParser.render(md))
+      self.push(null)
     }
   )
 
@@ -74,7 +77,7 @@ function markdownpdf (opts) {
       htmlToTmpHtmlFile.on("finish", function () {
         // Invoke phantom to generate the PDF
         var childArgs = [
-            path.join(__dirname, "..", "lib-phantom", "markdown-pdf.js")
+            path.join(__dirname, "phantom", "render.js")
           , tmpHtmlPath
           , tmpPdfPath
           , opts.cwd
@@ -87,7 +90,7 @@ function markdownpdf (opts) {
           , opts.renderDelay
         ]
 
-        childProcess.execFile(opts.phantomPath, childArgs, function(er, stdout, stderr) {
+        childProcess.execFile(opts.phantomPath, childArgs, function (er, stdout, stderr) {
           //if (stdout) console.log(stdout)
           //if (stderr) console.error(stderr)
           if (er) return outputStream.emit("error", er)
@@ -96,7 +99,12 @@ function markdownpdf (opts) {
       })
 
       // Setup the pipeline
-      inputStream.pipe(opts.preProcessMd()).pipe(mdToHtml).pipe(opts.preProcessHtml()).pipe(htmlToTmpHtmlFile)
+      inputStream
+        .pipe(opts.preProcessMd())
+        .pipe(mdToHtml)
+        .pipe(opts.preProcessHtml())
+        .pipe(htmlToTmpHtmlFile)
+
       inputStream.resume()
     })
   })

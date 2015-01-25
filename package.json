@@ -2,7 +2,7 @@
   "name": "markdown-pdf",
   "version": "4.0.1",
   "description": "Markdown to PDF converter",
-  "main": "lib/markdown-pdf.js",
+  "main": "index.js",
   "scripts": {
     "test": "istanbul cover node_modules/.bin/tape test/*.js",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
@@ -29,9 +29,9 @@
     "commander": "^2.2.0",
     "duplexer": "^0.1.1",
     "extend": "^2.0.0",
-    "marked": "^0.3.2",
+    "highlight.js": "^8.4.0",
     "phantomjs": "^1.9.13",
-    "pygmentize-bundled": "^2.2.0",
+    "remarkable": "^1.6.0",
     "stream-from-to": "^1.4.0",
     "through2": "^0.6.3",
     "tmp": "0.0.24"

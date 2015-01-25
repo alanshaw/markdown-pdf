@@ -59,6 +59,28 @@ This is a image
     And more. Sugar plum lemon drops chupa chups chocolate pastry. Faworki applicake applicake brownie topping liquorice chocolate liquorice icing. Cake pudding pudding cake candy sugar plum soufflé.`
 
 
+```js
+var Remarkable = require('remarkable');
+var hljs       = require('highlight.js') // https://highlightjs.org/
+
+// Actual default values
+var md = new Remarkable({
+  highlight: function (str, lang) {
+    if (lang && hljs.getLanguage(lang)) {
+      try {
+        return hljs.highlight(lang, str).value;
+      } catch (err) {}
+    }
+
+    try {
+      return hljs.highlightAuto(str).value;
+    } catch (err) {}
+
+    return ''; // use external default escaping
+  }
+});
+```
+
 
 And that's all ...
 This is an **extremely simple and basic** guide. To understand a lot better this kind of dark magic called markdown, logically I recommend the official wiki of the creator. Go, run, jump to [the site of John Gruber](http://daringfireball.net/projects/markdown/).
