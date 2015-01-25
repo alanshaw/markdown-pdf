@@ -32,17 +32,23 @@ markdownpdf().from("/path/to/document.md").to("/path/to/document.pdf", function 
 
 Pass an options object (`markdownpdf({/* options */})`) to configure the output.
 
+#### options.cwd
+Type: `String`  
+Default value: `process.cwd()`
+
+Current working directory.
+
 #### options.phantomPath
 Type: `String`  
 Default value: Path provided by phantomjs module
 
-Path to phantom binary
+Path to the phantomjs binary.
 
 #### options.cssPath
 Type: `String`  
 Default value: `[module path]/markdown-pdf/css/pdf.css`
 
-Path to custom CSS file, relative to the current directory
+Path to custom CSS file, relative to the current directory.
 
 #### options.highlightCssPath
 Type: `String`  
@@ -54,13 +60,13 @@ Path to custom highlight CSS file (for code highlighting with [highlight.js](htt
 Type: `String`  
 Default value: `A4`
 
-'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'
+'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'.
 
 #### options.paperOrientation
 Type: `String`  
 Default value: `portrait`
 
-'portrait' or 'landscape'
+'portrait' or 'landscape'.
 
 #### options.paperBorder
 Type: `String`  
@@ -72,13 +78,13 @@ Supported dimension units are: 'mm', 'cm', 'in', 'px'
 Type: `String`  
 Default value: `runnings.js`
 
-Path to CommonJS module which sets the page header and footer (see [runnings.js](lib/runnings.js))
+Path to CommonJS module which sets the page header and footer (see [runnings.js](runnings.js)).
 
 #### options.renderDelay
 Type: `Number`  
 Default value: Time until [`page.onLoadFinished`](http://phantomjs.org/api/webpage/handler/on-load-finished.html) event fired
 
-Delay in millis before rendering the PDF
+Delay (in ms) before the PDF is rendered.
 
 #### options.loadTimeout
 Type: `Number`  
