@@ -1,6 +1,6 @@
 {
   "name": "markdown-pdf",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Markdown to PDF converter",
   "main": "lib/markdown-pdf.js",
   "scripts": {
