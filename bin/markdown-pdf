@@ -36,6 +36,6 @@ var opts = {
   , loadTimeout: program.loadTimeout
 }
 
-markdownpdf(opts).from(program.args[0]).to(program.out, function (er) {
+markdownpdf(opts).concat.from(program.args).to(program.out, function (er) {
   if (er) throw er
 })
