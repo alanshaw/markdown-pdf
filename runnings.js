@@ -3,7 +3,7 @@ exports.header = null
 exports.footer = null
 
 /**
- * header and footer might be of format specified in https://github.com/ariya/phantomjs/wiki/API-Reference-WebPage#wiki-webpage-paperSize
+ * header and footer might be of format specified in http://phantomjs.org/api/webpage/property/paper-size.html
  * 
  * Example:
  *  {
