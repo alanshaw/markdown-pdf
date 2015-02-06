@@ -48,6 +48,6 @@
     "node": "~0.10.0"
   },
   "bin": {
-    "markdown-pdf": "bin/markdown-pdf"
+    "html5-to-pdf": "bin/html5-to-pdf"
   }
 }
