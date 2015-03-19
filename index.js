@@ -25,6 +25,8 @@ function markdownpdf (opts) {
   opts.loadTimeout = opts.loadTimeout == null ? 10000 : opts.loadTimeout
   opts.preProcessMd = opts.preProcessMd || function () { return through() }
   opts.preProcessHtml = opts.preProcessHtml || function () { return through() }
+  opts.remarkable = opts.remarkable || {}
+  opts.remarkable.plugins = opts.remarkable.plugins || []
 
   var md = ""
 
@@ -51,6 +53,13 @@ function markdownpdf (opts) {
           return ""
         }
       }, opts.remarkable))
+
+      opts.remarkable.plugins.forEach(function(plugin)
+      {
+        if (plugin && typeof(plugin) == 'function') {
+          mdParser.use(plugin)
+        } 
+      })
 
       self.push(mdParser.render(md))
       self.push(null)
