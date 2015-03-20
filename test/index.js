@@ -147,3 +147,29 @@ test("should write to multiple paths when converting multiple files", function (
     })
   })
 })
+
+
+test("should initialize remarkable plugins", function(t) {
+  t.plan(2)
+
+  var pluginInit = false;
+
+  var remarkableOpts = {
+    plugins : [
+      // should skip non-functions
+      undefined, 
+      "test",
+      function(md, opts) {
+        pluginInit = true;
+      }
+    ]
+  }
+
+  markdownpdf({remarkable: remarkableOpts}).from(__dirname + "/fixtures/ipsum.md").to.string(function (er, pdfStr) {
+    t.ifError(er)
+
+    t.assert(pluginInit, "check plugin init")
+    t.end()
+  })
+
+})
