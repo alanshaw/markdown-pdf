@@ -104,6 +104,18 @@ Default value: `function () { return through() }`
 
 A function that returns a [through2 stream](https://npmjs.org/package/through2) that transforms the HTML before it is converted to PDF.
 
+#### options.remarkable
+Type: `object`
+Default value: `{}`
+
+A config object that is passed to [remarkable](https://www.npmjs.com/package/remarkable#options), the underlying markdown parser.
+
+##### options.remarkable.plugins
+Type: `Array` of remarkable-plugin `Function`s
+Default value: `[]`
+
+An array of Remarkable plugin functions, that extend the markdown parser functionality.
+
 API
 ---
 
@@ -199,6 +211,26 @@ function preProcessMd () {
 }
 
 markdownpdf({preProcessMd: preProcessMd})
+  .from("/path/to/document.md")
+  .to("/path/to/document.pdf", function () { console.log("Done") })
+```
+
+### Remarkable options and plugins
+
+Example using [remarkable-classy](https://www.npmjs.com/package/remarkable-classy) plugin:
+
+```javascript
+var markdownpdf = require("markdown-pdf")
+
+var options = { 
+    remarkable: {
+        html: true,
+        breaks: true,
+        plugins: [ require('remarkable-classy') ]
+    }
+}
+
+markdownpdf(options)
   .from("/path/to/document.md")
   .to("/path/to/document.pdf", function () { console.log("Done") })
 ```
