@@ -105,13 +105,13 @@ Default value: `function () { return through() }`
 A function that returns a [through2 stream](https://npmjs.org/package/through2) that transforms the HTML before it is converted to PDF.
 
 #### options.remarkable
-Type: `object`
+Type: `object`  
 Default value: `{}`
 
 A config object that is passed to [remarkable](https://www.npmjs.com/package/remarkable#options), the underlying markdown parser.
 
 ##### options.remarkable.plugins
-Type: `Array` of remarkable-plugin `Function`s
+Type: `Array` of remarkable-plugin `Function`s  
 Default value: `[]`
 
 An array of Remarkable plugin functions, that extend the markdown parser functionality.
