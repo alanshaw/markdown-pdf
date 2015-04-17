@@ -11,6 +11,7 @@ program.version(require('../package.json').version)
   .option('-h, --runnings-path [path]', "Path to runnings (header, footer)")
   .option('-s, --css-path [path]', "Path to custom CSS file")
   .option('-z, --highlight-css-path [path]', "Path to custom highlight-CSS file")
+  .option('-m, --remarkable-options [json-options]', "Options to pass to remarkable")
   .option('-f, --paper-format [format]', "'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'")
   .option('-r, --paper-orientation [orientation]', "'portrait' or 'landscape'")
   .option('-b, --paper-border [measurement]', "Supported dimension units are: 'mm', 'cm', 'in', 'px'")
@@ -29,6 +30,7 @@ var opts = {
   , runningsPath: program.runningsPath
   , cssPath: program.cssPath
   , highlightCssPath: program.highlightCssPath
+  , remarkable: program.remarkableOptions ? JSON.parse(program.remarkableOptions) : undefined
   , paperFormat: program.paperFormat
   , paperOrientation: program.paperOrientation
   , paperBorder: program.paperBorder
