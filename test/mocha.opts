@@ -1,0 +1,4 @@
+--recursive
+--compilers coffee:coffee-script
+--require coffee-script/register
+--require test/test_helper.coffee
