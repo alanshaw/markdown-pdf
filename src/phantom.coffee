@@ -1,5 +1,4 @@
 _         = require 'lodash'
-
 class Phantom
   constructor: (dependencies={}) ->
     @page = dependencies.page || require 'webpage'

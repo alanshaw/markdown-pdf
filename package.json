@@ -28,8 +28,11 @@
   "dependencies": {
     "commander": "^2.8.1",
     "debug": "^2.2.0",
+    "duplexer": "^0.1.1",
+    "extend": "^3.0.0",
     "lodash": "^3.9.3",
     "phantomjs": "^1.9.17",
+    "stream-from-to": "^1.4.2",
     "through": "^2.3.7",
     "tmp": "0.0.26",
     "webpage": "^0.3.0"

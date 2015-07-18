@@ -1,11 +1,13 @@
 debug = require('debug')('html5-to-pdf:spawner')
 
 class Spawner
-  constructor: (@file, @args={}, dependencies={})->
+  constructor: (@args={}, dependencies={})->
     @childProcess = dependencies.childProcess ? require 'child_process'
 
   start: (callback=->) =>
-    @childProcess.execFile @file, @args, (error, stdout, stderr) =>
+    path = @args.phantomPath
+    delete @args.phantomPath
+    @childProcess.execFile path, [JSON.stringify(@args)], (error, stdout, stderr) =>
       return callback error if error?
       debug 'stdout', stdout
       debug 'stderr', stderr
