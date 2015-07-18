@@ -27,6 +27,7 @@
   ],
   "dependencies": {
     "commander": "^2.8.1",
+    "debug": "^2.2.0",
     "lodash": "^3.9.3",
     "phantomjs": "^1.9.17",
     "through": "^2.3.7",

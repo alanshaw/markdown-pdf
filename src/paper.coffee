@@ -11,6 +11,7 @@ class Paper
       renderDelay: 500
       template: 'html5bp'
 
-    @options = _.extend {}, defaults, options
+    keys = ['paperFormat', 'paperOrientation', 'paperBorder', 'renderDelay', 'template']
+    @options = _.pick _.defaults(options, defaults), keys
 
 module.exports = Paper
