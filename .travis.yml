@@ -1,14 +1,11 @@
 language: node_js
 node_js:
-- '0.12'
-- '0.11'
 - '0.10'
 deploy:
   provider: npm
   email: peter@superlativecode.com
   api_key:
-    secure: wfIX8aoBW0812mof/y8nEWeaYpg6CWoeKgR7NfgcSEBUc0Srxn1Lk8aQ5/gV0A7DobwBy5NLdaC2XtZ9TSmJLtBU+dH5F5JrZoRGtNLtT9v8KMj/DgHvb7KD+OQjaknH5NQrSDAhNoaswWilazdh2BtSPs0ybNSQy405XnasrAc=
+    secure: S0zJcZ/nSp01b4VMPxQSLtKbmPSOFMq62F+a67MIJKT1nLdKACJGWZfsZBsQqf0TsUNRUqxIgCeOHwdC3veTHCl95rA7CeBQdu6RPJbX3Ms3k5Jvc2eMVzTkzLe708JXn9UkBUJ740JBv93pdwTQ5Z8SRBzC/RENbEnLZi14YPg=
   on:
     tags: true
-    branch: master
     repo: peterdemartini/html5-to-pdf
