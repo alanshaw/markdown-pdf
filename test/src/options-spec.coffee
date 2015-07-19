@@ -8,10 +8,10 @@ describe 'Options', ->
   it 'should of type Options', ->
     expect(@sut).to.be.an.instanceOf Options
 
-  describe '->set', ->
+  describe '->setAll', ->
     describe 'when called with nothing', ->
       beforeEach ->
-        @sut.set()
+        @sut.setAll()
 
       it 'should set the default options', ->
         expect(JSON.stringify(@sut.options)).to.deep.equal(
@@ -23,14 +23,16 @@ describe 'Options', ->
             template: 'html5bp'
             phantomPath: require('phantomjs').path
             runningsPath: path.resolve __dirname + '/../../src/runnings.js'
-            cssPath: path.resolve __dirname +  '/../../pdf.css'
-            highlightCssPath: path.resolve __dirname +  '/../../highlight.css'
+            cssPath: path.resolve __dirname +  '/../../templates/pdf.css'
+            highlightCssPath: path.resolve __dirname +  '/../../templates/highlight.css'
+            inputPath: ''
+            outputPath: ''
           })
         )
 
     describe 'when called with something', ->
       beforeEach ->
-        @sut.set
+        @sut.setAll
           paperFormat: 'A5'
           paperOrientation: 'landscape'
           paperBorder: '2cm'
@@ -46,7 +48,9 @@ describe 'Options', ->
             template: 'html5bp'
             phantomPath: require('phantomjs').path
             runningsPath: path.resolve __dirname + '/../../src/runnings.js'
-            cssPath: path.resolve __dirname +  '/../../pdf.css'
-            highlightCssPath: path.resolve __dirname +  '/../../highlight.css'
+            cssPath: path.resolve __dirname +  '/../../templates/pdf.css'
+            highlightCssPath: path.resolve __dirname +  '/../../templates/highlight.css'
+            inputPath: ''
+            outputPath: ''
           })
         )

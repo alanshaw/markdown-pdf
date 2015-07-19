@@ -3,3 +3,4 @@
 node_modules
 lib-cov
 coverage.html
+test/test.pdf

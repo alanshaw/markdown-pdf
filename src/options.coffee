@@ -1,23 +1,32 @@
 _       = require 'lodash'
 path    = require 'path'
 through = require 'through'
+phantom = require 'phantomjs'
 
 class Options
-  constructor: () ->
-
-  get: => @options
-
-  set: (options={}) =>
+  constructor: () -> @setAll()
+  set: (key, value) => @options[key] = value
+  get: (key) => @options[key]
+  getAll: => @options
+  getPaper: =>
+    object =
+      format: @options.paperFormat
+      orientation: @options.paperOrientation
+      margin: @options.paperBorder
+    object
+  setAll: (options={}) =>
     defaults =
       paperFormat: 'A4'
       paperOrientation: 'portrait'
       paperBorder: '1cm'
       renderDelay: 500
       template: 'html5bp'
-      phantomPath: require('phantomjs').path
+      phantomPath: phantom.path
       runningsPath: "runnings.js"
-      cssPath: '../pdf.css'
-      highlightCssPath: '../highlight.css'
+      cssPath: '../templates/pdf.css'
+      highlightCssPath: '../templates/highlight.css'
+      inputPath: ''
+      outputPath: ''
       preProcessHtml: -> through()
 
     @options = _.defaults(options, defaults)

@@ -1,2 +1,2 @@
 Stream =  require './src/stream'
-module.exports = new Stream({})
+module.exports = (options={}) -> new Stream(options).create()
