@@ -1,12 +1,11 @@
 {
   "name": "html5-to-pdf",
-  "version": "0.3.1",
+  "version": "1.0.0",
   "description": "HTML5 to PDF converter",
   "main": "index.js",
   "scripts": {
     "test": "mocha",
-    "coveralls": "jscoverage lib && HTML5TOPDF_COV=1 mocha -R mocha-lcov-reporter | coveralls",
-    "coverage": "HTML5TOPDF_COV=1 mocha -R html-cov > coverage.html"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -28,26 +27,28 @@
     }
   ],
   "dependencies": {
-    "phantomjs": "^1.9.11",
-    "tmp": "^0.0.18",
-    "commander": "^2.2.0",
-    "through": "^2.3.4",
-    "extend": "^2.0.0",
+    "commander": "^2.8.1",
+    "coffee-script": "^1.9.3",
+    "debug": "^2.2.0",
     "duplexer": "^0.1.1",
-    "stream-from-to": "^1.4.0",
-    "pygmentize-bundled": "^2.2.0"
+    "extend": "^3.0.0",
+    "lodash": "^3.9.3",
+    "phantom": "^0.7.2",
+    "phantomjs": "^1.9.17",
+    "stream-from-to": "^1.4.2",
+    "through": "^2.3.7",
+    "tmp": "0.0.26"
   },
   "devDependencies": {
-    "mocha": "^2.0.1",
-    "mocha-lcov-reporter": "^0.0.1",
-    "coveralls": "^2.10.0",
-    "jscoverage": "^0.5.3",
-    "pdf-text": "^0.4.0"
+    "chai": "^3.0.0",
+    "mocha": "^2.2.5",
+    "sinon": "^1.15.4",
+    "sinon-chai": "^2.8.0"
   },
   "engines": {
     "node": "~0.10.0"
   },
   "bin": {
-    "html5-to-pdf": "bin/html5-to-pdf"
+    "html5-to-pdf": "./html5-to-pdf.js"
   }
 }

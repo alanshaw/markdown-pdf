@@ -1,5 +1,14 @@
 language: node_js
 node_js:
-  - "0.10"
-after_script:
-  - npm run-script coveralls
+- '0.12'
+- '0.11'
+- '0.10'
+deploy:
+  provider: npm
+  email: peter@superlativecode.com
+  api_key:
+    secure: wfIX8aoBW0812mof/y8nEWeaYpg6CWoeKgR7NfgcSEBUc0Srxn1Lk8aQ5/gV0A7DobwBy5NLdaC2XtZ9TSmJLtBU+dH5F5JrZoRGtNLtT9v8KMj/DgHvb7KD+OQjaknH5NQrSDAhNoaswWilazdh2BtSPs0ybNSQy405XnasrAc=
+  on:
+    tags: true
+    branch: master
+    repo: peterdemartini/html5-to-pdf
