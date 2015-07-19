@@ -1,30 +1,32 @@
 [![Build Status](https://travis-ci.org/peterdemartini/html5-to-pdf.svg?branch=master)](https://travis-ci.org/peterdemartini/html5-to-pdf)
 
-Node module that converts HTML files to PDFs. Built on [markdown-pdf](https://www.npmjs.org/package/markdown-pdf) by alanshaw.
+Node module that converts HTML files to PDFs.
 
 The PDF looks great because it is styled by HTML5 Boilerplate or Bootstrap. What? - Yes! HTML is pushed into the HTML5 template `index.html`. Phantomjs renders the page and saves it to a PDF. You can even customize the style of the PDF by passing an optional path to your CSS _and_ you can pre-process your html file before it is converted to a PDF by passing in a pre-processing function, for creating templates.
 
 Getting started
----
+---------------
 
-    npm install html5-to-pdf
+```sh
+npm install html5-to-pdf
+```
 
 Example  usage
----
+--------------
 
 ```javascript
-var html5pdf = require("html5-to-pdf")
-  , fs = require("fs")
+var html5pdf = require("html5-to-pdf");
+var fs = require("fs");
 
 fs.createReadStream("/path/to/document.html")
   .pipe(html5pdf())
-  .pipe(fs.createWriteStream("/path/to/document.pdf"))
+  .pipe(fs.createWriteStream("/path/to/document.pdf"));
 
 // --- OR ---
 
 html5pdf().from("/path/to/document.html").to("/path/to/document.pdf", function () {
   console.log("Done")
-})
+});
 ```
 
 ### Options
@@ -39,13 +41,13 @@ Path to phantom binary
 
 #### options.cssPath
 Type: `String`
-Default value: `[module path]/markdown-pdf/pdf.css`
+Default value: `[module path]/html5-to-pdf/templates/pdf.css`
 
 Path to custom CSS file, relative to the current directory
 
 #### options.highlightCssPath
 Type: `String`
-Default value: `[module path]/markdown-pdf/highlight.css`
+Default value: `[module path]/html5-to-pdf/templates/highlight.css`
 
 Path to custom highlight CSS file (for code highlighting), relative to the current directory
 
@@ -67,17 +69,11 @@ Default value: `1cm`
 
 Supported dimension units are: 'mm', 'cm', 'in', 'px'
 
-#### options.runningsPath
-Type: `String`
-Default value: `runnings.js`
-
-Path to CommonJS module which sets the page header and footer (see [runnings.js](lib/runnings.js))
-
 #### options.renderDelay
 Type: `Number`
-Default value: `1000`
+Default value: `500`
 
-Delay in millis before rendering the PDF (give HTML and CSS a chance to load)
+Delay in milli-seconds before rendering the PDF (give HTML and CSS a chance to load)
 
 #### options.template
 Type: `String`
@@ -209,8 +205,6 @@ Usage: html5-to-pdf [options] <html-file-path>
 Options:
 
   -h, --help                             output usage information
-  -V, --version                          output the version number
-  <html-file-path>                       Path of the html file to convert
   -p, --phantom-path [path]              Path to phantom binary
   -h, --runnings-path [path]             Path to runnings (header, footer)
   -s, --css-path [path]                  Path to custom CSS file
@@ -218,6 +212,8 @@ Options:
   -f, --paper-format [format]            'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'
   -r, --paper-orientation [orientation]  'portrait' or 'landscape'
   -b, --paper-border [measurement]       Supported dimension units are: 'mm', 'cm', 'in', 'px'
+  -d, --template [html5bp]               The template to use. Either 'html5bp' or 'htmlbootstrap'
   -d, --render-delay [millis]            Delay before rendering the PDF (give HTML and CSS a chance to load)
-  -o, --out [path]                       Path of where to save the PDF
+  -o, --output-path [path]               Path of where to save the PDF
+  <html-file-path>                       Path of the html file to convert
 ```

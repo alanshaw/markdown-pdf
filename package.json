@@ -28,6 +28,7 @@
   ],
   "dependencies": {
     "commander": "^2.8.1",
+    "coffee-script": "^1.9.3",
     "debug": "^2.2.0",
     "duplexer": "^0.1.1",
     "extend": "^3.0.0",
@@ -35,14 +36,11 @@
     "phantom": "^0.7.2",
     "phantomjs": "^1.9.17",
     "stream-from-to": "^1.4.2",
-    "system": "^1.0.4",
     "through": "^2.3.7",
-    "tmp": "0.0.26",
-    "webpage": "^0.3.0"
+    "tmp": "0.0.26"
   },
   "devDependencies": {
     "chai": "^3.0.0",
-    "coffee-script": "^1.9.3",
     "mocha": "^2.2.5",
     "sinon": "^1.15.4",
     "sinon-chai": "^2.8.0"
@@ -51,6 +49,6 @@
     "node": "~0.10.0"
   },
   "bin": {
-    "html5-to-pdf": "bin/html5-to-pdf"
+    "html5-to-pdf": "./html5-to-pdf.js"
   }
 }
