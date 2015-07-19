@@ -5,7 +5,7 @@ deploy:
   provider: npm
   email: peter@superlativecode.com
   api_key:
-    secure: vVScZhAKkMAFxAYDXgMKUGuoEtCN4ApiWiOTsrorw6rNyTnRVC4fUKCKNR80yd4wwH3aGBaz4Z2eYw6RI5V9crCUO8MqFo0e2KIfwwqx6mIGbf25Zu/rRjMFJEbQfhPRNxdUWLtDttIQ6JMse9P9jUzhLA142vKBjPxOjarEgb4=
+    secure: Die5PT2hkthnpqc2SA/udeM16h7eUe92KIYqglDTWIryTK6VDXs9peT4SyYtdCYZ+Ft8FU/Yq/kCFpHBbOCWflNiCl5BvkoYCEF3MaDkHhSJwfxePq+xntGWwNlCms3qVEOVRmCzvRWvQg/gsFDm7XWa0Qalx0ldS2fIW6Ktzps=
   on:
     tags: true
     repo: peterdemartini/html5-to-pdf
