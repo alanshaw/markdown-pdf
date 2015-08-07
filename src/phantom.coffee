@@ -11,7 +11,9 @@ class Phantom
     @setRenderdelay @options.get 'renderDelay'
     @setOutputPath @options.get 'outputPath'
     @setInputPath @options.get 'inputPath'
+    @setRunningsPath @options.get 'runningsPath'
 
+  setRunningsPath: (@runningsPath='') =>
   setTemplatePath: (template='') =>
     @templatePath = path.resolve "#{__dirname}/../templates/#{template}/index.html"
   setCssPaths: (@cssPaths=[]) =>
