@@ -14,6 +14,7 @@ class Options
       orientation: @options.paperOrientation
       margin: @options.paperBorder
     object
+
   setAll: (options={}) =>
     defaults =
       paperFormat: 'A4'
@@ -22,22 +23,19 @@ class Options
       renderDelay: 500
       template: 'html5bp'
       phantomPath: phantom.path
-      runningsPath: "runnings.js"
-      cssPath: '../templates/pdf.css'
-      highlightCssPath: '../templates/highlight.css'
+      runningsPath: "src/runnings.js"
+      cssPath: 'templates/pdf.css'
+      highlightCssPath: 'templates/highlight.css'
       inputPath: ''
       outputPath: ''
       preProcessHtml: -> through()
 
     @options = _.defaults(options, defaults)
     @options.runningsPath = @convertPath @options.runningsPath
-    @options.cssPath = @convertCWDPath @options.cssPath
-    @options.highlightCssPath = @convertCWDPath @options.highlightCssPath
+    @options.cssPath = @convertPath @options.cssPath
+    @options.highlightCssPath = @convertPath @options.highlightCssPath
 
   convertPath: (filePath) =>
-    path.resolve __dirname + '/' + filePath
-
-  convertCWDPath: (filePath) =>
-    path.resolve process.cwd(), __dirname + '/' + filePath
+    path.resolve process.cwd(), filePath
 
 module.exports = Options

@@ -1,4 +1,5 @@
 Options  = require '../../src/options'
+_        = require 'lodash'
 path     = require 'path'
 
 describe 'Options', ->
@@ -14,21 +15,19 @@ describe 'Options', ->
         @sut.setAll()
 
       it 'should set the default options', ->
-        expect(JSON.stringify(@sut.options)).to.deep.equal(
-          JSON.stringify({
-            paperFormat: 'A4'
-            paperOrientation: 'portrait'
-            paperBorder: '1cm'
-            renderDelay: 500
-            template: 'html5bp'
-            phantomPath: require('phantomjs').path
-            runningsPath: path.resolve __dirname + '/../../src/runnings.js'
-            cssPath: path.resolve __dirname +  '/../../templates/pdf.css'
-            highlightCssPath: path.resolve __dirname +  '/../../templates/highlight.css'
-            inputPath: ''
-            outputPath: ''
-          })
-        )
+        options = _.omit @sut.options, ['preProcessHtml']
+        expect(options).to.deep.equal
+          paperFormat: 'A4'
+          paperOrientation: 'portrait'
+          paperBorder: '1cm'
+          renderDelay: 500
+          template: 'html5bp'
+          phantomPath: require('phantomjs').path
+          runningsPath: path.resolve __dirname, '../../', 'src/runnings.js'
+          cssPath: path.resolve __dirname, '../../', 'templates/pdf.css'
+          highlightCssPath: path.resolve __dirname, '../../', 'templates/highlight.css'
+          inputPath: ''
+          outputPath: ''
 
     describe 'when called with something', ->
       beforeEach ->
@@ -39,18 +38,16 @@ describe 'Options', ->
           renderDelay: 5000
 
       it 'should set the default options', ->
-        expect(JSON.stringify(@sut.options)).to.deep.equal(
-          JSON.stringify({
-            paperFormat: 'A5'
-            paperOrientation: 'landscape'
-            paperBorder: '2cm'
-            renderDelay: 5000
-            template: 'html5bp'
-            phantomPath: require('phantomjs').path
-            runningsPath: path.resolve __dirname + '/../../src/runnings.js'
-            cssPath: path.resolve __dirname +  '/../../templates/pdf.css'
-            highlightCssPath: path.resolve __dirname +  '/../../templates/highlight.css'
-            inputPath: ''
-            outputPath: ''
-          })
-        )
+        options = _.omit @sut.options, ['preProcessHtml']
+        expect(options).to.deep.equal
+          paperFormat: 'A5'
+          paperOrientation: 'landscape'
+          paperBorder: '2cm'
+          renderDelay: 5000
+          template: 'html5bp'
+          phantomPath: require('phantomjs').path
+          runningsPath: path.resolve __dirname, '../../', 'src/runnings.js'
+          cssPath: path.resolve __dirname, '../../', 'templates/pdf.css'
+          highlightCssPath: path.resolve __dirname, '../../', 'templates/highlight.css'
+          inputPath: ''
+          outputPath: ''

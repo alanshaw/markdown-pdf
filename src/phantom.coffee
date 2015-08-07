@@ -69,7 +69,7 @@ class Phantom
       cssPaths.forEach (cssPath) =>
         css = document.createElement "link"
         css.rel = "stylesheet"
-        css.href = cssPath
+        css.href = "file://#{cssPath}"
         head.appendChild css
     , callback, @cssPaths
 
