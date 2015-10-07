@@ -23,6 +23,8 @@ class Options
       renderDelay: 500
       template: 'html5bp'
       phantomPath: phantom.path
+      phantomHost: "localhost"
+      phantomPort: 0
       runningsPath: "src/runnings.js"
       cssPath: 'templates/pdf.css'
       highlightCssPath: 'templates/highlight.css'

@@ -39,6 +39,18 @@ Default value: `Path provided by phantomjs module`
 
 Path to phantom binary
 
+#### options.phantomHost
+Type: `String`
+Default value: `localhost`
+
+Hostname to phantom
+
+#### options.phantomPort
+Type: `Number`
+Default value: `0`
+
+Port to phantom
+
 #### options.cssPath
 Type: `String`
 Default value: `[module path]/html5-to-pdf/templates/pdf.css`
