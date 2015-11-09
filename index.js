@@ -64,15 +64,15 @@ function markdownpdf (opts) {
 	  
 	  opts.remarkable.syntax.forEach(function(rule)
 	  {
-		if (rule === 'abbr') {
+		try {
 		  mdParser.core.ruler.enable([rule])
-		}
-		if (rule === 'footnote' || rule === 'deflist') {
+		} catch (er) {}
+		try {
 		  mdParser.block.ruler.enable([rule])
-		}
-		if (rule === 'footnote_inline' || rule === 'ins' || rule === 'mark' || rule === 'sub' || rule === 'sup') {
+		} catch (er) {}
+		try {
 		  mdParser.inline.ruler.enable([rule])
-		}
+		} catch (er) {}
 	  })
 	  
 
