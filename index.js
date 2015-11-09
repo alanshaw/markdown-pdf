@@ -27,6 +27,7 @@ function markdownpdf (opts) {
   opts.preProcessHtml = opts.preProcessHtml || function () { return through() }
   opts.remarkable = opts.remarkable || {}
   opts.remarkable.plugins = opts.remarkable.plugins || []
+  opts.remarkable.syntax = opts.remarkable.syntax || []
 
   var md = ""
 
@@ -60,6 +61,20 @@ function markdownpdf (opts) {
           mdParser.use(plugin)
         } 
       })
+	  
+	  opts.remarkable.syntax.forEach(function(rule)
+	  {
+		if (rule === 'abbr') {
+		  mdParser.core.ruler.enable([rule])
+		}
+		if (rule === 'footnote' || rule === 'deflist') {
+		  mdParser.block.ruler.enable([rule])
+		}
+		if (rule === 'footnote_inline' || rule === 'ins' || rule === 'mark' || rule === 'sub' || rule === 'sup') {
+		  mdParser.inline.ruler.enable([rule])
+		}
+	  })
+	  
 
       self.push(mdParser.render(md))
       self.push(null)
