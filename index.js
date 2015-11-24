@@ -26,6 +26,7 @@ function markdownpdf (opts) {
   opts.preProcessMd = opts.preProcessMd || function () { return through() }
   opts.preProcessHtml = opts.preProcessHtml || function () { return through() }
   opts.remarkable = opts.remarkable || {}
+  opts.remarkable.preset = opts.remarkable.preset || 'default'
   opts.remarkable.plugins = opts.remarkable.plugins || []
 
   var md = ""
@@ -38,7 +39,7 @@ function markdownpdf (opts) {
     function flush (cb) {
       var self = this
 
-      var mdParser = new Remarkable(extend({
+      var mdParser = new Remarkable(opts.remarkable.preset, extend({
         highlight: function (str, lang) {
           if (lang && hljs.getLanguage(lang)) {
             try {

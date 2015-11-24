@@ -110,6 +110,14 @@ Default value: `{}`
 
 A config object that is passed to [remarkable](https://www.npmjs.com/package/remarkable#options), the underlying markdown parser.
 
+##### options.remarkable.preset
+Type: `String`
+Default value: `default`
+
+Use remarkable [presets](https://www.npmjs.com/package/remarkable#presets) as a convenience to quickly enable/disable active syntax rules and options for common use cases. 
+
+Supported values are `default`, `commonmark` and `full`
+
 ##### options.remarkable.plugins
 Type: `Array` of remarkable-plugin `Function`s  
 Default value: `[]`

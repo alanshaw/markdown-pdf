@@ -4,6 +4,7 @@ var fs = require("fs")
   , tmp = require("tmp")
   , through = require("through2")
   , pdfText = require("pdf-text")
+  , extend = require("extend")
 
 tmp.setGracefulCleanup()
 
@@ -148,6 +149,30 @@ test("should write to multiple paths when converting multiple files", function (
   })
 })
 
+test("should accept remarkable preset", function(t) {
+  t.plan(2)
+
+  var html = ""
+  var opts = {
+    remarkable: {preset: 'full'},
+    preProcessHtml: function () {
+      return through(
+        function transform (chunk, enc, cb) { html += chunk; cb(); },
+        function flush (cb) {
+          htmlSupTagFound = (html.indexOf("<sup>st</sup>") > -1);
+          t.ok(htmlSupTagFound, "html <sup> tag not found for preset 'full'")
+          cb();
+        }
+      )
+    }
+  }
+
+  // Preset 'full' - expecting <sup>-tag in html
+  markdownpdf(opts).from.string("1^st^ of January").to.string(function (er, pdfStr) {
+    t.ifError(er)
+    t.end()
+  })
+})
 
 test("should initialize remarkable plugins", function(t) {
   t.plan(2)
