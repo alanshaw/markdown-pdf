@@ -28,19 +28,19 @@
   "dependencies": {
     "commander": "^2.2.0",
     "duplexer": "^0.1.1",
-    "extend": "^2.0.0",
+    "extend": "^3.0.0",
     "highlight.js": "^8.4.0",
     "phantomjs": "^1.9.13",
     "remarkable": "^1.6.0",
     "stream-from-to": "^1.4.2",
-    "through2": "^0.6.3",
-    "tmp": "0.0.24"
+    "through2": "^2.0.0",
+    "tmp": "0.0.28"
   },
   "devDependencies": {
     "coveralls": "^2.10.0",
-    "istanbul": "^0.3.5",
+    "istanbul": "^0.4.0",
     "pdf-text": "^0.4.0",
-    "tape": "^3.0.3"
+    "tape": "^4.2.2"
   },
   "engines": {
     "node": "~0.10.0"
