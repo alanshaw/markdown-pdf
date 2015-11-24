@@ -4,7 +4,6 @@ var fs = require("fs")
   , tmp = require("tmp")
   , through = require("through2")
   , pdfText = require("pdf-text")
-  , extend = require("extend")
 
 tmp.setGracefulCleanup()
 
