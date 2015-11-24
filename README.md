@@ -124,6 +124,12 @@ Default value: `[]`
 
 An array of Remarkable plugin functions, that extend the markdown parser functionality.
 
+##### options.remarkable.syntax
+Type: `Array` of optional remarkable syntax `Strings`s  
+Default value: `[]`
+
+An array of [optional Remarkable syntax extensions](https://github.com/jonschlinkert/remarkable#syntax-extensions), disabled by default, that extend the markdown parser functionality.
+
 API
 ---
 
@@ -234,7 +240,8 @@ var options = {
     remarkable: {
         html: true,
         breaks: true,
-        plugins: [ require('remarkable-classy') ]
+        plugins: [ require('remarkable-classy') ],
+		syntax: [ 'footnote', 'sup', 'sub' ]
     }
 }
 

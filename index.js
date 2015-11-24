@@ -28,6 +28,7 @@ function markdownpdf (opts) {
   opts.remarkable = opts.remarkable || {}
   opts.remarkable.preset = opts.remarkable.preset || 'default'
   opts.remarkable.plugins = opts.remarkable.plugins || []
+  opts.remarkable.syntax = opts.remarkable.syntax || []
 
   var md = ""
 
@@ -61,6 +62,20 @@ function markdownpdf (opts) {
           mdParser.use(plugin)
         } 
       })
+	  
+	  opts.remarkable.syntax.forEach(function(rule)
+	  {
+		try {
+		  mdParser.core.ruler.enable([rule])
+		} catch (er) {}
+		try {
+		  mdParser.block.ruler.enable([rule])
+		} catch (er) {}
+		try {
+		  mdParser.inline.ruler.enable([rule])
+		} catch (er) {}
+	  })
+	  
 
       self.push(mdParser.render(md))
       self.push(null)
