@@ -65,7 +65,7 @@ class Phantom
       binary: binary
       hostname: hostname
       port: port
-      # dnodeOpts: weak: false
+      dnodeOpts: weak: false
     @phantom.create createPhantom,
 
   addThingsToPage: (callback=->)=>
