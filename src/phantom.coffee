@@ -60,7 +60,13 @@ class Phantom
     port = @options.get 'phantomPort'
     hostname = @options.get 'phantomHost'
     debug 'phantom path', binPath
-    @phantom.create createPhantom, path: binPath, binary: binary, hostname: hostname, port: port
+    phantomOptions =
+      path: binPath
+      binary: binary
+      hostname: hostname
+      port: port
+      # dnodeOpts: weak: false
+    @phantom.create createPhantom,
 
   addThingsToPage: (callback=->)=>
     @addCSSLinksToPage =>

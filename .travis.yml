@@ -1,6 +1,10 @@
 language: node_js
 node_js:
 - '5'
+addons:
+  apt:
+    packages:
+      - build-essential
 deploy:
   provider: npm
   email: peter@superlativecode.com
