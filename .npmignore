@@ -4,3 +4,5 @@
 *.iml
 dist
 *.log
+node_modules
+test/test.pdf
