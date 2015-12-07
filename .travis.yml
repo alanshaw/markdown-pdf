@@ -1,6 +1,8 @@
 language: node_js
 node_js:
-- '5'
+- '0.10'
+before_install:
+  - npm install npm -g
 deploy:
   provider: npm
   email: peter@superlativecode.com
