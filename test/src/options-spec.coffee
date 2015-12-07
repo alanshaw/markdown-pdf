@@ -23,7 +23,7 @@ describe 'Options', ->
           renderDelay: 500
           template: 'html5bp'
           phantomPath: require('phantomjs').path
-          phantomHost: 'locahost'
+          phantomHost: 'localhost'
           phantomPort: 0
           runningsPath: path.resolve __dirname, '../../', 'src/runnings.js'
           cssPath: path.resolve __dirname, '../../', 'templates/pdf.css'
@@ -47,6 +47,8 @@ describe 'Options', ->
           paperBorder: '2cm'
           renderDelay: 5000
           template: 'html5bp'
+          phantomHost: 'localhost'
+          phantomPort: 0
           phantomPath: require('phantomjs').path
           runningsPath: path.resolve __dirname, '../../', 'src/runnings.js'
           cssPath: path.resolve __dirname, '../../', 'templates/pdf.css'
