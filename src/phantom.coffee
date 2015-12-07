@@ -57,8 +57,10 @@ class Phantom
 
     binary = @options.get 'phantomPath'
     binPath = path.dirname binary
+    port = @options.get 'phantomPort'
+    hostname = @options.get 'phantomHost'
     debug 'phantom path', binPath
-    @phantom.create createPhantom, path: binPath, binary: binary
+    @phantom.create createPhantom, path: binPath, binary: binary, hostname: hostname, port: port
 
   addThingsToPage: (callback=->)=>
     @addCSSLinksToPage =>

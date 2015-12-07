@@ -23,6 +23,8 @@ describe 'Options', ->
           renderDelay: 500
           template: 'html5bp'
           phantomPath: require('phantomjs').path
+          phantomHost: 'locahost'
+          phantomPort: 0
           runningsPath: path.resolve __dirname, '../../', 'src/runnings.js'
           cssPath: path.resolve __dirname, '../../', 'templates/pdf.css'
           highlightCssPath: path.resolve __dirname, '../../', 'templates/highlight.css'
