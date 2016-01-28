@@ -70,7 +70,7 @@ Default value: `portrait`
 
 #### options.paperBorder
 Type: `String`  
-Default value: `1cm`
+Default value: `2cm`
 
 Supported dimension units are: 'mm', 'cm', 'in', 'px'
 
@@ -106,7 +106,7 @@ A function that returns a [through2 stream](https://npmjs.org/package/through2) 
 
 #### options.remarkable
 Type: `object`  
-Default value: `{}`
+Default value: `{ html: true, breaks: true }`
 
 A config object that is passed to [remarkable](https://www.npmjs.com/package/remarkable#options), the underlying markdown parser.
 
@@ -114,7 +114,7 @@ A config object that is passed to [remarkable](https://www.npmjs.com/package/rem
 Type: `String`
 Default value: `default`
 
-Use remarkable [presets](https://www.npmjs.com/package/remarkable#presets) as a convenience to quickly enable/disable active syntax rules and options for common use cases. 
+Use remarkable [presets](https://www.npmjs.com/package/remarkable#presets) as a convenience to quickly enable/disable active syntax rules and options for common use cases.
 
 Supported values are `default`, `commonmark` and `full`
 
@@ -236,7 +236,7 @@ Example using [remarkable-classy](https://www.npmjs.com/package/remarkable-class
 ```javascript
 var markdownpdf = require("markdown-pdf")
 
-var options = { 
+var options = {
     remarkable: {
         html: true,
         breaks: true,

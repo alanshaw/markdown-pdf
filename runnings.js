@@ -4,7 +4,7 @@ exports.footer = null
 
 /**
  * header and footer might be of format specified in http://phantomjs.org/api/webpage/property/paper-size.html
- * 
+ *
  * Example:
  *  {
  *    height: "1cm",

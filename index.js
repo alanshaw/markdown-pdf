@@ -1,36 +1,36 @@
-var fs = require("fs")
-  , path = require("path")
-  , childProcess = require("child_process")
-  , through = require("through2")
-  , extend = require("extend")
-  , Remarkable = require("remarkable")
-  , hljs = require("highlight.js")
-  , tmp = require("tmp")
-  , duplexer = require("duplexer")
-  , streamft = require("stream-from-to")
+var fs = require('fs')
+var path = require('path')
+var childProcess = require('child_process')
+var through = require('through2')
+var extend = require('extend')
+var Remarkable = require('remarkable')
+var hljs = require('highlight.js')
+var tmp = require('tmp')
+var duplexer = require('duplexer')
+var streamft = require('stream-from-to')
 
 tmp.setGracefulCleanup()
 
 function markdownpdf (opts) {
   opts = opts || {}
   opts.cwd = opts.cwd ? path.resolve(opts.cwd) : process.cwd()
-  opts.phantomPath = opts.phantomPath || require("phantomjs-prebuilt").path
-  opts.runningsPath = opts.runningsPath ? path.resolve(opts.runningsPath) : path.join(__dirname, "runnings.js")
-  opts.cssPath = opts.cssPath ? path.resolve(opts.cssPath) : path.join(__dirname, "css", "pdf.css")
-  opts.highlightCssPath = opts.highlightCssPath ? path.resolve(opts.highlightCssPath) : path.join(__dirname, "css", "highlight.css")
-  opts.paperFormat = opts.paperFormat || "A4"
-  opts.paperOrientation = opts.paperOrientation || "portrait"
-  opts.paperBorder = opts.paperBorder || "1cm"
+  opts.phantomPath = opts.phantomPath || require('phantomjs-prebuilt').path
+  opts.runningsPath = opts.runningsPath ? path.resolve(opts.runningsPath) : path.join(__dirname, 'runnings.js')
+  opts.cssPath = opts.cssPath ? path.resolve(opts.cssPath) : path.join(__dirname, 'css', 'pdf.css')
+  opts.highlightCssPath = opts.highlightCssPath ? path.resolve(opts.highlightCssPath) : path.join(__dirname, 'css', 'highlight.css')
+  opts.paperFormat = opts.paperFormat || 'A4'
+  opts.paperOrientation = opts.paperOrientation || 'portrait'
+  opts.paperBorder = opts.paperBorder || '2cm'
   opts.renderDelay = opts.renderDelay == null ? 0 : opts.renderDelay
   opts.loadTimeout = opts.loadTimeout == null ? 10000 : opts.loadTimeout
   opts.preProcessMd = opts.preProcessMd || function () { return through() }
   opts.preProcessHtml = opts.preProcessHtml || function () { return through() }
-  opts.remarkable = opts.remarkable || {}
+  opts.remarkable = extend({html: true, breaks: true}, opts.remarkable)
   opts.remarkable.preset = opts.remarkable.preset || 'default'
   opts.remarkable.plugins = opts.remarkable.plugins || []
   opts.remarkable.syntax = opts.remarkable.syntax || []
 
-  var md = ""
+  var md = ''
 
   var mdToHtml = through(
     function transform (chunk, enc, cb) {
@@ -45,37 +45,34 @@ function markdownpdf (opts) {
           if (lang && hljs.getLanguage(lang)) {
             try {
               return hljs.highlight(lang, str).value
-            } catch (er) {}
+            } catch (err) {}
           }
 
           try {
             return hljs.highlightAuto(str).value
-          } catch (er) {}
+          } catch (err) {}
 
-          return ""
+          return ''
         }
       }, opts.remarkable))
 
-      opts.remarkable.plugins.forEach(function(plugin)
-      {
-        if (plugin && typeof(plugin) == 'function') {
+      opts.remarkable.plugins.forEach(function (plugin) {
+        if (plugin && typeof plugin === 'function') {
           mdParser.use(plugin)
-        } 
+        }
       })
-	  
-	  opts.remarkable.syntax.forEach(function(rule)
-	  {
-		try {
-		  mdParser.core.ruler.enable([rule])
-		} catch (er) {}
-		try {
-		  mdParser.block.ruler.enable([rule])
-		} catch (er) {}
-		try {
-		  mdParser.inline.ruler.enable([rule])
-		} catch (er) {}
-	  })
-	  
+
+      opts.remarkable.syntax.forEach(function (rule) {
+        try {
+          mdParser.core.ruler.enable([rule])
+        } catch (err) {}
+        try {
+          mdParser.block.ruler.enable([rule])
+        } catch (err) {}
+        try {
+          mdParser.inline.ruler.enable([rule])
+        } catch (err) {}
+      })
 
       self.push(mdParser.render(md))
       self.push(null)
@@ -83,44 +80,44 @@ function markdownpdf (opts) {
   )
 
   var inputStream = through()
-    , outputStream = through()
+  var outputStream = through()
 
   // Stop input stream emitting data events until we're ready to read them
   inputStream.pause()
 
   // Create tmp file to save HTML for phantom to process
-  tmp.file({postfix: ".html"}, function (er, tmpHtmlPath, tmpHtmlFd) {
-    if (er) return outputStream.emit("error", er)
+  tmp.file({postfix: '.html'}, function (err, tmpHtmlPath, tmpHtmlFd) {
+    if (err) return outputStream.emit('error', err)
     fs.close(tmpHtmlFd)
 
     // Create tmp file to save PDF to
-    tmp.file({postfix: ".pdf"}, function (er, tmpPdfPath, tmpPdfFd) {
-      if (er) return outputStream.emit("error", er)
+    tmp.file({postfix: '.pdf'}, function (err, tmpPdfPath, tmpPdfFd) {
+      if (err) return outputStream.emit('error', err)
       fs.close(tmpPdfFd)
 
       var htmlToTmpHtmlFile = fs.createWriteStream(tmpHtmlPath)
 
-      htmlToTmpHtmlFile.on("finish", function () {
+      htmlToTmpHtmlFile.on('finish', function () {
         // Invoke phantom to generate the PDF
         var childArgs = [
-            path.join(__dirname, "phantom", "render.js")
-          , tmpHtmlPath
-          , tmpPdfPath
-          , opts.cwd
-          , opts.runningsPath
-          , opts.cssPath
-          , opts.highlightCssPath
-          , opts.paperFormat
-          , opts.paperOrientation
-          , opts.paperBorder
-          , opts.renderDelay
-          , opts.loadTimeout
+          path.join(__dirname, 'phantom', 'render.js'),
+          tmpHtmlPath,
+          tmpPdfPath,
+          opts.cwd,
+          opts.runningsPath,
+          opts.cssPath,
+          opts.highlightCssPath,
+          opts.paperFormat,
+          opts.paperOrientation,
+          opts.paperBorder,
+          opts.renderDelay,
+          opts.loadTimeout
         ]
 
-        childProcess.execFile(opts.phantomPath, childArgs, function (er, stdout, stderr) {
-          //if (stdout) console.log(stdout)
-          //if (stderr) console.error(stderr)
-          if (er) return outputStream.emit("error", er)
+        childProcess.execFile(opts.phantomPath, childArgs, function (err, stdout, stderr) {
+          // if (stdout) console.log(stdout)
+          // if (stderr) console.error(stderr)
+          if (err) return outputStream.emit('error', err)
           fs.createReadStream(tmpPdfPath).pipe(outputStream)
         })
       })

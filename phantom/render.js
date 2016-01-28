@@ -1,32 +1,32 @@
-var system = require("system")
-  , page = require("webpage").create()
-  , fs = require("fs")
-  , os = require("system").os
+var system = require('system')
+var page = require('webpage').create()
+var fs = require('fs')
+var os = require('system').os
 
 // Read in arguments
-var args = ["in", "out", "cwd", "runningsPath", "cssPath", "highlightCssPath", "paperFormat", "paperOrientation", "paperBorder", "renderDelay", "loadTimeout"].reduce(function (args, name, i) {
+var args = ['in', 'out', 'cwd', 'runningsPath', 'cssPath', 'highlightCssPath', 'paperFormat', 'paperOrientation', 'paperBorder', 'renderDelay', 'loadTimeout'].reduce(function (args, name, i) {
   args[name] = system.args[i + 1]
   return args
 }, {})
 
-var html5bpPath = page.libraryPath + "/../html5bp"
+var html5bpPath = page.libraryPath + '/../html5bp'
 
 // Resources don't load in windows with file protocol
-var protocol = os.name == "windows" ? "" : "file://"
+var protocol = os.name === 'windows' ? '' : 'file://'
 
-var html = fs.read(html5bpPath + "/index.html")
+var html = fs.read(html5bpPath + '/index.html')
   .replace(/\{\{baseUrl\}\}/g, protocol + html5bpPath)
-  .replace("{{content}}", fs.read(args.in))
+  .replace('{{content}}', fs.read(args.in))
 
-page.setContent(html, protocol + args.cwd + "/markdown-pdf.html")
+page.setContent(html, protocol + args.cwd + '/markdown-pdf.html')
 
 // Add custom CSS to the page
 page.evaluate(function (cssPaths) {
-  var head = document.querySelector("head")
+  var head = document.querySelector('head')
 
   cssPaths.forEach(function (cssPath) {
-    var css = document.createElement("link")
-    css.rel = "stylesheet"
+    var css = document.createElement('link')
+    css.rel = 'stylesheet'
     css.href = cssPath
 
     head.appendChild(css)
@@ -51,7 +51,7 @@ if (args.renderDelay) {
 function render () {
   page.render(args.out)
   page.close()
-  phantom.exit(0)
+  window.phantom.exit(0)
 }
 
 function paperSize (runningsPath, obj) {
@@ -59,19 +59,21 @@ function paperSize (runningsPath, obj) {
 
   // encapsulate .contents into phantom.callback()
   //   Why does phantomjs not support Array.prototype.forEach?!
-  var keys = ["header", "footer"]
+  var keys = ['header', 'footer']
+
   for (var i = 0; i < keys.length; i++) {
     var which = keys[i]
-    if (runnings[which]
-      && runnings[which].contents
-      && typeof runnings[which].contents === "function") {
+
+    if (runnings[which] && runnings[which].contents && typeof runnings[which].contents === 'function') {
       obj[which] = {
-        contents: phantom.callback(runnings[which].contents)
+        contents: window.phantom.callback(runnings[which].contents)
       }
-      if (runnings[which].height)
+
+      if (runnings[which].height) {
         obj[which].height = runnings[which].height
+      }
     }
   }
-  
+
   return obj
 }
