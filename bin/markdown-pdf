@@ -2,9 +2,9 @@
 
 var markdownpdf = require('../')
 var program = require('commander')
-var path = require('path');
-var fs = require('fs');
-var async = require('async');
+var path = require('path')
+var fs = require('fs')
+var async = require('async')
 
 program.version(require('../package.json').version)
   .usage('[options] <markdown-file-path> ...>')
@@ -23,7 +23,7 @@ program.version(require('../package.json').version)
   .option('-o, --out [path]', 'Directory to save output PDFs')
   .parse(process.argv)
 
-var inputFileNames = program.args;
+var inputFileNames = program.args
 
 if (inputFileNames.length === 0) program.help()
 

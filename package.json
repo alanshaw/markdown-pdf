@@ -4,7 +4,7 @@
   "description": "Markdown to PDF converter",
   "main": "index.js",
   "scripts": {
-    "test": "standard && istanbul cover node_modules/.bin/tape test/*.js",
+    "test": "standard && standard bin/markdown-pdf && istanbul cover node_modules/.bin/tape test/*.js",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
