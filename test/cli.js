@@ -46,7 +46,7 @@ test('CLI: --version emits correct version number', function (t) {
 test('CLI: compiles 1 file', function (t) {
   t.plan(5)
   tmp.dir({ unsafeCleanup: true }, function (er, tmpDir, cleanup) {
-    t.ifError(er)
+    t.ifError(er, 'tmp dir created')
 
     var content = '[test](http://example.com)'
     var inputFileName = 'test.md'
@@ -55,12 +55,12 @@ test('CLI: compiles 1 file', function (t) {
     var expectedOutputFile = path.join(tmpDir, expectedOutputFileName)
 
     fs.writeFile(inputFile, content, function (er) {
-      t.ifError(er)
+      t.ifError(er, 'wrote to ' + inputFile)
 
       execute([ inputFileName ], { cwd: tmpDir }, function (output) {
         t.equals(output, '')
         fs.stat(expectedOutputFile, function (er, stat) {
-          t.ifError(er)
+          t.ifError(er, expectedOutputFile + ' exists')
           t.ok(stat.size)
 
           cleanup()
@@ -73,7 +73,7 @@ test('CLI: compiles 1 file', function (t) {
 test('CLI: compiles 3 files', function (t) {
   t.plan(3)
   tmp.dir({ unsafeCleanup: true }, function (er, tmpDir, cleanup) {
-    t.ifError(er)
+    t.ifError(er, 'tmp dir created')
 
     var content = '[test](http://example.com)' // written to each test file
 
