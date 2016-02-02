@@ -28,6 +28,35 @@ test('generate a nonempty PDF from ipsum.md', function (t) {
   })
 })
 
+test('generate PDF with CSS from ipsum.md and style.css', function (t) {
+  t.plan(6)
+
+  tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath, tmpPdfFd) {
+    t.ifError(er)
+    fs.close(tmpPdfFd)
+
+    markdownpdf({
+      cssPath: __dirname + '/fixtures/style.css'
+    }).from(__dirname + '/fixtures/ipsum.md').to(tmpPdfPath, function (er) {
+      t.ifError(er)
+
+      // Read the file
+      fs.readFile(tmpPdfPath, {encoding: 'utf8'}, function (er, data) {
+        t.ifError(er)
+        // Test not empty
+        t.ok(data.length > 0)
+
+        pdfText(tmpPdfPath, function (er, chunks) {
+          t.ifError(er)
+
+          t.ok(/forty-two/.test(chunks.join('')), 'contains h1::after injected content')
+          t.end()
+        })
+      })
+    })
+  })
+})
+
 test('output should have a header and footer', function (t) {
   t.plan(7)
 
