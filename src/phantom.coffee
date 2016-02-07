@@ -66,7 +66,7 @@ class Phantom
       hostname: hostname
       port: port
       dnodeOpts: weak: false
-    @phantom.create createPhantom,
+    @phantom.create createPhantom, phantomOptions
 
   addThingsToPage: (callback=->)=>
     @addCSSLinksToPage =>

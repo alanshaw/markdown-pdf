@@ -1,10 +1,9 @@
-_  = require 'lodash'
 path = require 'path'
-debug = require('debug')('html5-to-pdf:stream')
 extend = require 'extend'
 Options = require './options'
 TmpFile = require './tmp-file'
 Runner = require './runner'
+debug = require('debug')('html5-to-pdf:stream')
 
 class Stream
   constructor: (options={}, dependencies={})->

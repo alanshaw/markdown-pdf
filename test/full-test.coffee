@@ -3,7 +3,7 @@ fs       = require 'fs'
 
 describe 'FullTest', ->
   beforeEach (done) ->
-
+    @timeout 5000
     html5pdf(renderDelay: 5)
       .from __dirname + '/full-test.html'
       .to __dirname + '/test.pdf', => done()
