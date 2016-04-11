@@ -25,6 +25,7 @@ page.evaluate(function (cssPaths) {
   var head = document.querySelector('head')
 
   cssPaths.forEach(function (cssPath) {
+    cssPath = 'file:///' + cssPath
     var css = document.createElement('link')
     css.rel = 'stylesheet'
     css.href = cssPath
