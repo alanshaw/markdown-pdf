@@ -50,6 +50,16 @@ Default value: `[module path]/markdown-pdf/css/pdf.css`
 
 Path to custom CSS file, relative to the current directory.
 
+For Github-like Styling, use '[module path]/markdown-pdf/css/pdf_ghm.css':
+
+```
+var options = {
+  cssPath: '[module path]/markdown-pdf/css/pdf_ghm.css'
+}
+
+markdownpdf(options)
+```
+
 #### options.highlightCssPath
 Type: `String`  
 Default value: `[module path]/markdown-pdf/css/highlight.css`
