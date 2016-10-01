@@ -60,13 +60,13 @@ An array of objects containing a type of ['css', 'js'] and a filePath pointing t
 
 **Example:**
 
-```json
+```javascript
 [
   {
     "type": "css",
     "filePath": "/path/to/asset.css"
   }
-  ...
+  // ...
 ]
 ```
 

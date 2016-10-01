@@ -6,6 +6,8 @@ node_js:
 - '4'
 - '5'
 - '6'
+matrix:
+  fast_finish: true
 before_script:
 - export DISPLAY=:99.0
 - sh -e /etc/init.d/xvfb start &
@@ -14,7 +16,7 @@ deploy:
   provider: npm
   email: peter@superlativecode.com
   api_key:
-    secure: Die5PT2hkthnpqc2SA/udeM16h7eUe92KIYqglDTWIryTK6VDXs9peT4SyYtdCYZ+Ft8FU/Yq/kCFpHBbOCWflNiCl5BvkoYCEF3MaDkHhSJwfxePq+xntGWwNlCms3qVEOVRmCzvRWvQg/gsFDm7XWa0Qalx0ldS2fIW6Ktzps=
+    secure: VNF2ar2dX87GOnMaP+PUOsB7dRt7eoOmOsA2F3ML1IIq92Mafxtub99B7On6IWemtUBMSXhml6uT1uYxJtuJrvonKxbdlNNfrBzIqCduJCKxnRLDECPGNkBjeXfIRMWv2ibhaK9yzz8tqybq8ave6kxdz1GROGONoXH1Hhwrcdo=
   on:
     tags: true
     repo: peterdemartini/html5-to-pdf
