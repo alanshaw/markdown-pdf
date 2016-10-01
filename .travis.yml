@@ -1,10 +1,17 @@
 language: node_js
 node_js:
-- '0.10'
-- '0.12'
 - '4'
 - '5'
 - '6'
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+    - g++-4.8
+    - g++-4.8-multilib
+    - gcc-multilib
+    - build-essential
 deploy:
   provider: npm
   email: peter@superlativecode.com

@@ -43,7 +43,7 @@ class Generator
     return callback null, @options.get('templateUrl') if @options.get('templateUrl')?
     app = express()
     app.use express.static(@options.get('templatePath'))
-    @_server = app.listen undefined, (error) =>
+    @_server = app.listen 0, (error) =>
       return callback error if error?
       enableDestroy @_server
       callback null, "http://localhost:#{@_server.address().port}"
