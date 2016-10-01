@@ -4,86 +4,102 @@ Node module that converts HTML files to PDFs.
 
 The PDF looks great because it is styled by HTML5 Boilerplate or Bootstrap. What? - Yes! HTML is pushed into the HTML5 template `index.html`. Phantomjs renders the page and saves it to a PDF. You can even customize the style of the PDF by passing an optional path to your CSS _and_ you can pre-process your html file before it is converted to a PDF by passing in a pre-processing function, for creating templates.
 
+# v2 (BREAKING CHANGES)
+
+* Uses [Nightmare](https://github.com/segmentio/nightmare) - an Electron based headless browser.
+* Simple API
+* No more streams
+
 Getting started
 ---------------
 
 ```sh
-npm install html5-to-pdf
+npm install --save html5-to-pdf
 ```
 
-Example  usage
+Example usage
 --------------
 
-```javascript
-var html5pdf = require("html5-to-pdf");
-var fs = require("fs");
+```coffee
+HTMLToPDF = require 'html5-to-pdf'
+htmlToPDF = new HTMLToPDF {
+  inputPath: './path/to/input.html',
+  outputPath: './path/to/output.pdf',
+}
 
-fs.createReadStream("/path/to/document.html")
-  .pipe(html5pdf())
-  .pipe(fs.createWriteStream("/path/to/document.pdf"));
-
-// --- OR ---
-
-html5pdf().from("/path/to/document.html").to("/path/to/document.pdf", function () {
-  console.log("Done")
-});
+htmlToPDF.build (error) =>
+  throw error if error?
+  # Done!
 ```
 
 ### Options
 
-Pass an options object (`html5pdf({/* options */})`) to configure the output.
+Options are passed into the constructor.
 
-#### options.phantomPath
+#### options.inputPath
 Type: `String`
-Default value: `Path provided by phantomjs module`
+Required: true
 
-Path to phantom binary
+Path to the input HTML
 
-#### options.phantomHost
+#### options.inputBody
+Type: `String` or `Buffer`
+
+Path to the input html as a `String`, or `Buffer`. If specified this will override inputPath.
+
+#### options.outputPath
 Type: `String`
-Default value: `localhost`
+Required: true
 
-Hostname to phantom
+Path to the output pdf file.
 
-#### options.phantomPort
-Type: `Number`
-Default value: `0`
+#### options.include
+Type: `Array<Object>`
 
-Port to phantom
+An array of objects containing a type of ['css', 'js'] and a filePath pointing to the asset.
 
-#### options.cssPath
-Type: `String`
-Default value: `[module path]/html5-to-pdf/templates/pdf.css`
+**Example:**
 
-Path to custom CSS file, relative to the current directory
+```json
+[
+  {
+    "type": "css",
+    "filePath": "/path/to/asset.css"
+  }
+  ...
+]
+```
 
-#### options.highlightCssPath
-Type: `String`
-Default value: `[module path]/html5-to-pdf/templates/highlight.css`
 
-Path to custom highlight CSS file (for code highlighting), relative to the current directory
-
-#### options.paperFormat
+#### options.options.pageSize
 Type: `String`
 Default value: `A4`
 
-'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'
+'A3', 'A4', 'Legal', 'Letter' or 'Tabloid'
 
-#### options.paperOrientation
-Type: `String`
-Default value: `portrait`
+#### options.options.landscape
+Type: `Boolean`
+Default value: `false`
 
-'portrait' or 'landscape'
+true for landscape, false for portait.
 
-#### options.paperBorder
-Type: `String`
-Default value: `1cm`
+#### options.options.marginsType
+Type: `Number`
+Default value: `0`
 
-Supported dimension units are: 'mm', 'cm', 'in', 'px'
+* 0 - default
+* 1 - none
+* 2 - minimum
+
+#### options.options.printBackground
+Type: `Boolean`
+Default value: `false`
+
+Whether to print CSS backgrounds.
 
 #### options.renderDelay
 Type: `Number`
-Default value: `500`
+Default value: `0`
 
 Delay in milli-seconds before rendering the PDF (give HTML and CSS a chance to load)
 
@@ -91,112 +107,18 @@ Delay in milli-seconds before rendering the PDF (give HTML and CSS a chance to l
 Type: `String`
 Default value: `html5bp`
 
-The template to use with phantomjs. You can choose between `html5bp` (HTML5 Boilerplate) or `htmlbootstrap` (Boostrap 3.1.1)
+The template to use when rendering the html. You can choose between `html5bp` (HTML5 Boilerplate) or `htmlbootstrap` (Boostrap 3.1.1)
 
-#### options.preProcessHtml
-Type: `Function`
-Default value: `function () { return through() }`
+#### options.templatePath
+Type: `String`
+Default value: the `html5-to-pdf/templates/#{options.template}`
 
-A function that returns a [through stream](https://npmjs.org/package/through) that transforms the HTML before it is converted to html.
+The template to use for rendering the html. If this is set, it will use this instead of the template path.
 
-API
----
+#### options.templateUrl
+Type: `String`
 
-### from.path(path, opts) / from(path, opts)
-
-Create a readable stream from `path` and pipe to html5-to-pdf. `path` can be a single path or array of paths.
-
-### from.string(string)
-
-Create a readable stream from `string` and pipe to html5-to-pdf. `string` can be a single string or array of strings.
-
-### concat.from.paths(paths, opts)
-
-Create and concatenate readable streams from `paths` and pipe to html5-to-pdf.
-
-### concat.from.strings(strings, opts)
-
-Create and concatenate readable streams from `strings` and pipe to html5-to-pdf.
-
-### to.path(path, cb) / to(path, cb)
-
-Create a writeable stream to `path` and pipe output from html5-to-pdf to it. `path` can be a single path, or array of output paths if you specified an array of inputs. The callback function `cb` will be invoked when data has finished being written.
-
-### to.buffer(opts, cb)
-
-Create a [concat-stream](https://npmjs.org/package/concat-stream) and pipe output from html5-to-pdf to it. The callback function `cb` will be invoked when the buffer has been created.
-
-### to.string(opts, cb)
-
-Create a [concat-stream](https://npmjs.org/package/concat-stream) and pipe output from html5-to-pdf to it. The callback function `cb` will be invoked when the string has been created.
-
-More examples
----
-
-### From string to path
-
-```javascript
-var html5pdf = require("html5-to-pdf")
-
-var html = "foo===\n <strong>bar\n</strong> baz\n\nLorem ipsum dolor sit"
-  , outputPath = "/path/to/doc.pdf"
-
-html5pdf().from.string(html).to(outputPath, function () {
-  console.log("Created", outputPath)
-})
-```
-
-### From multiple paths to multiple paths
-
-```javascript
-var html5pdf = require("html5-to-pdf")
-
-var htmlDocs = ["home.html", "about.html", "contact.html"]
-  , pdfDocs = htmlDocs.map(function (d) { return "out/" + d.replace(".html", ".pdf") })
-
-html5pdf().from(htmlDocs).to(htmlDocs, function () {
-  pdfDocs.forEach(function (d) { console.log("Created", d) })
-})
-```
-
-### Concat from multiple paths to single path
-
-```javascript
-var html5pdf = require("html5-to-pdf")
-
-var htmlDocs = ["chapter1.html", "chapter2.html", "chapter3.html"]
-  , bookPath = "/path/to/book.pdf"
-
-html5pdf().concat.from(htmlDocs).to(bookPath, function () {
-  console.log("Created", bookPath)
-})
-```
-
-### Transform html before conversion
-
-```javascript
-var html5pdf = require("html5-to-pdf")
-  , split = require("split")
-  , through = require("through")
-  , duplexer = require("duplexer")
-
-function preProcessHTML () {
-  // Split the input stream by lines
-  var splitter = split()
-
-  // Replace occurences of "foo" with "bar"
-  var replacer = through(function (data) {
-    this.queue(data.replace(/foo/g, "bar") + "\n")
-  })
-
-  splitter.pipe(replacer)
-  return duplexer(splitter, replacer)
-}
-
-html5pdf({preProcessHtml: preProcessHtml})
-  .from("/path/to/document.html")
-  .to("/path/to/document.pdf", function () { console.log("Done") })
-```
+The url to use for rendering the html. If this is set, this will be used for serving up the html. This will override `options.templatePath` and `options.template` 
 
 CLI interface
 ---
@@ -206,26 +128,24 @@ CLI interface
 To use html5-to-pdf as a standalone program from the terminal run
 
 ```sh
-npm install -g html5-to-pdf
+npm install --global html5-to-pdf
 ```
 
 ### Usage
 
 ```sh
-Usage: html5-to-pdf [options] <html-file-path>
+Usage: command [options] <path/to/html-file-path>
 
 Options:
 
-  -h, --help                             output usage information
-  -p, --phantom-path [path]              Path to phantom binary
-  -h, --runnings-path [path]             Path to runnings (header, footer)
-  -s, --css-path [path]                  Path to custom CSS file
-  -z, --highlight-css-path [path]        Path to custom highlight-CSS file
-  -f, --paper-format [format]            'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'
-  -r, --paper-orientation [orientation]  'portrait' or 'landscape'
-  -b, --paper-border [measurement]       Supported dimension units are: 'mm', 'cm', 'in', 'px'
-  -d, --template [html5bp]               The template to use. Either 'html5bp' or 'htmlbootstrap'
-  -d, --render-delay [millis]            Delay before rendering the PDF (give HTML and CSS a chance to load)
-  -o, --output-path [path]               Path of where to save the PDF
-  <html-file-path>                       Path of the html file to convert
+  -h, --help                   output usage information
+  -V, --version                output the version number
+  -i --include <path>..<path>  path to either a javascript asset, or a css asset
+  --page-size [size]           'A3', 'A4', 'Legal', 'Letter' or 'Tabloid'
+  --margin-type [n]            Specify the type of margins to use: 0 - default, 1 - none, 2 - minimum
+  --landscape                  If set it will change orientation to landscape from portriat
+  --print-background           Whether to print CSS backgrounds
+  -t --template [template]     The template to used. Defaults to html5bp.
+  -d --render-delay [millis]   Delay before rendering the PDF (give HTML and CSS a chance to load)
+  -o --output <path>           Path of where to save the PDF
 ```

@@ -1,43 +1,59 @@
 _       = require 'lodash'
+fs      = require 'fs-extra'
 path    = require 'path'
-through = require 'through'
-phantom = require 'phantomjs'
+debug   = require('debug')('html5-to-pdf:options')
 
 class Options
-  constructor: () -> @setAll()
-  set: (key, value) => @options[key] = value
-  get: (key) => @options[key]
-  getAll: => @options
-  getPaper: =>
-    object =
-      format: @options.paperFormat
-      orientation: @options.paperOrientation
-      margin: @options.paperBorder
-    object
+  constructor: (options) ->
+    debug 'pre-options', options
+    @_set options
+    debug 'post-options', @options
 
-  setAll: (options={}) =>
+  set: (key, value) =>
+    return _.set @options, key, value
+
+  get: (key) =>
+    return _.get @options, key
+
+  _set: (options={}) =>
+    unless options.inputPath? or options.inputBody?
+      throw new Error 'Missing inputPath or inputBody'
+    throw new Error 'Missing outputPath' unless options.outputPath?
     defaults =
-      paperFormat: 'A4'
-      paperOrientation: 'portrait'
-      paperBorder: '1cm'
-      renderDelay: 500
+      options: {}
+      renderDelay: 0
       template: 'html5bp'
-      phantomPath: phantom.path
-      phantomHost: "localhost"
-      phantomPort: 0
-      runningsPath: "src/runnings.js"
-      cssPath: 'templates/pdf.css'
-      highlightCssPath: 'templates/highlight.css'
-      inputPath: ''
-      outputPath: ''
-      preProcessHtml: -> through()
 
-    @options = _.defaults(options, defaults)
-    @options.runningsPath = @convertPath @options.runningsPath
-    @options.cssPath = @convertPath @options.cssPath
-    @options.highlightCssPath = @convertPath @options.highlightCssPath
+    @options = _.defaults defaults, options
+
+    unless @options.templatePath?
+      @options.templatePath = @templatePath @options.template
+    @options.inputPath = @convertPath @options.inputPath unless @options.inputBody?
+    @options.outputPath = @convertPath @options.outputPath
+    @options.inputBody ?= fs.readFileSync(@options.inputPath)
+
+    @options.include = _.map @options.include, ({ type, filePath }) =>
+      throw new Error 'Invalid include item, must be type css or js' unless type in ['css', 'js']
+      return {
+        type,
+        filePath: @convertPath(filePath)
+      }
+
+    @options.include.push {
+      filePath: @templatePath('pdf.css')
+      type: 'css'
+    }
+    @options.include.push {
+      filePath: @templatePath('highlight.css')
+      type: 'css'
+    }
+
+  templatePath: (filePath) =>
+    return path.resolve path.join(__dirname, '../', 'templates', filePath)
 
   convertPath: (filePath) =>
-    path.resolve process.cwd(), filePath
+    debug 'convertPath', filePath
+    return filePath if path.isAbsolute filePath
+    return path.resolve process.cwd(), filePath
 
 module.exports = Options

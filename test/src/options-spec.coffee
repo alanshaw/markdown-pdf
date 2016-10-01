@@ -3,55 +3,32 @@ _        = require 'lodash'
 path     = require 'path'
 
 describe 'Options', ->
-  beforeEach ->
-    @sut = new Options
+  describe 'when called with the requirments', ->
+    beforeEach ->
+      @sut = new Options {
+        inputBody: 'input-body'
+        outputPath: path.join(__dirname, 'output')
+      }
 
-  it 'should of type Options', ->
-    expect(@sut).to.be.an.instanceOf Options
+    it 'should set the default options', ->
+      templatePath = (file) =>
+        return path.resolve __dirname, '../../', 'templates', "#{file}"
 
-  describe '->setAll', ->
-    describe 'when called with nothing', ->
-      beforeEach ->
-        @sut.setAll()
+      expect(@sut.options).to.deep.equal
+        options: {},
+        inputBody: 'input-body'
+        outputPath: path.join(__dirname, 'output')
+        renderDelay: 0
+        template: 'html5bp'
+        templatePath: templatePath 'html5bp'
+        include: [
+          {
+            type: 'css',
+            filePath: templatePath 'pdf.css'
+          }
+          {
+            type: 'css',
+            filePath: templatePath 'highlight.css'
+          }
+        ]
 
-      it 'should set the default options', ->
-        options = _.omit @sut.options, ['preProcessHtml']
-        expect(options).to.deep.equal
-          paperFormat: 'A4'
-          paperOrientation: 'portrait'
-          paperBorder: '1cm'
-          renderDelay: 500
-          template: 'html5bp'
-          phantomPath: require('phantomjs').path
-          phantomHost: 'localhost'
-          phantomPort: 0
-          runningsPath: path.resolve __dirname, '../../', 'src/runnings.js'
-          cssPath: path.resolve __dirname, '../../', 'templates/pdf.css'
-          highlightCssPath: path.resolve __dirname, '../../', 'templates/highlight.css'
-          inputPath: ''
-          outputPath: ''
-
-    describe 'when called with something', ->
-      beforeEach ->
-        @sut.setAll
-          paperFormat: 'A5'
-          paperOrientation: 'landscape'
-          paperBorder: '2cm'
-          renderDelay: 5000
-
-      it 'should set the default options', ->
-        options = _.omit @sut.options, ['preProcessHtml']
-        expect(options).to.deep.equal
-          paperFormat: 'A5'
-          paperOrientation: 'landscape'
-          paperBorder: '2cm'
-          renderDelay: 5000
-          template: 'html5bp'
-          phantomHost: 'localhost'
-          phantomPort: 0
-          phantomPath: require('phantomjs').path
-          runningsPath: path.resolve __dirname, '../../', 'src/runnings.js'
-          cssPath: path.resolve __dirname, '../../', 'templates/pdf.css'
-          highlightCssPath: path.resolve __dirname, '../../', 'templates/highlight.css'
-          inputPath: ''
-          outputPath: ''
