@@ -1,10 +1,12 @@
+[![Dependency status](http://img.shields.io/david/peterdemartini/html5-to-pdf.svg?style=flat)](https://david-dm.org/peterdemartini/html5-to-pdf)
+[![devDependency Status](http://img.shields.io/david/dev/peterdemartini/html5-to-pdf.svg?style=flat)](https://david-dm.org/peterdemartini/html5-to-pdf#info=devDependencies)
 [![Build Status](https://travis-ci.org/peterdemartini/html5-to-pdf.svg?branch=master)](https://travis-ci.org/peterdemartini/html5-to-pdf)
 
 Node module that converts HTML files to PDFs.
 
-The PDF looks great because it is styled by HTML5 Boilerplate or Bootstrap. What? - Yes! HTML is pushed into the HTML5 template `index.html`. Phantomjs renders the page and saves it to a PDF. You can even customize the style of the PDF by passing an optional path to your CSS _and_ you can pre-process your html file before it is converted to a PDF by passing in a pre-processing function, for creating templates.
+The PDF looks great because it is styled by HTML5 Boilerplate or Bootstrap. What? - Yes! HTML is pushed into the HTML5 template `index.html`. Electron renders the page and saves it to a PDF. You can customize the page by adding custom CSS and JS assets.
 
-# v2 (BREAKING CHANGES)
+# v2.0.0 (BREAKING CHANGES)
 
 * Uses [Nightmare](https://github.com/segmentio/nightmare) - an Electron based headless browser.
 * Simple API
@@ -118,7 +120,7 @@ The template to use for rendering the html. If this is set, it will use this ins
 #### options.templateUrl
 Type: `String`
 
-The url to use for rendering the html. If this is set, this will be used for serving up the html. This will override `options.templatePath` and `options.template` 
+The url to use for rendering the html. If this is set, this will be used for serving up the html. This will override `options.templatePath` and `options.template`
 
 CLI interface
 ---

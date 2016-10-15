@@ -20,11 +20,15 @@ class Options
       throw new Error 'Missing inputPath or inputBody'
     throw new Error 'Missing outputPath' unless options.outputPath?
     defaults =
-      options: {}
+      options:
+        landscape: false
+        pageSize: 'A4'
+        marginsType: 0
+        printBackground: false
       renderDelay: 0
       template: 'html5bp'
 
-    @options = _.defaults defaults, options
+    @options = _.defaultsDeep options, defaults
 
     unless @options.templatePath?
       @options.templatePath = @templatePath @options.template

@@ -8,14 +8,21 @@ describe 'Options', ->
       @sut = new Options {
         inputBody: 'input-body'
         outputPath: path.join(__dirname, 'output')
+        options: {
+          landscape: true
+        }
       }
 
     it 'should set the default options', ->
       templatePath = (file) =>
         return path.resolve __dirname, '../../', 'templates', "#{file}"
 
-      expect(@sut.options).to.deep.equal
-        options: {},
+      expect(@sut.options).to.deep.equal {
+        options:
+          landscape: true
+          pageSize: 'A4'
+          marginsType: 0
+          printBackground: false
         inputBody: 'input-body'
         outputPath: path.join(__dirname, 'output')
         renderDelay: 0
@@ -31,4 +38,4 @@ describe 'Options', ->
             filePath: templatePath 'highlight.css'
           }
         ]
-
+      }
