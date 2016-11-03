@@ -1,6 +1,6 @@
 {
   "name": "html5-to-pdf",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "HTML5 to PDF converter",
   "main": "index.js",
   "scripts": {
@@ -34,13 +34,13 @@
     "duplexer": "^0.1.1",
     "express": "^4.14.0",
     "extend": "^3.0.0",
-    "fs-extra": "^0.30.0",
-    "lodash": "^4.16.2",
-    "nightmare": "^2.7.0",
+    "fs-extra": "^1.0.0",
+    "lodash": "^4.16.6",
+    "nightmare": "^2.8.1",
     "server-destroy": "^1.0.1",
     "stream-from-to": "^1.4.3",
     "through": "^2.3.7",
-    "tmp": "0.0.29"
+    "tmp": "0.0.30"
   },
   "devDependencies": {
     "chai": "^3.0.0",

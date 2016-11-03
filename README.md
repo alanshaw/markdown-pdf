@@ -136,18 +136,19 @@ npm install --global html5-to-pdf
 ### Usage
 
 ```sh
-Usage: command [options] <path/to/html-file-path>
 
-Options:
+  Usage: command [options] <path/to/html-file-path>
 
-  -h, --help                   output usage information
-  -V, --version                output the version number
-  -i --include <path>..<path>  path to either a javascript asset, or a css asset
-  --page-size [size]           'A3', 'A4', 'Legal', 'Letter' or 'Tabloid'
-  --margin-type [n]            Specify the type of margins to use: 0 - default, 1 - none, 2 - minimum
-  --landscape                  If set it will change orientation to landscape from portriat
-  --print-background           Whether to print CSS backgrounds
-  -t --template [template]     The template to used. Defaults to html5bp.
-  -d --render-delay [millis]   Delay before rendering the PDF (give HTML and CSS a chance to load)
-  -o --output <path>           Path of where to save the PDF
+  Options:
+    -h, --help                                  output usage information
+    -V, --version                               output the version number
+    -i --include <path>..<path>                 path to either a javascript asset, or a css asset
+    --page-size [size]                          'A3', 'A4', 'Legal', 'Letter' or 'Tabloid'
+    --margin-type [n]                           Specify the type of margins to use: 0 - default, 1 - none, 2 - minimum
+    --landscape                                 If set it will change orientation to landscape from portriat
+    --print-background                          Whether to print CSS backgrounds
+    -t --template [template]                    The template to used. Defaults to html5bp.
+    --template-path [/path/to/template/folder]  Specifies the template folder path for static assets, this will override template.
+    -d --render-delay [millis]                  Delay before rendering the PDF (give HTML and CSS a chance to load)
+    -o --output <path>                          Path of where to save the PDF
 ```

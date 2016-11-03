@@ -15,14 +15,24 @@ class Command
   run: =>
     commander
       .version packageJSON.version
-      .option '-i --include <path>..<path>', 'path to either a javascript asset, or a css asset'
-      .option '--page-size [size]', "'A3', 'A4', 'Legal', 'Letter' or 'Tabloid'"
-      .option '--margin-type [n]', "Specify the type of margins to use: 0 - default, 1 - none, 2 - minimum"
-      .option '--landscape', "If set it will change orientation to landscape from portriat"
-      .option '--print-background', 'Whether to print CSS backgrounds'
-      .option '-t --template [template]', "The template to used. Defaults to html5bp."
-      .option '-d --render-delay [millis]', 'Delay before rendering the PDF (give HTML and CSS a chance to load)'
-      .option '-o --output <path>', 'Path of where to save the PDF'
+      .option '-i --include <path>..<path>',
+        'path to either a javascript asset, or a css asset'
+      .option '--page-size [size]',
+        "'A3', 'A4', 'Legal', 'Letter' or 'Tabloid'"
+      .option '--margin-type [n]',
+        'Specify the type of margins to use: 0 - default, 1 - none, 2 - minimum'
+      .option '--landscape',
+        'If set it will change orientation to landscape from portriat'
+      .option '--print-background',
+        'Whether to print CSS backgrounds'
+      .option '-t --template [template]',
+        'The template to used. Defaults to html5bp.'
+      .option '--template-path [/path/to/template/folder]',
+        'Specifies the template folder path for static assets, this will override template.'
+      .option '-d --render-delay [millis]',
+        'Delay before rendering the PDF (give HTML and CSS a chance to load)'
+      .option '-o --output <path>',
+        'Path of where to save the PDF'
       .usage '[options] <path/to/html-file-path>'
       .parse process.argv
 
@@ -31,7 +41,13 @@ class Command
     @printMissing 'Missing input path first argument' unless inputPath?
     @printMissing 'Missing -o, --output-path argument' unless outputPath?
 
-    { pageSize, template, renderDelay, marginType } = commander
+    {
+      pageSize,
+      template,
+      templatePath,
+      renderDelay,
+      marginType
+    } = commander
     printBackground = commander.printBackground?
     landscape = commander.landscape?
 
@@ -40,12 +56,12 @@ class Command
       type = path.extname(filePath).replace('.', '')
       return @printMissing 'Invalid asset path' unless type in [ 'css', 'js' ]
       return { type, filePath }
-    console.log include
 
     options = {
       inputPath,
       outputPath,
       template,
+      templatePath,
       renderDelay,
       include,
       options: {
