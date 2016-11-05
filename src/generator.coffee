@@ -20,9 +20,11 @@ class Generator
       @nightmare.pdf @options.get('outputPath'), @options.get('options')
       @nightmare.end()
         .then =>
+          debug 'success!'
           @_server?.destroy?()
           callback null
         .catch (error) =>
+          debug 'error!', error
           @_server?.destroy?()
           callback error
 
@@ -32,8 +34,9 @@ class Generator
       return
 
   addBody: (html) ->
-    body = document.querySelector "body"
-    body.removeChild document.querySelector "p"
+    try
+      body = document.querySelector "body"
+      body.removeChild document.querySelector "p"
     container = document.createElement "div"
     container.innerHTML = html
     body.appendChild container

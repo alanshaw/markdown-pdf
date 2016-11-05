@@ -74,4 +74,9 @@ class Command
 
     new HTMLToPDF(options).build @die
 
+  die: (error) =>
+    return process.exit(0) unless error?
+    console.log 'Error:', error
+    process.exit 1
+
 module.exports = Command
