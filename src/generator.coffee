@@ -17,16 +17,24 @@ class Generator
       @includeAssets()
       @nightmare.evaluate @addBody, @options.get('inputBody')?.toString()
       @nightmare.wait @options.get('renderDelay')
-      @nightmare.pdf @options.get('outputPath'), @options.get('options')
+      outputPath = @options.get('outputPath')
+      options    = @options.get('options')
+      debug {outputPath, options}
+      @nightmare.pdf options unless outputPath?
+      @nightmare.pdf outputPath, options if outputPath?
       @nightmare.end()
-        .then =>
-          debug 'success!'
-          @_server?.destroy?()
-          callback null
-        .catch (error) =>
-          debug 'error!', error
-          @_server?.destroy?()
-          callback error
+        .then @doneSuccess(callback)
+        .catch @doneError(callback)
+
+  doneSuccess: (callback) =>
+    return (buf) =>
+      @_server?.destroy?()
+      callback null, buf
+
+  doneError: (callback) =>
+    return (error) =>
+      @_server?.destroy?()
+      callback error
 
   includeAssets: =>
     _.each @options.get('include'), ({ type, filePath }={}) =>

@@ -29,7 +29,7 @@ class Command
         'The template to used. Defaults to html5bp.'
       .option '--template-path [/path/to/template/folder]',
         'Specifies the template folder path for static assets, this will override template.'
-      .option '-d --render-delay [millis]',
+      .option '-d --render-delay [milli-seconds]',
         'Delay before rendering the PDF (give HTML and CSS a chance to load)'
       .option '-o --output <path>',
         'Path of where to save the PDF'
@@ -39,7 +39,6 @@ class Command
     inputPath = _.first commander.args
     outputPath = commander.output
     @printMissing 'Missing input path first argument' unless inputPath?
-    @printMissing 'Missing -o, --output-path argument' unless outputPath?
 
     {
       pageSize,
@@ -72,7 +71,10 @@ class Command
       }
     }
 
-    new HTMLToPDF(options).build @die
+    new HTMLToPDF(options).build (error, buf) =>
+      return @die error if error?
+      process.stdout.write buf if buf?
+      process.exit(0)
 
   die: (error) =>
     return process.exit(0) unless error?

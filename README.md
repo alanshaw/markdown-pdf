@@ -19,7 +19,7 @@ Getting started
 npm install --save html5-to-pdf
 ```
 
-Example usage
+Output to File Example usage
 --------------
 
 ```coffee
@@ -31,6 +31,21 @@ htmlToPDF = new HTMLToPDF {
 
 htmlToPDF.build (error) =>
   throw error if error?
+  # Done!
+```
+
+Output to Buffer Example usage
+--------------
+
+```coffee
+HTMLToPDF = require 'html5-to-pdf'
+htmlToPDF = new HTMLToPDF {
+  inputPath: './path/to/input.html'
+}
+
+htmlToPDF.build (error, buf) =>
+  throw error if error?
+  # buf is the PDF as buffer
   # Done!
 ```
 
@@ -51,7 +66,6 @@ Path to the input html as a `String`, or `Buffer`. If specified this will overri
 
 #### options.outputPath
 Type: `String`
-Required: true
 
 Path to the output pdf file.
 
@@ -83,7 +97,7 @@ Default value: `A4`
 Type: `Boolean`
 Default value: `false`
 
-true for landscape, false for portait.
+true for landscape, false for portrait.
 
 #### options.options.marginsType
 Type: `Number`
@@ -145,10 +159,10 @@ npm install --global html5-to-pdf
     -i --include <path>..<path>                 path to either a javascript asset, or a css asset
     --page-size [size]                          'A3', 'A4', 'Legal', 'Letter' or 'Tabloid'
     --margin-type [n]                           Specify the type of margins to use: 0 - default, 1 - none, 2 - minimum
-    --landscape                                 If set it will change orientation to landscape from portriat
+    --landscape                                 If set it will change orientation to landscape from portrait
     --print-background                          Whether to print CSS backgrounds
     -t --template [template]                    The template to used. Defaults to html5bp.
     --template-path [/path/to/template/folder]  Specifies the template folder path for static assets, this will override template.
-    -d --render-delay [millis]                  Delay before rendering the PDF (give HTML and CSS a chance to load)
+    -d --render-delay [milli-seconds]           Delay before rendering the PDF (give HTML and CSS a chance to load)
     -o --output <path>                          Path of where to save the PDF
 ```

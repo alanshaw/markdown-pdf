@@ -18,7 +18,6 @@ class Options
   _set: (options={}) =>
     unless options.inputPath? or options.inputBody?
       throw new Error 'Missing inputPath or inputBody'
-    throw new Error 'Missing outputPath' unless options.outputPath?
     defaults =
       options:
         landscape: false
@@ -32,9 +31,10 @@ class Options
 
     unless @options.templatePath?
       @options.templatePath = @templatePath @options.template
-    @options.inputPath = @convertPath @options.inputPath unless @options.inputBody?
-    @options.outputPath = @convertPath @options.outputPath
-    @options.inputBody ?= fs.readFileSync(@options.inputPath)
+    @options.inputPath   = @convertPath @options.inputPath unless @options.inputBody?
+    @options.outputPath  = @convertPath @options.outputPath if @options.outputPath?
+    @options.inputBody   ?= fs.readFileSync(@options.inputPath)
+    @options.renderDelay = _.parseInt(@options.renderDelay) if @options.renderDelay
 
     @options.include = _.map @options.include, ({ type, filePath }) =>
       throw new Error 'Invalid include item, must be type css or js' unless type in ['css', 'js']
