@@ -143,11 +143,11 @@ Create a readable stream from `string` and pipe to markdown-pdf. `string` can be
 
 ### concat.from.paths(paths, opts)
 
-Create and concatinate readable streams from `paths` and pipe to markdown-pdf.
+Create and concatenate readable streams from `paths` and pipe to markdown-pdf.
 
 ### concat.from.strings(strings, opts)
 
-Create and concatinate readable streams from `strings` and pipe to markdown-pdf.
+Create and concatenate readable streams from `strings` and pipe to markdown-pdf.
 
 ### to.path(path, cb) / to(path, cb)
 
