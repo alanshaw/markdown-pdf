@@ -4,7 +4,7 @@
   "description": "Markdown to PDF converter",
   "main": "index.js",
   "scripts": {
-    "test": "standard && istanbul cover node_modules/.bin/tape test/*.js",
+    "test": "standard && standard bin/markdown-pdf && istanbul cover node_modules/.bin/tape test/*.js",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/alanshaw/markdown-pdf",
   "license": "MIT",
   "dependencies": {
+    "async": "^1.5.2",
     "commander": "^2.2.0",
     "duplexer": "^0.1.1",
     "extend": "^3.0.0",
@@ -32,6 +33,7 @@
     "tmp": "0.0.28"
   },
   "devDependencies": {
+    "concat-stream": "^1.5.1",
     "coveralls": "^2.10.0",
     "istanbul": "^0.4.0",
     "pdf-text": "^0.4.0",

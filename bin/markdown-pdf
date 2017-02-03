@@ -2,10 +2,13 @@
 
 var markdownpdf = require('../')
 var program = require('commander')
+var path = require('path')
+var fs = require('fs')
+var async = require('async')
 
 program.version(require('../package.json').version)
-  .usage('[options] <markdown-file-path>')
-  .option('<markdown-file-path>', 'Path of the markdown file to convert')
+  .usage('[options] <markdown-file-paths ...>')
+  .option('<markdown-file-paths>', 'Paths of the markdown files to convert')
   .option('-c, --cwd [path]', 'Current working directory')
   .option('-p, --phantom-path [path]', 'Path to phantom binary')
   .option('-h, --runnings-path [path]', 'Path to runnings (header, footer)')
@@ -17,12 +20,12 @@ program.version(require('../package.json').version)
   .option('-b, --paper-border [measurement]', 'Supported dimension units are: "mm", "cm", "in", "px"')
   .option('-d, --render-delay [millis]', 'Delay before rendering the PDF')
   .option('-t, --load-timeout [millis]', 'Timeout before the page is rendered in case `page.onLoadFinished` isn\'t fired')
-  .option('-o, --out [path]', 'Path of where to save the PDF')
+  .option('-o, --out [path]', 'Directory to save output PDFs')
   .parse(process.argv)
 
-if (program.args.length === 0) program.help()
+var inputFileNames = program.args
 
-program.out = program.out || program.args[0].replace(/\.m(ark)?d(own)?/gi, '') + '.pdf'
+if (inputFileNames.length === 0) program.help()
 
 var opts = {
   cwd: program.cwd,
@@ -38,6 +41,15 @@ var opts = {
   loadTimeout: program.loadTimeout
 }
 
-markdownpdf(opts).concat.from(program.args).to(program.out, function (err) {
-  if (err) throw err
-})
+async.each(inputFileNames, generateFromFile)
+
+function generateFromFile (inputPath) {
+  var inputPathAsPdf = inputPath.replace(/\.m(ark)?d(own)?/gi, '') + '.pdf'
+  var outputPath = program.out
+    ? path.join(program.out, path.basename(inputPathAsPdf))
+    : inputPathAsPdf
+
+  fs.createReadStream(inputPath)
+    .pipe(markdownpdf(opts))
+    .pipe(fs.createWriteStream(outputPath))
+}

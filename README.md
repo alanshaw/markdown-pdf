@@ -264,23 +264,23 @@ npm install -g markdown-pdf
 ### Usage
 
 ```
-Usage: markdown-pdf [options] <markdown-file-path>
+  Usage: markdown-pdf [options] <markdown-file-paths ...>
 
-Options:
+  Options:
 
-  -h, --help                             output usage information
-  -V, --version                          output the version number
-  <markdown-file-path>                   Path of the markdown file to convert
-  -c, --cwd [path]                       Current working directory
-  -p, --phantom-path [path]              Path to phantom binary
-  -h, --runnings-path [path]             Path to runnings (header, footer)
-  -s, --css-path [path]                  Path to custom CSS file
-  -z, --highlight-css-path [path]        Path to custom highlight-CSS file
-  -m, --remarkable-options [json]        Options to pass to Remarkable
-  -f, --paper-format [format]            'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'
-  -r, --paper-orientation [orientation]  'portrait' or 'landscape'
-  -b, --paper-border [measurement]       Supported dimension units are: 'mm', 'cm', 'in', 'px'
-  -d, --render-delay [millis]            Delay before rendering the PDF
-  -t, --load-timeout [millis]            Timeout before the page is rendered in case `page.onLoadFinished` isn't fired
-  -o, --out [path]                       Path of where to save the PDF
+    -h, --help                               output usage information
+    -V, --version                            output the version number
+    <markdown-file-paths>                    Paths of the markdown files to convert
+    -c, --cwd [path]                         Current working directory
+    -p, --phantom-path [path]                Path to phantom binary
+    -h, --runnings-path [path]               Path to runnings (header, footer)
+    -s, --css-path [path]                    Path to custom CSS file
+    -z, --highlight-css-path [path]          Path to custom highlight-CSS file
+    -m, --remarkable-options [json-options]  Options to pass to remarkable
+    -f, --paper-format [format]              "A3", "A4", "A5", "Legal", "Letter" or "Tabloid"
+    -r, --paper-orientation [orientation]    "portrait" or "landscape"
+    -b, --paper-border [measurement]         Supported dimension units are: "mm", "cm", "in", "px"
+    -d, --render-delay [millis]              Delay before rendering the PDF
+    -t, --load-timeout [millis]              Timeout before the page is rendered in case `page.onLoadFinished` isn't fired
+    -o, --out [path]                         Directory to save output PDFs
 ```
