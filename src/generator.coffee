@@ -1,6 +1,4 @@
 _             = require 'lodash'
-path          = require 'path'
-fs            = require 'fs'
 express       = require 'express'
 enableDestroy = require 'server-destroy'
 Nightmare     = require 'nightmare'
