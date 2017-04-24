@@ -10,7 +10,7 @@ class Generator
 
   build: (callback) =>
     @startServer (error, url) =>
-      return callback error if error?
+      return callback error, null if error?
       @nightmare.goto url
       @includeAssets()
       @nightmare.evaluate @addBody, @options.get('inputBody')?.toString()
@@ -32,7 +32,7 @@ class Generator
   doneError: (callback) =>
     return (error) =>
       @_server?.destroy?()
-      callback error
+      callback error, null
 
   includeAssets: =>
     _.each @options.get('include'), ({ type, filePath }={}) =>
@@ -53,7 +53,7 @@ class Generator
     app = express()
     app.use express.static(@options.get('templatePath'))
     @_server = app.listen 0, (error) =>
-      return callback error if error?
+      return callback error, null if error?
       enableDestroy @_server
       callback null, "http://localhost:#{@_server.address().port}"
 
