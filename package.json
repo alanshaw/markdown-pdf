@@ -27,12 +27,12 @@
     }
   ],
   "dependencies": {
-    "coffee-script": "^1.12.4",
+    "coffee-script": "^1.12.5",
     "colors": "^1.1.2",
     "commander": "^2.8.1",
-    "debug": "^2.6.1",
-    "express": "^4.14.1",
-    "fs-extra": "^2.0.0",
+    "debug": "^2.6.4",
+    "express": "^4.15.2",
+    "fs-extra": "^2.1.2",
     "lodash": "^4.17.4",
     "nightmare": "^2.10.0",
     "server-destroy": "^1.0.1",
@@ -40,9 +40,9 @@
   },
   "devDependencies": {
     "chai": "^3.0.0",
-    "mocha": "^3.2.0",
-    "sinon": "^1.17.7",
-    "sinon-chai": "^2.8.0"
+    "mocha": "^3.3.0",
+    "sinon": "^2.1.0",
+    "sinon-chai": "^2.9.0"
   },
   "bin": {
     "html5-to-pdf": "./command.js"
