@@ -49,6 +49,11 @@ htmlToPDF.build (error, buf) =>
   # Done!
 ```
 
+---
+
+Reference:
+---
+
 ### Options
 
 Options are passed into the constructor.
@@ -135,6 +140,8 @@ The template to use for rendering the html. If this is set, it will use this ins
 Type: `String`
 
 The url to use for rendering the html. If this is set, this will be used for serving up the html. This will override `options.templatePath` and `options.template`
+
+---
 
 CLI interface
 ---
