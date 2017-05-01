@@ -173,3 +173,38 @@ npm install --global html5-to-pdf
     -d --render-delay [milli-seconds]           Delay before rendering the PDF (give HTML and CSS a chance to load)
     -o --output <path>                          Path of where to save the PDF
 ```
+
+---
+Note for running headlessly on Linux
+---
+_(like on a server without X)_:
+
+html5-to-pdf uses Nightmare, which uses Electron, which in turn relies on an X server to render the pdf.
+If for whatever reason it can't find a running X server, it will silently fail.
+
+To fix, just run whatever display server you prefer (that's implementing X).
+If you have no X server, chances are you are running on a headless server anyway, in which case there is no point in running a full-blown GUI (that's not facing any users).
+You can instead use [Xvfb](https://www.x.org/archive/X11R7.6/doc/man/man1/Xvfb.1.xhtml), a virtual frame buffer.
+
+#### Installation:
+
+    apt-get install -y libgtk2.0-0 libgconf-2-4 libasound2 libxtst6 libxss1 libnss3 xvfb
+    
+(might need sudo)
+#### Usage:
+
+    Xvfb -ac -screen scrn 1280x2000x24 :9.0 &
+    export DISPLAY=:9.0
+
+(might need sudo)
+
+#### Troubleshooting:
+
+It's ok if Xvfb can't find fonts or shows other warnings.
+If Xvfb can't start, it probably thinks there's another X server running. Check that.
+If there is no other X server running but Xvfb insists there is, run this:
+
+    rm /tmp/.X11-unix/X1
+    rm /tmp/.X1
+
+(might need sudo)
