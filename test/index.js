@@ -1,4 +1,5 @@
 var fs = require('fs')
+var path = require('path')
 var test = require('tape')
 var markdownpdf = require('../')
 var tmp = require('tmp')
@@ -14,7 +15,7 @@ test('generate a nonempty PDF from ipsum.md', function (t) {
     t.ifError(er)
     fs.closeSync(tmpPdfFd)
 
-    markdownpdf().from(__dirname + '/fixtures/ipsum.md').to(tmpPdfPath, function (er) {
+    markdownpdf().from(path.join(__dirname, '/fixtures/ipsum.md')).to(tmpPdfPath, function (er) {
       t.ifError(er)
 
       // Read the file
@@ -36,8 +37,8 @@ test('generate PDF with CSS from ipsum.md and style.css', function (t) {
     fs.closeSync(tmpPdfFd)
 
     markdownpdf({
-      cssPath: __dirname + '/fixtures/style.css'
-    }).from(__dirname + '/fixtures/ipsum.md').to(tmpPdfPath, function (er) {
+      cssPath: path.join(__dirname, '/fixtures/style.css')
+    }).from(path.join(__dirname, '/fixtures/ipsum.md')).to(tmpPdfPath, function (er) {
       t.ifError(er)
 
       // Read the file
@@ -64,7 +65,7 @@ test('output should have a header and footer', function (t) {
     t.ifError(er)
     fs.closeSync(tmpPdfFd)
 
-    markdownpdf({runningsPath: __dirname + '/fixtures/runnings.js'}).from(__dirname + '/fixtures/ipsum.md').to(tmpPdfPath, function (er) {
+    markdownpdf({runningsPath: path.join(__dirname, '/fixtures/runnings.js')}).from(path.join(__dirname, '/fixtures/ipsum.md')).to(tmpPdfPath, function (er) {
       t.ifError(er)
 
       // Read the file
@@ -92,7 +93,7 @@ test('should call preProcessMd hook', function (t) {
   var writeCount = 0
   var preProcessMd = function () { return through(function (data, enc, cb) { writeCount++; this.push(data); cb() }) }
 
-  markdownpdf({preProcessMd: preProcessMd}).from(__dirname + '/fixtures/ipsum.md').to.string(function (er, pdfStr) {
+  markdownpdf({preProcessMd: preProcessMd}).from(path.join(__dirname, '/fixtures/ipsum.md')).to.string(function (er, pdfStr) {
     t.ifError(er)
 
     // Test not empty
@@ -108,7 +109,7 @@ test('should call preProcessHtml hook', function (t) {
   var writeCount = 0
   var preProcessHtml = function () { return through(function (data, enc, cb) { writeCount++; this.push(data); cb() }) }
 
-  markdownpdf({preProcessHtml: preProcessHtml}).from(__dirname + '/fixtures/ipsum.md').to.string(function (er, pdfStr) {
+  markdownpdf({preProcessHtml: preProcessHtml}).from(path.join(__dirname, '/fixtures/ipsum.md')).to.string(function (er, pdfStr) {
     t.ifError(er)
 
     // Test not empty
@@ -122,8 +123,8 @@ test('should concatenate source files', function (t) {
   t.plan(4)
 
   var files = [
-    __dirname + '/fixtures/first.md',
-    __dirname + '/fixtures/second.md'
+    path.join(__dirname, '/fixtures/first.md'),
+    path.join(__dirname, '/fixtures/second.md')
   ]
 
   tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath, tmpPdfFd) {
@@ -148,8 +149,8 @@ test('should write to multiple paths when converting multiple files', function (
   t.plan(6)
 
   var files = [
-    __dirname + '/fixtures/first.md',
-    __dirname + '/fixtures/second.md'
+    path.join(__dirname, '/fixtures/first.md'),
+    path.join(__dirname, '/fixtures/second.md')
   ]
 
   tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath0, tmpPdfFd0) {
@@ -221,7 +222,7 @@ test('should initialize remarkable plugins', function (t) {
     ]
   }
 
-  markdownpdf({remarkable: remarkableOpts}).from(__dirname + '/fixtures/ipsum.md').to.string(function (er, pdfStr) {
+  markdownpdf({remarkable: remarkableOpts}).from(path.join(__dirname, '/fixtures/ipsum.md')).to.string(function (er, pdfStr) {
     t.ifError(er)
 
     t.assert(pluginInit, 'check plugin init')
