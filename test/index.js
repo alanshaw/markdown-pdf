@@ -12,7 +12,7 @@ test('generate a nonempty PDF from ipsum.md', function (t) {
 
   tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath, tmpPdfFd) {
     t.ifError(er)
-    fs.close(tmpPdfFd)
+    fs.closeSync(tmpPdfFd)
 
     markdownpdf().from(__dirname + '/fixtures/ipsum.md').to(tmpPdfPath, function (er) {
       t.ifError(er)
@@ -33,7 +33,7 @@ test('generate PDF with CSS from ipsum.md and style.css', function (t) {
 
   tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath, tmpPdfFd) {
     t.ifError(er)
-    fs.close(tmpPdfFd)
+    fs.closeSync(tmpPdfFd)
 
     markdownpdf({
       cssPath: __dirname + '/fixtures/style.css'
@@ -62,7 +62,7 @@ test('output should have a header and footer', function (t) {
 
   tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath, tmpPdfFd) {
     t.ifError(er)
-    fs.close(tmpPdfFd)
+    fs.closeSync(tmpPdfFd)
 
     markdownpdf({runningsPath: __dirname + '/fixtures/runnings.js'}).from(__dirname + '/fixtures/ipsum.md').to(tmpPdfPath, function (er) {
       t.ifError(er)
@@ -128,7 +128,7 @@ test('should concatenate source files', function (t) {
 
   tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath, tmpPdfFd) {
     t.ifError(er)
-    fs.close(tmpPdfFd)
+    fs.closeSync(tmpPdfFd)
 
     markdownpdf().concat.from(files).to(tmpPdfPath, function (er) {
       t.ifError(er)
@@ -154,11 +154,11 @@ test('should write to multiple paths when converting multiple files', function (
 
   tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath0, tmpPdfFd0) {
     t.ifError(er)
-    fs.close(tmpPdfFd0)
+    fs.closeSync(tmpPdfFd0)
 
     tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath1, tmpPdfFd1) {
       t.ifError(er)
-      fs.close(tmpPdfFd1)
+      fs.closeSync(tmpPdfFd1)
 
       markdownpdf().from.paths(files).to.paths([tmpPdfPath0, tmpPdfPath1], function (er) {
         t.ifError(er)

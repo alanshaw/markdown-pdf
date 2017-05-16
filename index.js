@@ -88,12 +88,12 @@ function markdownpdf (opts) {
   // Create tmp file to save HTML for phantom to process
   tmp.file({postfix: '.html'}, function (err, tmpHtmlPath, tmpHtmlFd) {
     if (err) return outputStream.emit('error', err)
-    fs.close(tmpHtmlFd)
+    fs.closeSync(tmpHtmlFd)
 
     // Create tmp file to save PDF to
     tmp.file({postfix: '.pdf'}, function (err, tmpPdfPath, tmpPdfFd) {
       if (err) return outputStream.emit('error', err)
-      fs.close(tmpPdfFd)
+      fs.closeSync(tmpPdfFd)
 
       var htmlToTmpHtmlFile = fs.createWriteStream(tmpHtmlPath)
 
