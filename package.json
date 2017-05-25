@@ -29,13 +29,13 @@
     "remarkable": "^1.6.0",
     "stream-from-to": "^1.4.2",
     "through2": "^2.0.0",
-    "tmp": "0.0.28"
+    "tmp": "0.0.31"
   },
   "devDependencies": {
     "coveralls": "^2.10.0",
     "istanbul": "^0.4.0",
     "pdf-text": "^0.4.0",
-    "standard": "^5.4.1",
+    "standard": "^10.0.2",
     "tape": "^4.2.2"
   },
   "engines": {
