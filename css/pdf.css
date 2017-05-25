@@ -1,3 +1,37 @@
 body {
-    font-size: 0.625em;
+  font-size: 12px !important;
+}
+
+p {
+  font-size: 12px !important;
+}
+
+pre {
+  background-color: #f7f7f9;
+  color: #000;
+  border: 1px solid #e1e1e8;
+  padding: 9px 14px;
+  border-radius: 5px;
+  font-size: 12px;
+}
+
+pre code {
+  padding: 0px;
+  background-color: transparent !important;
+  border-radius: 0px;
+  color: #000;
+}
+
+code {
+  padding: 2px 4px;
+  background-color: #f9f2f4;
+  color: #c7254e;
+  border-radius: 4px;
+}
+
+blockquote {
+  padding: 10px 20px;
+  margin: 0 0 20px;
+  border: none;
+  border-left: 5px solid #eee;
 }
