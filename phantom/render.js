@@ -12,8 +12,8 @@ var args = ['in', 'out', 'cwd', 'runningsPath', 'cssPath', 'highlightCssPath', '
 var html5bpPath = page.libraryPath + '/../html5bp'
 
 // Resources don't load in windows with file protocol
-var isWin = os.name === 'windows';
-var protocol = isWin ? 'file:///' : 'file://';
+var isWin = os.name === 'windows'
+var protocol = isWin ? 'file:///' : 'file://'
 
 var html = fs.read(html5bpPath + '/index.html')
   .replace(/\{\{baseUrl\}\}/g, protocol + html5bpPath)
@@ -32,8 +32,8 @@ page.evaluate(function (cssPaths) {
 
     head.appendChild(css)
   })
-}, [args.cssPath, args.highlightCssPath].map(function(cssPath){
-    return (isWin ? protocol : "") + cssPath;
+}, [args.cssPath, args.highlightCssPath].map(function (cssPath) {
+  return (isWin ? protocol : '') + cssPath
 }))
 
 // Set the PDF paper size
