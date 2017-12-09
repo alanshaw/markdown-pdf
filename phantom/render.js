@@ -34,7 +34,7 @@ page.evaluate(function (cssPaths) {
 }, [args.cssPath, args.highlightCssPath])
 
 // Set the PDF paper size
-page.paperSize = paperSize(args.runningsPath, {format: args.paperFormat, orientation: args.paperOrientation, border: args.paperBorder})
+page.paperSize = paperSize(args.runningsPath, {format: args.paperFormat, orientation: args.paperOrientation, border: isJson(args.paperBorder) ? JSON.parse(args.paperBorder) : args.paperBorder})
 
 args.renderDelay = parseInt(args.renderDelay, 10)
 
@@ -77,3 +77,5 @@ function paperSize (runningsPath, obj) {
 
   return obj
 }
+
+function isJson(str) { try { JSON.parse(str); } catch (e) { return false; } return true; }

@@ -109,7 +109,7 @@ function markdownpdf (opts) {
           opts.highlightCssPath,
           opts.paperFormat,
           opts.paperOrientation,
-          opts.paperBorder,
+          typeof opts.paperBorder === 'object' ? JSON.stringify(opts.paperBorder) : opts.paperBorder,
           opts.renderDelay,
           opts.loadTimeout
         ]
