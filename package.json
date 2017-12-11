@@ -29,7 +29,7 @@
     "remarkable": "^1.7.1",
     "stream-from-to": "^1.4.2",
     "through2": "^2.0.0",
-    "tmp": "0.0.31"
+    "tmp": "0.0.33"
   },
   "devDependencies": {
     "coveralls": "^2.10.0",
