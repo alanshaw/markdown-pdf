@@ -78,4 +78,4 @@ function paperSize (runningsPath, obj) {
   return obj
 }
 
-function isJson(str) { try { JSON.parse(str); } catch (e) { return false; } return true; }
+function isJson (str) { try { JSON.parse(str) } catch (e) { return false } return true }
