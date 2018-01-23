@@ -5,13 +5,37 @@ Node module that converts Markdown files to PDFs.
 
 The PDF looks great because it is styled by HTML5 Boilerplate. What? - Yes! Your Markdown is first converted to HTML, then pushed into the HTML5 Boilerplate `index.html`. Phantomjs renders the page and saves it to a PDF. You can even customise the style of the PDF by passing an optional path to your CSS _and_ you can pre-process your markdown file before it is converted to a PDF by passing in a pre-processing function, for templating.
 
-Getting started
----
+## Install
 
-    npm install markdown-pdf
+```sh
+npm install -g markdown-pdf
+```
 
-Example usage
----
+## Usage
+
+```
+Usage: markdown-pdf [options] <markdown-file-path>
+
+Options:
+
+  -h, --help                             output usage information
+  -V, --version                          output the version number
+  <markdown-file-path>                   Path of the markdown file to convert
+  -c, --cwd [path]                       Current working directory
+  -p, --phantom-path [path]              Path to phantom binary
+  -h, --runnings-path [path]             Path to runnings (header, footer)
+  -s, --css-path [path]                  Path to custom CSS file
+  -z, --highlight-css-path [path]        Path to custom highlight-CSS file
+  -m, --remarkable-options [json]        Options to pass to Remarkable
+  -f, --paper-format [format]            'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'
+  -r, --paper-orientation [orientation]  'portrait' or 'landscape'
+  -b, --paper-border [measurement]       Supported dimension units are: 'mm', 'cm', 'in', 'px'
+  -d, --render-delay [millis]            Delay before rendering the PDF
+  -t, --load-timeout [millis]            Timeout before the page is rendered in case `page.onLoadFinished` isn't fired
+  -o, --out [path]                       Path of where to save the PDF
+```
+
+`markdown-pdf` can also be used programmatically:
 
 ```javascript
 var markdownpdf = require("markdown-pdf")
@@ -130,8 +154,7 @@ Default value: `[]`
 
 An array of [optional Remarkable syntax extensions](https://github.com/jonschlinkert/remarkable#syntax-extensions), disabled by default, that extend the markdown parser functionality.
 
-API
----
+## API
 
 ### from.path(path, opts) / from(path, opts)
 
@@ -161,8 +184,7 @@ Create a [concat-stream](https://npmjs.org/package/concat-stream) and pipe outpu
 
 Create a [concat-stream](https://npmjs.org/package/concat-stream) and pipe output from markdown-pdf to it. The callback function `cb` will be invoked when the string has been created.
 
-More examples
----
+## More examples
 
 ### From string to path
 
@@ -250,37 +272,11 @@ markdownpdf(options)
   .to("/path/to/document.pdf", function () { console.log("Done") })
 ```
 
-CLI interface
----
+## Contribute
 
-### Installation
+Feel free to dive in! [Open an issue](https://github.com/tableflip/mem-storage-area/issues/new) or submit PRs.
 
-To use markdown-pdf as a standalone program from the terminal run
+## License
 
-```sh
-npm install -g markdown-pdf
-```
+[MIT](LICENSE) © Alan Shaw
 
-### Usage
-
-```
-Usage: markdown-pdf [options] <markdown-file-path>
-
-Options:
-
-  -h, --help                             output usage information
-  -V, --version                          output the version number
-  <markdown-file-path>                   Path of the markdown file to convert
-  -c, --cwd [path]                       Current working directory
-  -p, --phantom-path [path]              Path to phantom binary
-  -h, --runnings-path [path]             Path to runnings (header, footer)
-  -s, --css-path [path]                  Path to custom CSS file
-  -z, --highlight-css-path [path]        Path to custom highlight-CSS file
-  -m, --remarkable-options [json]        Options to pass to Remarkable
-  -f, --paper-format [format]            'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'
-  -r, --paper-orientation [orientation]  'portrait' or 'landscape'
-  -b, --paper-border [measurement]       Supported dimension units are: 'mm', 'cm', 'in', 'px'
-  -d, --render-delay [millis]            Delay before rendering the PDF
-  -t, --load-timeout [millis]            Timeout before the page is rendered in case `page.onLoadFinished` isn't fired
-  -o, --out [path]                       Path of where to save the PDF
-```
