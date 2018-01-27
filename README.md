@@ -278,5 +278,5 @@ Feel free to dive in! [Open an issue](https://github.com/tableflip/mem-storage-a
 
 ## License
 
-[MIT](LICENSE) © Alan Shaw
+[MIT](LICENCE) © Alan Shaw
 
