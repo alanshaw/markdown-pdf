@@ -25,7 +25,7 @@ function markdownpdf (opts) {
   opts.loadTimeout = opts.loadTimeout == null ? 10000 : opts.loadTimeout
   opts.preProcessMd = opts.preProcessMd || function () { return through() }
   opts.preProcessHtml = opts.preProcessHtml || function () { return through() }
-  opts.remarkable = extend({html: true, breaks: true}, opts.remarkable)
+  opts.remarkable = extend({breaks: true}, opts.remarkable)
   opts.remarkable.preset = opts.remarkable.preset || 'default'
   opts.remarkable.plugins = opts.remarkable.plugins || []
   opts.remarkable.syntax = opts.remarkable.syntax || []

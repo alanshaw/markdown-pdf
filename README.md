@@ -130,7 +130,7 @@ A function that returns a [through2 stream](https://npmjs.org/package/through2) 
 
 #### options.remarkable
 Type: `object`  
-Default value: `{ html: true, breaks: true }`
+Default value: `{ breaks: true }`
 
 A config object that is passed to [remarkable](https://www.npmjs.com/package/remarkable#options), the underlying markdown parser.
 
@@ -279,4 +279,3 @@ Feel free to dive in! [Open an issue](https://github.com/tableflip/mem-storage-a
 ## License
 
 [MIT](LICENSE) © Alan Shaw
-

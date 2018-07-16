@@ -32,10 +32,10 @@
     "tmp": "0.0.33"
   },
   "devDependencies": {
-    "coveralls": "^2.10.0",
+    "coveralls": "^3.0.2",
     "istanbul": "^0.4.0",
     "pdf-text": "^0.4.0",
-    "standard": "^10.0.2",
+    "standard": "^11.0.1",
     "tape": "^4.2.2"
   },
   "engines": {
