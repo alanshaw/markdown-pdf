@@ -274,7 +274,7 @@ markdownpdf(options)
 
 ## Contribute
 
-Feel free to dive in! [Open an issue](https://github.com/tableflip/mem-storage-area/issues/new) or submit PRs.
+Feel free to dive in! [Open an issue](https://github.com/alanshaw/markdown-pdf/issues/new) or submit PRs.
 
 ## License
 
