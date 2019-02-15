@@ -8,8 +8,10 @@ The PDF looks great because it is styled by HTML5 Boilerplate. What? - Yes! Your
 ## Install
 
 ```sh
-npm install -g markdown-pdf
+npm install -g markdown-pdf --ignore-scripts
 ```
+
+Note: elevated (sudo) permissions may be needed for `npm install -g`
 
 ## Usage
 
@@ -57,79 +59,79 @@ markdownpdf().from("/path/to/document.md").to("/path/to/document.pdf", function 
 Pass an options object (`markdownpdf({/* options */})`) to configure the output.
 
 #### options.cwd
-Type: `String`  
+Type: `String`
 Default value: `process.cwd()`
 
 Current working directory.
 
 #### options.phantomPath
-Type: `String`  
+Type: `String`
 Default value: Path provided by phantomjs module
 
 Path to the phantomjs binary.
 
 #### options.cssPath
-Type: `String`  
+Type: `String`
 Default value: `[module path]/markdown-pdf/css/pdf.css`
 
 Path to custom CSS file, relative to the current directory.
 
 #### options.highlightCssPath
-Type: `String`  
+Type: `String`
 Default value: `[module path]/markdown-pdf/css/highlight.css`
 
 Path to custom highlight CSS file (for code highlighting with [highlight.js](https://highlightjs.org)), relative to the current directory.
 
 #### options.paperFormat
-Type: `String`  
+Type: `String`
 Default value: `A4`
 
 'A3', 'A4', 'A5', 'Legal', 'Letter' or 'Tabloid'.
 
 #### options.paperOrientation
-Type: `String`  
+Type: `String`
 Default value: `portrait`
 
 'portrait' or 'landscape'.
 
 #### options.paperBorder
-Type: `String`  
+Type: `String`
 Default value: `2cm`
 
 Supported dimension units are: 'mm', 'cm', 'in', 'px'
 
 #### options.runningsPath
-Type: `String`  
+Type: `String`
 Default value: `runnings.js`
 
 Path to CommonJS module which sets the page header and footer (see [runnings.js](runnings.js)).
 
 #### options.renderDelay
-Type: `Number`  
+Type: `Number`
 Default value: Time until [`page.onLoadFinished`](http://phantomjs.org/api/webpage/handler/on-load-finished.html) event fired
 
 Delay (in ms) before the PDF is rendered.
 
 #### options.loadTimeout
-Type: `Number`  
+Type: `Number`
 Default value: `10000`
 
 If `renderDelay` option isn't set, this is the timeout (in ms) before the page is rendered in case the `page.onLoadFinished` event doesn't fire.
 
 #### options.preProcessMd
-Type: `Function`  
+Type: `Function`
 Default value: `function () { return through() }`
 
 A function that returns a [through2 stream](https://npmjs.org/package/through2) that transforms the markdown before it is converted to HTML.
 
 #### options.preProcessHtml
-Type: `Function`  
+Type: `Function`
 Default value: `function () { return through() }`
 
 A function that returns a [through2 stream](https://npmjs.org/package/through2) that transforms the HTML before it is converted to PDF.
 
 #### options.remarkable
-Type: `object`  
+Type: `object`
 Default value: `{ breaks: true }`
 
 A config object that is passed to [remarkable](https://www.npmjs.com/package/remarkable#options), the underlying markdown parser.
@@ -143,13 +145,13 @@ Use remarkable [presets](https://www.npmjs.com/package/remarkable#presets) as a 
 Supported values are `default`, `commonmark` and `full`
 
 ##### options.remarkable.plugins
-Type: `Array` of remarkable-plugin `Function`s  
+Type: `Array` of remarkable-plugin `Function`s
 Default value: `[]`
 
 An array of Remarkable plugin functions, that extend the markdown parser functionality.
 
 ##### options.remarkable.syntax
-Type: `Array` of optional remarkable syntax `Strings`s  
+Type: `Array` of optional remarkable syntax `Strings`s
 Default value: `[]`
 
 An array of [optional Remarkable syntax extensions](https://github.com/jonschlinkert/remarkable#syntax-extensions), disabled by default, that extend the markdown parser functionality.
