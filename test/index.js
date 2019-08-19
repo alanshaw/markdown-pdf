@@ -11,7 +11,7 @@ tmp.setGracefulCleanup()
 test('generate a nonempty PDF from ipsum.md', function (t) {
   t.plan(4)
 
-  tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath, tmpPdfFd) {
+  tmp.file({ postfix: '.pdf' }, function (er, tmpPdfPath, tmpPdfFd) {
     t.ifError(er)
     fs.closeSync(tmpPdfFd)
 
@@ -19,7 +19,7 @@ test('generate a nonempty PDF from ipsum.md', function (t) {
       t.ifError(er)
 
       // Read the file
-      fs.readFile(tmpPdfPath, {encoding: 'utf8'}, function (er, data) {
+      fs.readFile(tmpPdfPath, { encoding: 'utf8' }, function (er, data) {
         t.ifError(er)
         // Test not empty
         t.ok(data.length > 0)
@@ -32,7 +32,7 @@ test('generate a nonempty PDF from ipsum.md', function (t) {
 test('generate PDF with CSS from ipsum.md and style.css', function (t) {
   t.plan(6)
 
-  tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath, tmpPdfFd) {
+  tmp.file({ postfix: '.pdf' }, function (er, tmpPdfPath, tmpPdfFd) {
     t.ifError(er)
     fs.closeSync(tmpPdfFd)
 
@@ -42,7 +42,7 @@ test('generate PDF with CSS from ipsum.md and style.css', function (t) {
       t.ifError(er)
 
       // Read the file
-      fs.readFile(tmpPdfPath, {encoding: 'utf8'}, function (er, data) {
+      fs.readFile(tmpPdfPath, { encoding: 'utf8' }, function (er, data) {
         t.ifError(er)
         // Test not empty
         t.ok(data.length > 0)
@@ -61,15 +61,15 @@ test('generate PDF with CSS from ipsum.md and style.css', function (t) {
 test('output should have a header and footer', function (t) {
   t.plan(7)
 
-  tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath, tmpPdfFd) {
+  tmp.file({ postfix: '.pdf' }, function (er, tmpPdfPath, tmpPdfFd) {
     t.ifError(er)
     fs.closeSync(tmpPdfFd)
 
-    markdownpdf({runningsPath: path.join(__dirname, '/fixtures/runnings.js')}).from(path.join(__dirname, '/fixtures/ipsum.md')).to(tmpPdfPath, function (er) {
+    markdownpdf({ runningsPath: path.join(__dirname, '/fixtures/runnings.js') }).from(path.join(__dirname, '/fixtures/ipsum.md')).to(tmpPdfPath, function (er) {
       t.ifError(er)
 
       // Read the file
-      fs.readFile(tmpPdfPath, {encoding: 'utf8'}, function (er, data) {
+      fs.readFile(tmpPdfPath, { encoding: 'utf8' }, function (er, data) {
         t.ifError(er)
         // Test not empty
         t.ok(data.length > 0)
@@ -93,7 +93,7 @@ test('should call preProcessMd hook', function (t) {
   var writeCount = 0
   var preProcessMd = function () { return through(function (data, enc, cb) { writeCount++; this.push(data); cb() }) }
 
-  markdownpdf({preProcessMd: preProcessMd}).from(path.join(__dirname, '/fixtures/ipsum.md')).to.string(function (er, pdfStr) {
+  markdownpdf({ preProcessMd: preProcessMd }).from(path.join(__dirname, '/fixtures/ipsum.md')).to.string(function (er, pdfStr) {
     t.ifError(er)
 
     // Test not empty
@@ -109,7 +109,7 @@ test('should call preProcessHtml hook', function (t) {
   var writeCount = 0
   var preProcessHtml = function () { return through(function (data, enc, cb) { writeCount++; this.push(data); cb() }) }
 
-  markdownpdf({preProcessHtml: preProcessHtml}).from(path.join(__dirname, '/fixtures/ipsum.md')).to.string(function (er, pdfStr) {
+  markdownpdf({ preProcessHtml: preProcessHtml }).from(path.join(__dirname, '/fixtures/ipsum.md')).to.string(function (er, pdfStr) {
     t.ifError(er)
 
     // Test not empty
@@ -127,7 +127,7 @@ test('should concatenate source files', function (t) {
     path.join(__dirname, '/fixtures/second.md')
   ]
 
-  tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath, tmpPdfFd) {
+  tmp.file({ postfix: '.pdf' }, function (er, tmpPdfPath, tmpPdfFd) {
     t.ifError(er)
     fs.closeSync(tmpPdfFd)
 
@@ -135,7 +135,7 @@ test('should concatenate source files', function (t) {
       t.ifError(er)
 
       // Read the file
-      fs.readFile(tmpPdfPath, {encoding: 'utf8'}, function (er, data) {
+      fs.readFile(tmpPdfPath, { encoding: 'utf8' }, function (er, data) {
         t.ifError(er)
         // Test not empty
         t.ok(data.length > 0)
@@ -153,11 +153,11 @@ test('should write to multiple paths when converting multiple files', function (
     path.join(__dirname, '/fixtures/second.md')
   ]
 
-  tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath0, tmpPdfFd0) {
+  tmp.file({ postfix: '.pdf' }, function (er, tmpPdfPath0, tmpPdfFd0) {
     t.ifError(er)
     fs.closeSync(tmpPdfFd0)
 
-    tmp.file({postfix: '.pdf'}, function (er, tmpPdfPath1, tmpPdfFd1) {
+    tmp.file({ postfix: '.pdf' }, function (er, tmpPdfPath1, tmpPdfFd1) {
       t.ifError(er)
       fs.closeSync(tmpPdfFd1)
 
@@ -165,8 +165,8 @@ test('should write to multiple paths when converting multiple files', function (
         t.ifError(er)
 
         // Read the file
-        var content0 = fs.readFileSync(tmpPdfPath0, {encoding: 'utf8'})
-        var content1 = fs.readFileSync(tmpPdfPath1, {encoding: 'utf8'})
+        var content0 = fs.readFileSync(tmpPdfPath0, { encoding: 'utf8' })
+        var content1 = fs.readFileSync(tmpPdfPath1, { encoding: 'utf8' })
 
         t.ok(content0.length > 0)
         t.ok(content1.length > 0)
@@ -183,7 +183,7 @@ test('should accept remarkable preset', function (t) {
 
   var html = ''
   var opts = {
-    remarkable: {preset: 'full'},
+    remarkable: { preset: 'full' },
     preProcessHtml: function () {
       return through(
         function transform (chunk, enc, cb) {
@@ -222,7 +222,7 @@ test('should initialize remarkable plugins', function (t) {
     ]
   }
 
-  markdownpdf({remarkable: remarkableOpts}).from(path.join(__dirname, '/fixtures/ipsum.md')).to.string(function (er, pdfStr) {
+  markdownpdf({ remarkable: remarkableOpts }).from(path.join(__dirname, '/fixtures/ipsum.md')).to.string(function (er, pdfStr) {
     t.ifError(er)
 
     t.assert(pluginInit, 'check plugin init')

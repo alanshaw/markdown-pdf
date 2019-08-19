@@ -3,7 +3,7 @@ var path = require('path')
 var childProcess = require('child_process')
 var through = require('through2')
 var extend = require('extend')
-var Remarkable = require('remarkable')
+var { Remarkable } = require('remarkable')
 var hljs = require('highlight.js')
 var tmp = require('tmp')
 var duplexer = require('duplexer')
@@ -25,7 +25,7 @@ function markdownpdf (opts) {
   opts.loadTimeout = opts.loadTimeout == null ? 10000 : opts.loadTimeout
   opts.preProcessMd = opts.preProcessMd || function () { return through() }
   opts.preProcessHtml = opts.preProcessHtml || function () { return through() }
-  opts.remarkable = extend({breaks: true}, opts.remarkable)
+  opts.remarkable = extend({ breaks: true }, opts.remarkable)
   opts.remarkable.preset = opts.remarkable.preset || 'default'
   opts.remarkable.plugins = opts.remarkable.plugins || []
   opts.remarkable.syntax = opts.remarkable.syntax || []
@@ -86,12 +86,12 @@ function markdownpdf (opts) {
   inputStream.pause()
 
   // Create tmp file to save HTML for phantom to process
-  tmp.file({postfix: '.html'}, function (err, tmpHtmlPath, tmpHtmlFd) {
+  tmp.file({ postfix: '.html' }, function (err, tmpHtmlPath, tmpHtmlFd) {
     if (err) return outputStream.emit('error', err)
     fs.closeSync(tmpHtmlFd)
 
     // Create tmp file to save PDF to
-    tmp.file({postfix: '.pdf'}, function (err, tmpPdfPath, tmpPdfFd) {
+    tmp.file({ postfix: '.pdf' }, function (err, tmpPdfPath, tmpPdfFd) {
       if (err) return outputStream.emit('error', err)
       fs.closeSync(tmpPdfFd)
 
