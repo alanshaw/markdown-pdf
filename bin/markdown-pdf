@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 var markdownpdf = require('../')
+var fs = require('fs');
 var program = require('commander')
 
 program.version(require('../package.json').version)
@@ -12,6 +13,7 @@ program.version(require('../package.json').version)
   .option('-s, --css-path [path]', 'Path to custom CSS file')
   .option('-z, --highlight-css-path [path]', 'Path to custom highlight-CSS file')
   .option('-m, --remarkable-options [json-options]', 'Options to pass to remarkable')
+  .option('-j, --remarkable-options-path [path]', 'Path to json file to pass to remarkable')
   .option('-f, --paper-format [format]', '"A3", "A4", "A5", "Legal", "Letter" or "Tabloid"')
   .option('-r, --paper-orientation [orientation]', '"portrait" or "landscape"')
   .option('-b, --paper-border [measurement]', 'Supported dimension units are: "mm", "cm", "in", "px"')
@@ -24,13 +26,21 @@ if (program.args.length === 0) program.help()
 
 program.out = program.out || program.args[0].replace(/\.m(ark)?d(own)?/gi, '') + '.pdf'
 
+var remarkableOptions = null
+if (program.remarkableOptions) {
+  remarkableOptions = JSON.parse(program.remarkableOptions)
+} else if (program.remarkableOptionsPath) {
+  jsonText = fs.readFileSync(program.remarkableOptionsPath)
+  remarkableOptions = JSON.parse(jsonText)
+}
+
 var opts = {
   cwd: program.cwd,
   phantomPath: program.phantomPath,
   runningsPath: program.runningsPath,
   cssPath: program.cssPath,
   highlightCssPath: program.highlightCssPath,
-  remarkable: program.remarkableOptions ? JSON.parse(program.remarkableOptions) : null,
+  remarkable: remarkableOptions,
   paperFormat: program.paperFormat,
   paperOrientation: program.paperOrientation,
   paperBorder: program.paperBorder,
