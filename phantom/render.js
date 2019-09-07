@@ -4,7 +4,7 @@ var fs = require('fs')
 var os = require('system').os
 
 // Read in arguments
-var args = ['in', 'out', 'cwd', 'runningsPath', 'cssPath', 'highlightCssPath', 'paperFormat', 'paperOrientation', 'paperBorder', 'renderDelay', 'loadTimeout'].reduce(function (args, name, i) {
+var args = ['in', 'out', 'cwd', 'runningsPath', 'cssPath', 'highlightCssPath', 'paperFormat', 'paperOrientation', 'paperBorder', 'renderDelay', 'loadTimeout', 'paperWidth', 'paperHeight'].reduce(function (args, name, i) {
   args[name] = system.args[i + 1]
   return args
 }, {})
@@ -37,7 +37,13 @@ page.evaluate(function (cssPaths) {
 }))
 
 // Set the PDF paper size
-page.paperSize = paperSize(args.runningsPath, { format: args.paperFormat, orientation: args.paperOrientation, border: isJson(args.paperBorder) ? JSON.parse(args.paperBorder) : args.paperBorder })
+var obj = { format: args.paperFormat, orientation: args.paperOrientation, border: isJson(args.paperBorder) ? JSON.parse(args.paperBorder) : args.paperBorder }
+if (("" !== args.paperWidth) && ("" !== args.paperHeight)) {
+  obj.width = args.paperWidth
+  obj.height = args.paperHeight
+}
+page.paperSize = paperSize(args.runningsPath, obj)
+// console.log(JSON.stringify(page.paperSize))
 
 args.renderDelay = parseInt(args.renderDelay, 10)
 

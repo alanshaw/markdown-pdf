@@ -29,6 +29,8 @@ function markdownpdf (opts) {
   opts.remarkable.preset = opts.remarkable.preset || 'default'
   opts.remarkable.plugins = opts.remarkable.plugins || []
   opts.remarkable.syntax = opts.remarkable.syntax || []
+  opts.paperWidth = opts.paperWidth || ""
+  opts.paperHeight = opts.paperHeight || ""
 
   var md = ''
 
@@ -111,7 +113,9 @@ function markdownpdf (opts) {
           opts.paperOrientation,
           typeof opts.paperBorder === 'object' ? JSON.stringify(opts.paperBorder) : opts.paperBorder,
           opts.renderDelay,
-          opts.loadTimeout
+          opts.loadTimeout,
+          opts.paperWidth,
+          opts.paperHeight
         ]
 
         childProcess.execFile(opts.phantomPath, childArgs, function (err, stdout, stderr) {
