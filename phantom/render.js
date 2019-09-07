@@ -38,7 +38,7 @@ page.evaluate(function (cssPaths) {
 
 // Set the PDF paper size
 var obj = { format: args.paperFormat, orientation: args.paperOrientation, border: isJson(args.paperBorder) ? JSON.parse(args.paperBorder) : args.paperBorder }
-if (("" !== args.paperWidth) && ("" !== args.paperHeight)) {
+if ((args.paperWidth !== '') && (args.paperHeight !== '')) {
   obj.width = args.paperWidth
   obj.height = args.paperHeight
 }
