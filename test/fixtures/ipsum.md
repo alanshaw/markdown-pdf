@@ -65,10 +65,10 @@ var hljs       = require('highlight.js') // https://highlightjs.org/
 
 // Actual default values
 var md = new Remarkable({
-  highlight: function (str, lang) {
-    if (lang && hljs.getLanguage(lang)) {
+  highlight: function (str, language) {
+    if (language && hljs.getLanguage(language)) {
       try {
-        return hljs.highlight(lang, str).value;
+        return hljs.highlight(str, { language }).value;
       } catch (err) {}
     }
 
