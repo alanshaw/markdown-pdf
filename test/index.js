@@ -93,7 +93,7 @@ test('should call preProcessMd hook', function (t) {
   var writeCount = 0
   var preProcessMd = function () { return through(function (data, enc, cb) { writeCount++; this.push(data); cb() }) }
 
-  markdownpdf({ preProcessMd: preProcessMd }).from(path.join(__dirname, '/fixtures/ipsum.md')).to.string(function (er, pdfStr) {
+  markdownpdf({ preProcessMd }).from(path.join(__dirname, '/fixtures/ipsum.md')).to.string(function (er, pdfStr) {
     t.ifError(er)
 
     // Test not empty
@@ -109,7 +109,7 @@ test('should call preProcessHtml hook', function (t) {
   var writeCount = 0
   var preProcessHtml = function () { return through(function (data, enc, cb) { writeCount++; this.push(data); cb() }) }
 
-  markdownpdf({ preProcessHtml: preProcessHtml }).from(path.join(__dirname, '/fixtures/ipsum.md')).to.string(function (er, pdfStr) {
+  markdownpdf({ preProcessHtml }).from(path.join(__dirname, '/fixtures/ipsum.md')).to.string(function (er, pdfStr) {
     t.ifError(er)
 
     // Test not empty
