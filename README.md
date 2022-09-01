@@ -100,6 +100,23 @@ Default value: `2cm`
 
 Supported dimension units are: 'mm', 'cm', 'in', 'px'
 
+`paperBorder` option may be specified using one, two, three or four values:
+
+* `10px`
+  * all sides: 10px
+* `10px 20px`
+  * top and bottom: 10px
+  * left and right: 20px
+* `10px 20px 30px`
+  * top: 10px
+  * left and right: 20px
+  * bottom: 30px
+* `10px 20px 30px 40px`
+  * top: 10px
+  * right: 20px
+  * bottom: 30px
+  * left: 40px 
+
 #### options.runningsPath
 Type: `String`
 Default value: `runnings.js`

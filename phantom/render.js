@@ -37,7 +37,11 @@ page.evaluate(function (cssPaths) {
 }))
 
 // Set the PDF paper size
-page.paperSize = paperSize(args.runningsPath, { format: args.paperFormat, orientation: args.paperOrientation, border: isJson(args.paperBorder) ? JSON.parse(args.paperBorder) : args.paperBorder })
+page.paperSize = paperSize(args.runningsPath, {
+  format: args.paperFormat,
+  orientation: args.paperOrientation,
+  border: paperBorder(args.paperBorder)
+})
 
 args.renderDelay = parseInt(args.renderDelay, 10)
 
@@ -79,6 +83,50 @@ function paperSize (runningsPath, obj) {
   }
 
   return obj
+}
+
+function paperBorder (border) {
+  if (isJson(border)) {
+    return JSON.parse(border)
+  }
+
+  var props = border.split(' ')
+
+  for (var i = 0; i < props.length; i++) {
+    if (props[i].length === 0) {
+      props.splice(i, 1)
+      i--
+    }
+  }
+
+  switch (props.length) {
+    case 4:
+      return {
+        top: props[0],
+        right: props[1],
+        bottom: props[2],
+        left: props[3]
+      }
+
+    case 3:
+      return {
+        top: props[0],
+        right: props[1],
+        bottom: props[2],
+        left: props[1]
+      }
+
+    case 2:
+      return {
+        top: props[0],
+        right: props[1],
+        bottom: props[0],
+        left: props[1]
+      }
+
+    case 1:
+      return props[0]
+    }
 }
 
 function isJson (str) { try { JSON.parse(str) } catch (e) { return false } return true }
