@@ -100,7 +100,7 @@ function markdownpdf (opts) {
       htmlToTmpHtmlFile.on('finish', function () {
         // Invoke phantom to generate the PDF
         var childArgs = [
-          path.join(__dirname, 'phantom', 'render.js'),
+          path.join(opts.cwd, 'phantom', 'render.js'),
           tmpHtmlPath,
           tmpPdfPath,
           opts.cwd,
